@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-typedef struct		s_chunks
+typedef struct		s_arg
 {
 	int             qty;
-    t_string        pure_str;
-    t_conversion    arg; 
-	struct s_chunks	*next;
-}					t_chunks;
+    t_string        str_chunk;
+    t_conversion    conv_chunk; 
+	struct s_arg	*next;
+}					t_arg;
 
 
 typedef struct      s_string
@@ -18,6 +18,7 @@ typedef struct      s_string
 
 typedef struct      s_conversion
 {
+    t_params params; 
     void * type;
     int capacity;
     int size; 
@@ -25,8 +26,6 @@ typedef struct      s_conversion
 
 typedef struct		s_params
 {
-    t_string s; 
-
 	int switchon_percentage;
     int fl_diez;
     int fl_sign;
@@ -44,7 +43,5 @@ typedef struct		s_params
     int fm_L;
 
     int switchoff_format;
-
- 
 	
 }					t_params;
