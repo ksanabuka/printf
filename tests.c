@@ -1,10 +1,10 @@
 
 #include <stdio.h>
-int main(void)
-  {
+// int main(void)
+//   {
 
-      char * s = "helllo";
-   //   int number    =  5;
+//       char * s = "helllo";
+//       int number    =  5;
 
     //printf("-%4d-and a-%10s-word.\n", number, pointer); // Here is a number-   5-and a-    little-word.
    // printf("-%-10d-and a-%10s-word.\n", number, pointer); // -5         -and a-    little-word.
@@ -14,7 +14,16 @@ int main(void)
   //  printf("!%*d!\n", 6, number);            //       !     5!
    // printf("!%4.8s!\n", s); // ! hel!
     //printf("!%4.*s!\n", 5, s);            //     !helll!
+   // printf(" string  %s" " digit %d", s, number );            //     !helll!
 
+int main() 
+{ 
+    int a = 0; 
+    scanf("%i", &a); // input is 017 (octal of 15 ) 
+    printf("%d\n", a); 
+    scanf("%i", &a); // input is 0xf (hexadecimal of 15 ) 
+    printf("%d\n", a); 
+    return 0; 
+} 
 
-  }
   

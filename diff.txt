@@ -1,18 +1,25 @@
+
+ ???? You have to manage the following conversions: csp
+
 ???? prototype ft_printf format [arguments ...]  #include <stdarg.h>
 
+https://www.hackerearth.com/practice/notes/know-our-printf-variable-number-of-arguments-to-a-function/
 
 ???following conversions: diouxX with the following flags: hh, h, l and ll.
 diouxX : int -> d, i, o, u, x 
 f : l(double), L(long double); 
 
+%% 
 
+int a = 0xf;
+printf("%d", a)??? 
 
+%[flags][width][.precision]specifier
 
-%[flags][width][.precision][length]specifier
+speicfiers : c, d, i, f, e, E, o, x, x, s,  %u, lld, 
+flags = -, 0, +, blank, # (%#o, %#x,%#X, %#e, %#E, %#f, %#g, %#g);
 
-
-flags = -, 0, +, blank, # (%#o, %#x,%#X, %#e, %#E, %#f, %#g, %#g) - could be several; 
-
+ft_printf(a)
 
 "%-0+#x4.2d" -> converted/ 
 
