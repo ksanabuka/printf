@@ -1,5 +1,5 @@
 #include "libft/libft.h"
-#include "ft_printf.h"
+//#include "ft_printf.h"
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -71,11 +71,11 @@ int main(void)
 {
     char * s = "hello";
     double dbl = 2.3;
-    int intgr = 7; 
+    int intgr = 17; 
     char c = 'z';
 
   //  minimal_printf("this is the string %s and a double %f and a intgr %d and a char %c", s, dbl, intgr, c);
-   printf("this is the string %-00s and a double %#f and a intgr %-d and a char %-c", s, dbl, intgr, c);
+   printf("%10.2Lf", dbl);
     return 0; 
 }
 

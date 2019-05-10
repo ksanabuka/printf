@@ -1,24 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct		s_arg
 {
 	int             qty;
-    t_string        str_chunk;
-    t_conversion    conv_chunk; 
+    char *          str_chunk;
+    t_conversion *  conv_chunk; 
 	struct s_arg	*next;
 }					t_arg;
 
-
-typedef struct      s_string
-{
-    char *s;
-    int capacity;
-    int size;
-}                   t_string;
-
 typedef struct      s_conversion
 {
-    t_params params; 
     void * type;
     int capacity;
     int size; 

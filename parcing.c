@@ -1,43 +1,357 @@
 #include "ft_printf.h"
 
-int validateFlags(int flag, t_arg n_arg)
+int addFlag(char c, t_params *params)
 {
-
-}
-
-int addFlags(char *s, t_arg n_arg)
-{
-    int i = 0;
-    while(s[i] && validflag(s[i]) && validFlagSequence(s[i], n_arg))
+    if (c == 32)
     {
-        addFlag(s[i]);
-
+        params->fl_space = 1;
+        return 1;
     }
-
+    else if (c == 35)
+    {
+        params->fl_diez = 1;
+        return 1;
+    }
+    else if (c == 43)
+    {
+        params->fl_sign = 1;
+        return 1;
+    }
+    else if (c == 45)
+    {
+        params->fl_align = 1;
+        return 1;
+    }
+    else if (c == 48)
+    {
+        params->fl_zeropadding = 48;
+        return 1;
+    }
+    else 
+        return 0;
 }
 
-int parseStr(char *s, t_arg)
+int addWidth(char *s, t_params *params)
 {
     int i = 0;
+    int n = 0; 
+    if (s[i] == 48)
+        return 0; 
+    while (s[i] && s[i] > '0' && s[i] <= '9')
+    {
+        n += n * 10 + s[i] - '0';
+        i++; 
+    }
+    if ((s[i] < '0' && s[i] > '9'))
+    {
+        if (n > 0)
+        {
+            params->width = n; 
+            return 1;
+        }
+    }
+        return 0;
+}
+
+int skipWidth(char *s)
+{
+    int i = 0;
+    
+    while (s[i] && s[i] > '0' && s[i] <= '9')
+    {
+        i++; 
+    }
+    return i;
+}
+
+int addPrecision(char *s, t_params *params)
+{
+    int i = 0;
+    int n = 0; 
+
+    if (s[i] != '.' || (s[i] == '.' && s[i + 1] == '\0'))
+        return 0; 
+    else 
+    {
+        i++;
+        while (s[i] && s[i] > '0' && s[i] <= '9')
+        {
+            n += n * 10 + s[i] - '0';
+            i++; 
+        }
+        if ((s[i] < '0' && s[i] > '9'))
+        {
+            if (n > 0)
+            {
+                params->precision = n; 
+                return 1;
+            }
+        }
+            return 0;
+    }
+}
+
+int skipPrecision(char *s)
+{
+    int i = 0;
+    
+    while (s[i] && s[i] > '0' && s[i] <= '9')
+    {
+        i++; 
+    }
+    return i;
+}
+
+int addModififer(char *s, t_params *params)
+{
+    int i = 0;
+
+    if (s[i] == 'l' && s[i + 1] == 'l')
+    {    
+        params->fm_ll = 1; 
+        return 1;
+    }
+    else if (s[i] == 'l' && s[i + 1] != 'l')
+    {    
+        params->fm_l = 1; 
+        return 1;
+    }
+    else if (s[i] == 'h' && s[i + 1] != 'h')
+    {    
+        params->fm_h = 1; 
+        return 1;
+    }
+    else if (s[i] == 'h' && s[i + 1] == 'h')
+    {    
+        params->fm_hh = 1; 
+        return 1;
+    }
+    else if (s[i] == 'L')
+    {    
+        params->fm_L = 1; 
+        return 1;
+    }
+    else 
+            return 0;
+}
+
+int skipModifier(char *s)
+{
+    int i = 0;
+
+    if (s[i] == 'l' && s[i + 1] == 'l')
+    {    
+        return 2;
+    }
+    else if (s[i] == 'l' && s[i + 1] != 'l')
+    {    
+        return 1;
+    }
+    else if (s[i] == 'h' && s[i + 1] != 'h')
+    {    
+        return 1;
+    }
+    else if (s[i] == 'h' && s[i + 1] == 'h')
+    {    
+        return 2;
+    }
+    else if (s[i] == 'L')
+    {    
+        return 1;
+    }
+    else 
+            return 0;
+}
+
+int addFormat(char *s, t_params *params)
+{
+    if (s[0] == 'd')
+    {    
+        params->switchoff_format = 'd'; 
+        return 1;
+    }
+    else if (s[0] == 'i')
+    {    
+        params->switchoff_format = 'i'; 
+        return 1;
+    }
+    else if (s[0] == 'o')
+    {    
+        params->switchoff_format = 'o'; 
+        return 1;
+    }
+    else if (s[0] == 'u')
+    {    
+        params->switchoff_format = 'u'; 
+        return 1;
+    }
+    else if (s[0] == 'x')
+    {    
+        params->switchoff_format = 'x'; 
+        return 1;
+    }
+    else if (s[0] == 'X')
+    {    
+        params->switchoff_format = 'X'; 
+        return 1;
+    }
+    else if (s[0] == 'f')
+    {    
+        params->switchoff_format = 'f'; 
+        return 1;
+    }
+    else if (s[0] == 'F')
+    {    
+        params->switchoff_format = 'F'; 
+        return 1;
+    }
+    else if (s[0] == 's')
+    {    
+        params->switchoff_format = 's'; 
+        return 1;
+    }
+    else if (s[0] == 'c')
+    {    
+        params->switchoff_format = 'c'; 
+        return 1;
+    }
+    else 
+            return 0;
+}
+
+int addFlags(char *s, t_params *params)
+{
+    int i = 0;
+    int flag = 0; 
+    while (addFlag(s[i], params))
+    {
+        i++;
+    }
+    if (addWidth((s + i), params))
+    {     
+        i += skipWidth((s + i)); 
+    }
+    if (addPrecision((s + i), params))
+    {     
+        i += skipPrecision((s + i)); 
+    }
+    if (addModifier((s + i), params))
+    {     
+        i += skipModifier((s + i)); 
+    }
+    
+    if (addFormat((s + i), params))
+        return (i + 1);
+    else 
+        return 0; 
+}
+
+int checkLenModifier(t_params *myparams)
+{
+    if (ft_strchr("diouxX", myparams->switchoff_format))
+    {
+        if (myparams->fm_L == 0 && (myparams->fm_l + myparams->fm_ll + myparams->fm_h + myparams->fm_hh <= 1))
+            return 1; 
+        else 
+            return 0; 
+    }
+    else if (ft_strchr("fF", myparams->switchoff_format))
+    {
+        if ((myparams->fm_L + myparams->fm_l) <= 1 && (myparams->fm_ll + myparams->fm_h + myparams->fm_hh == 0))
+            return 1; 
+        else 
+            return 0; 
+    }
+    else if (ft_strchr("sc", myparams->switchoff_format))
+    {
+        if ((myparams->fm_L + myparams->fm_l + myparams->fm_ll + myparams->fm_h + myparams->fm_hh == 0))
+            return 1; 
+        else 
+            return 0; 
+    }
+}
+
+int validateFlags(t_params *myparams)
+{
+    int format = myparams->switchoff_format; 
+    if (format == 'd' || format == 'i' || format == 'u')
+    {
+        if (!myparams->fl_diez && checkLenModifier(myparams))
+            return 1;
+        else 
+            return 0;
+    }
+    else if (format == 'o' || format == 'x' || format == 'X' || format == 'f' || format == 'F')
+    {
+        if (checkLenModifier(myparams))
+            return 1;
+        else 
+            return 0;
+    }
+    else if (format == 's')
+    {
+        if (!myparams->fl_diez  && !myparams->fl_sign && !myparams->fl_zeropadding && !myparams->fl_space && checkLenModifier(myparams))
+            return 1;
+        else 
+            return 0;
+    }
+    else if (format == 'c')
+    {
+        if (!myparams->fl_diez  && !myparams->fl_sign && !myparams->fl_zeropadding && !myparams->fl_space && (checkLenModifier(myparams)))
+            return 1;
+        else 
+            return 0;
+    }
+    else 
+        return 0; 
+}
+
+void save_pure_str(char *s, t_arg *arg)
+{
+    int i = 0;
+    while (s[i] && s[i] != '%')
+    {
+        i++;
+    }
+    char * res = (char*)malloc(sizeof(char) * (i + 1));
+    if (!res)
+        return 0;
+    res[i] = '\0';
+    int j = 0; 
+    while (j < i)
+    {
+        res[j] = s[j];
+        j++;
+    }
+    add_chunk(1, res);
+}
+
+int parseStr(char *s, t_params *params)
+{
+    int i = 0;
+    int diff = 0; 
     while (s[i] != '\0')
     {
         if (s[i] == '%' && s[i + 1] != '%' && s[i + 1] != '\0')
         {
-            if (!addFlags(*(s + i + 1), n_arg);
+            diff = addFlags(*(s + i + 1), params);
+            if (!diff || !validateFlags(params))
+            {
                 return 0;
-            i = skipFlags(*(s + i + 1));
+            }
+            i += diff;
         }
         else if (s[i] == '%' && s[i + 1] == '%')
         {
-            save string in n_arg;
-            i = i + 2; 
+            save_pure_str(s + i, params);
+            i += 2;
         }
         else
         {
-            while (s[i] && s[i] != '%')
+            if (s[i] && (s[i] != '%'))
             {
-                save string in n_arg;
-                i++;
+                save_pure_str(s + i, params);
+                i = skipPureStr(s + 1); 
             }
         }
     }
