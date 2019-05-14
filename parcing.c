@@ -222,7 +222,6 @@ int addFormat(char *s, t_params *params)
 int addFlags(char *s, t_params *params)
 {
     int i = 0;
-    int flag = 0; 
     while (addFlag(s[i], params))
     {
         i++;
@@ -235,7 +234,8 @@ int addFlags(char *s, t_params *params)
     {     
         i += skipPrecision((s + i)); 
     }
-    if (addModifier((s + i), params))
+
+    if (addModififer((s + i), params))
     {     
         i += skipModifier((s + i)); 
     }
@@ -269,6 +269,8 @@ int checkLenModifier(t_params *myparams)
         else 
             return 0; 
     }
+    else 
+        return 0;
 }
 
 int validateFlags(t_params *myparams)
@@ -306,52 +308,36 @@ int validateFlags(t_params *myparams)
         return 0; 
 }
 
-void save_pure_str(char *s, t_arg *arg)
-{
-    int i = 0;
-    while (s[i] && s[i] != '%')
-    {
-        i++;
-    }
-    char * res = (char*)malloc(sizeof(char) * (i + 1));
-    if (!res)
-        return 0;
-    res[i] = '\0';
-    int j = 0; 
-    while (j < i)
-    {
-        res[j] = s[j];
-        j++;
-    }
-    add_chunk(1, res);
-}
-
-int parseStr(char *s, t_params *params)
+int parseStr(char *s, t_arg ** head_arg)
 {
     int i = 0;
     int diff = 0; 
+    t_arg *cur; 
     while (s[i] != '\0')
     {
-        if (s[i] == '%' && s[i + 1] != '%' && s[i + 1] != '\0')
+        if (s[i + 1] && s[i] == '%' && s[i + 1] != '%')
         {
-            diff = addFlags(*(s + i + 1), params);
-            if (!diff || !validateFlags(params))
+            cur = add_chunk(2, 0, head_arg);
+
+            diff = addFlags((s + i + 1), cur->chunk_params);
+            if (!diff || !validateFlags(cur->chunk_params))
             {
+                cleanup(head_arg);
                 return 0;
             }
             i += diff;
         }
-        else if (s[i] == '%' && s[i + 1] == '%')
+        else if (s[i + 1] && s[i] == '%' && s[i + 1] == '%')
         {
-            save_pure_str(s + i, params);
+            add_chunk(1, extractPureS((s + i)), head_arg);
             i += 2;
         }
         else
         {
             if (s[i] && (s[i] != '%'))
             {
-                save_pure_str(s + i, params);
-                i = skipPureStr(s + 1); 
+                add_chunk(1, extractPureS((s + i)), head_arg);
+                i += ft_strlen(extractPureS((s + i))); 
             }
         }
     }
