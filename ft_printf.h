@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "libft/libft.h"
+
 
 
 typedef struct      s_conversion
@@ -59,3 +59,8 @@ int addPrecision(char *s, t_params *params);
 int skipWidth(char *s);
 int addWidth(char *s, t_params *params);
 int addFlag(char c, t_params *params);
+
+
+char    *ft_strchr(const char *s, int c);
+size_t          ft_strlen(const char *s);
+

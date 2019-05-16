@@ -18,23 +18,23 @@ t_params *initChunk_params(void)
     t_params * chunk_params = (t_params *)malloc(sizeof(t_params));
     if (!chunk_params)
         return 0;
-    chunk_params->switchon_percentage = 0;
-    chunk_params->fl_diez = 0;
-    chunk_params->fl_sign = 0;
-    chunk_params->fl_align = 0;
-    chunk_params->fl_zeropadding = 0;
-    chunk_params->fl_space = 0;
+    chunk_params->switchon_percentage = -1;
+    chunk_params->fl_diez = -1;
+    chunk_params->fl_sign = -1;
+    chunk_params->fl_align = -1;
+    chunk_params->fl_zeropadding = -1;
+    chunk_params->fl_space = -1;
 
-    chunk_params->width = 0;
-    chunk_params->precision = 0;
+    chunk_params->width = -1;
+    chunk_params->precision = -1;
 
-    chunk_params->fm_l = 0;
-    chunk_params->fm_ll = 0;
-    chunk_params->fm_h = 0;
-    chunk_params->fm_hh = 0;
-    chunk_params->fm_L = 0;
+    chunk_params->fm_l = -1;
+    chunk_params->fm_ll = -1;
+    chunk_params->fm_h = -1;
+    chunk_params->fm_hh = -1;
+    chunk_params->fm_L = -1;
 
-    chunk_params->switchoff_format = 0;
+    chunk_params->switchoff_format = -1;
     
     return (chunk_params);
 }
@@ -45,29 +45,45 @@ t_arg * add_chunk(int strORconversion, void * cont, t_arg ** head)
 
     if (!*head)
     {
-        head = &el;
-    }
-    
-    t_arg * tmp = *head;
+        *head = el;
 
-    while (tmp)
-    {
-        tmp = tmp->next; 
-    }
-    if (strORconversion == 1)
+         if (strORconversion == 1)
      {
-         tmp->str_chunk = (char*)cont;
-         tmp->conv_chunk = 0;
-         tmp->chunk_params = 0; 
+         el->str_chunk = (char*)cont;
+         el->conv_chunk = 0;
+         el->chunk_params = 0; 
      }
      else 
      {
-         tmp->conv_chunk = (t_conversion *)cont;
-         tmp->str_chunk = 0;
-         tmp->chunk_params = (t_params *)malloc(sizeof(t_params));
-
+         el->conv_chunk = (t_conversion *)cont;
+         el->str_chunk = 0;
+        el->chunk_params = initChunk_params();
      }
-     return tmp; 
+    }
+    else 
+    {
+        t_arg * tmp = *head;
+
+        while (tmp->next)
+        {
+            tmp = tmp->next; 
+        }
+        if (strORconversion == 1)
+        {
+            el->str_chunk = (char*)cont;
+            el->conv_chunk = 0;
+            el->chunk_params = 0; 
+        }
+        else 
+        {
+            el->conv_chunk = (t_conversion *)cont;
+            el->str_chunk = 0;
+            el->chunk_params = initChunk_params();
+
+        }
+        tmp->next = el;
+    }
+     return el; 
  }
 
  char *extractPureS(char *s)

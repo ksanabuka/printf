@@ -79,11 +79,16 @@ int addPrecision(char *s, t_params *params)
             n += n * 10 + s[i] - '0';
             i++; 
         }
-        if ((s[i] < '0' && s[i] > '9'))
+        if ((s[i] < '0' || s[i] > '9'))
         {
             if (n > 0)
             {
                 params->precision = n; 
+                return 1;
+            }
+            else 
+            {
+                params->precision = 0; 
                 return 1;
             }
         }
@@ -99,7 +104,7 @@ int skipPrecision(char *s)
     {
         i++; 
     }
-    return i;
+    return i + 1;
 }
 
 int addModififer(char *s, t_params *params)
@@ -231,7 +236,7 @@ int addFlags(char *s, t_params *params)
         i += skipWidth((s + i)); 
     }
     if (addPrecision((s + i), params))
-    {     
+    {   
         i += skipPrecision((s + i)); 
     }
 
@@ -250,21 +255,21 @@ int checkLenModifier(t_params *myparams)
 {
     if (ft_strchr("diouxX", myparams->switchoff_format))
     {
-        if (myparams->fm_L == 0 && (myparams->fm_l + myparams->fm_ll + myparams->fm_h + myparams->fm_hh <= 1))
+        if (myparams->fm_L == -1 && (myparams->fm_l + myparams->fm_ll + myparams->fm_h + myparams->fm_hh <= -2))
             return 1; 
         else 
             return 0; 
     }
     else if (ft_strchr("fF", myparams->switchoff_format))
     {
-        if ((myparams->fm_L + myparams->fm_l) <= 1 && (myparams->fm_ll + myparams->fm_h + myparams->fm_hh == 0))
+        if ((myparams->fm_L + myparams->fm_l) <= 0 && (myparams->fm_ll + myparams->fm_h + myparams->fm_hh == -3))
             return 1; 
         else 
             return 0; 
     }
     else if (ft_strchr("sc", myparams->switchoff_format))
     {
-        if ((myparams->fm_L + myparams->fm_l + myparams->fm_ll + myparams->fm_h + myparams->fm_hh == 0))
+        if ((myparams->fm_L + myparams->fm_l + myparams->fm_ll + myparams->fm_h + myparams->fm_hh == -5))
             return 1; 
         else 
             return 0; 
@@ -278,7 +283,7 @@ int validateFlags(t_params *myparams)
     int format = myparams->switchoff_format; 
     if (format == 'd' || format == 'i' || format == 'u')
     {
-        if (!myparams->fl_diez && checkLenModifier(myparams))
+        if (myparams->fl_diez == -1 && checkLenModifier(myparams))
             return 1;
         else 
             return 0;
@@ -292,20 +297,63 @@ int validateFlags(t_params *myparams)
     }
     else if (format == 's')
     {
-        if (!myparams->fl_diez  && !myparams->fl_sign && !myparams->fl_zeropadding && !myparams->fl_space && checkLenModifier(myparams))
+        if (myparams->fl_diez == -1  && myparams->fl_sign == -1 && myparams->fl_zeropadding == -1 && myparams->fl_space == -1 && checkLenModifier(myparams))
             return 1;
         else 
             return 0;
     }
     else if (format == 'c')
     {
-        if (!myparams->fl_diez  && !myparams->fl_sign && !myparams->fl_zeropadding && !myparams->fl_space && (checkLenModifier(myparams)))
+        if (myparams->fl_diez == -1  && myparams->fl_sign == -1 && myparams->fl_zeropadding == -1 && myparams->fl_space == -1 && (checkLenModifier(myparams)))
             return 1;
         else 
             return 0;
     }
     else 
         return 0; 
+}
+
+void printmyargs(t_arg ** head_arg)
+{
+    t_arg * head = * head_arg;
+
+    while (head)
+    {
+        if (head->str_chunk == 0)
+        {
+            if (head->chunk_params->fl_diez != -1)
+                printf("#,");
+            if (head->chunk_params-> fl_sign != -1)
+                printf("+,");
+            if (head->chunk_params-> fl_align != -1)
+                printf("-,");
+            if (head->chunk_params->fl_zeropadding  != -1)
+                printf("0,"); 
+            if (head->chunk_params->fl_space  != -1)
+                printf("space,"); 
+            if (head->chunk_params->width != -1)
+                printf("width = %d,", head->chunk_params->width); 
+            if (head->chunk_params->precision != -1)
+                printf("precision %d,", head->chunk_params->precision);
+            if (head->chunk_params->fm_l  != -1)
+              printf("l,");
+            if (head->chunk_params->fm_ll  != -1)
+              printf("ll,");
+            if (head->chunk_params->fm_h  != -1)
+               printf("h,");
+            if (head->chunk_params->fm_hh  != -1)
+              printf("hh,");
+            if (head->chunk_params->fm_L  != -1)
+              printf("L,");
+            if (head->chunk_params-> switchoff_format  != -1)
+              printf("format - %c,", head->chunk_params-> switchoff_format);
+            printf("\n");
+        }
+        else 
+            printf("string arg - %s\n", head->str_chunk);
+
+        head = head->next;
+    }
 }
 
 int parseStr(char *s, t_arg ** head_arg)
@@ -317,11 +365,13 @@ int parseStr(char *s, t_arg ** head_arg)
     {
         if (s[i + 1] && s[i] == '%' && s[i + 1] != '%')
         {
+            i++;
             cur = add_chunk(2, 0, head_arg);
 
-            diff = addFlags((s + i + 1), cur->chunk_params);
+            diff = addFlags((s + i), cur->chunk_params);
             if (!diff || !validateFlags(cur->chunk_params))
             {
+                printf("current conversion not walid argument");
                 cleanup(head_arg);
                 return 0;
             }
@@ -341,5 +391,7 @@ int parseStr(char *s, t_arg ** head_arg)
             }
         }
     }
+    printmyargs(head_arg);
+
     return 1;
 }
