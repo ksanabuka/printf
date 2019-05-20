@@ -18,13 +18,17 @@
 
 int main() 
 { 
-    int a = 0; 
+   int  var = 90; 
     // scanf("%i", &a); // input is 017 (octal of 15 ) 
     // printf("%d\n", a); 
     // scanf("%i", &a); // input is 0xf (hexadecimal of 15 ) 
     // printf("%d\n", a); 
-    printf("%#.o", 42);
+   // printf("%s, %lld", "world", (long long int)var);
+    printf("%2.3s", "hello");
+  
     return 0; 
 } 
 
+
+//%#.x, %#.0x
   

@@ -74,7 +74,7 @@ int addPrecision(char *s, t_params *params)
     else 
     {
         i++;
-        while (s[i] && s[i] > '0' && s[i] <= '9')
+        while (s[i] && s[i] >= '0' && s[i] <= '9')
         {
             n += n * 10 + s[i] - '0';
             i++; 
@@ -218,6 +218,11 @@ int addFormat(char *s, t_params *params)
     else if (s[0] == 'c')
     {    
         params->switchoff_format = 'c'; 
+        return 1;
+    }
+    else if (s[0] == 'p')
+    {    
+        params->switchoff_format = 'p'; 
         return 1;
     }
     else 
