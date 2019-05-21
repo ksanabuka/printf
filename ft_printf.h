@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "libft/libft.h"
 
-
-
+//gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c diffferent.c structures.c parcing.c d_representtion.c
 
 typedef struct      s_conversion
 {
@@ -64,3 +64,5 @@ int addFlag(char c, t_params *params);
 char    *ft_strchr(const char *s, int c);
 size_t          ft_strlen(const char *s);
 
+char			*ft_positoa(long long int n);
+ char * d_repr(t_params * params, void * content);

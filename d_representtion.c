@@ -1,8 +1,8 @@
-(l, ll, h, hh) -> (format)va_arg;
- 
- int getSign(t_arg * arg, void * content)
+#include "ft_printf.h"
+
+ int getSign(t_params * params, void * content)
  {
-    if (arg->sign == -1)
+    if (params->fl_sign == -1)
         return 0; 
     else if ((long long int)content >= 0)
         return '+';
@@ -10,29 +10,91 @@
         return '-';
  }
 
-  
-
- void d_repr(t_arg * arg)
- {
-    check width -> create canvas;
-
-    fill with filler; 
-    put sign at the begining
-    adjust precision; 
-    apply lenmodifier; 
-
-if (arg->width)
+int getNumDig(long long int d)
 {
-    if (width == 0 || width == -1)
-        return 0; 
-    else
+    if (d != 0)
     {
-        char * canvas = (char*)malloc(sizeof(char) * (width + 1));
+        int c = 1;
+        while (d / 10 != 0)
+        {
+            d = d/10;
+            c++;
+        }
+        return c; 
+    }
+    else 
+        return 0; 
+}
+  
+char *addZeros(char * num, int numDigits, t_params * params)
+{
+    int diff = params->precision - numDigits;
+    
+    char * zeros = ft_strnew(diff);
+    int i = 0;
+    while (i < diff)
+    {
+        zeros[i] = '0';
+        i++;
+    }
+    char * res = ft_strjoin((char const *)zeros, (char const *)num);
+    free(num);
+    free(zeros);
+    return res; 
+}
+
+
+char *addSign(char * num, int sign)
+{
+    char * str = ft_strnew(1);
+    str[0] = sign;
+    str[1] = '\0';
+    char * res = ft_strjoin((char const *)str, (char const *)num);
+    free(num);
+    free(str);
+    return res; 
+}
+
+char *addSpaces(char * num, t_params * params, int side)
+{
+    int diff = params->width - (int)ft_strlen(num);
+    char * res; 
+    char * str = ft_strnew(diff);
+    int i = 0;
+    while (i < diff)
+    {
+        str[i] = ' ';
+        i++;
+    }
+    if (side == 0)
+        res = ft_strjoin((char const *)str, (char const *)num);
+    else 
+        res = ft_strjoin((char const *)num, (char const *)str);
+
+    free(num);
+    free(str);
+    return res; 
+}
+
+ char * d_repr(t_params * params, void * content)
+ {
+    int long long d = (int long long) content; 
+    int numDigits = getNumDig(d);
+    int sign = getSign(params, content);
+
+    char *num = ft_positoa((long long int) content);
+
+    if(params->precision > numDigits)
+        num = addZeros(num, numDigits, params); 
+
+    if (sign)
+        num = addSign(num, sign);
+
+    if (params->width > (int)ft_strlen(num))
+    {
+        num = (params->fl_align) ? addSpaces(num, params, 0): addSpaces(num, params, 1);         
     }
     
-}
-   
- 
-     
- 
+    return num; 
+    
  }

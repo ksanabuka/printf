@@ -15,16 +15,22 @@
    // printf("!%4.8s!\n", s); // ! hel!
     //printf("!%4.*s!\n", 5, s);            //     !helll!
    // printf(" string  %s" " digit %d", s, number );            //     !helll!
+void  print_num(void* num)
+{  
+   printf("%llu", (long long int)num);
+}  
 
 int main() 
 { 
-   int  var = 90; 
+   //int  var = 90; 
     // scanf("%i", &a); // input is 017 (octal of 15 ) 
     // printf("%d\n", a); 
     // scanf("%i", &a); // input is 0xf (hexadecimal of 15 ) 
     // printf("%d\n", a); 
    // printf("%s, %lld", "world", (long long int)var);
-    printf("%2.3s", "hello");
+    //printf("%-+20.15d", 123456789);
+    intptr_t d = 18446744073709551615;
+   print_num((void*)d);
   
     return 0; 
 } 
