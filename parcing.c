@@ -372,7 +372,7 @@ int ft_printf(char * fmt, ...)
     intptr_t digit;
     va_start(ap, fmt);
     char * str;
-    
+    int j; 
     while (s[i] != '\0')
     {
         if (s[i] == '%')
@@ -397,7 +397,14 @@ int ft_printf(char * fmt, ...)
 
                 digit = va_arg(ap, int);
                 str =  d_repr((head_arg)->chunk_params, (void*) digit);
-                printf("%s", str);
+                j = 0;
+                {
+                    while (str[j])
+                    {
+                        write(1, &str[j], 1);
+                        j++;
+                    }
+                }
                 i += diff;
 
             }

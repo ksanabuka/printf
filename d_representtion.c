@@ -55,6 +55,19 @@ char *addSign(char * num, int sign)
     return res; 
 }
 
+char *addSpace(char * num)
+{
+   
+    char * res; 
+    char * str = ft_strnew(2);
+    str[0] = ' ';
+    str[1] = '\0';
+    res = ft_strjoin((char const *)str, (char const *)num);
+    free(str);
+    free(num);
+    return res; 
+}
+
 char *addSpaces(char * num, t_params * params, int side)
 {
     int diff = params->width - (int)ft_strlen(num);
@@ -83,7 +96,41 @@ char *addSpaces(char * num, t_params * params, int side)
     int sign = getSign(params, content);
 
     char *num = ft_positoa((long long int) content);
+    if (params->precision == 0 && d == 0)
+    {
+        num[0] = '\0';
+    }
 
+    // if(params->precision > numDigits && params->precision < params->width)
+    // {
+
+    // }
+    if ((params->fl_align == 1 && params->fl_zeropadding == 1) || (params->precision > 0 && params->fl_zeropadding == 1))
+    {
+        params->fl_zeropadding = -1;
+    }
+
+
+    if ((params->fl_sign == 1 && params->fl_space == 1))
+    {
+        params->fl_space = -1;
+    }
+    if ((params->fl_space == 1 && d < 0))
+    {
+        params->fl_space = -1;
+    }
+
+    if (params->fl_space == 1)
+    {
+        if (d >= 0 && params->fl_sign == 1)
+        {
+            params->fl_space = -1;
+        }
+        else 
+        {
+            num = addSpace(num);
+        }
+    }
     if(params->precision > numDigits)
         num = addZeros(num, numDigits, params); 
 
@@ -92,7 +139,7 @@ char *addSpaces(char * num, t_params * params, int side)
 
     if (params->width > (int)ft_strlen(num))
     {
-        num = (params->fl_align) ? addSpaces(num, params, 0): addSpaces(num, params, 1);         
+        num = (params->fl_align) ? addSpaces(num, params, 1): addSpaces(num, params, 0);         
     }
     
     return num; 

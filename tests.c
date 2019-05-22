@@ -29,9 +29,49 @@ int main()
     // printf("%d\n", a); 
    // printf("%s, %lld", "world", (long long int)var);
     //printf("%-+20.15d", 123456789);
-    intptr_t d = 18446744073709551615;
-   print_num((void*)d);
+   //  intptr_t d = 18446744073709551615;
+   // print_num((void*)d);
   
+
+printf("{%  03d}", 0);
+// printf("%+d", 42);
+// printf("%+d", -42);
+// printf("% d", 9999);
+// printf("% d", -9999);
+// printf("{% +d}", 42);
+// printf("{%+ d}", 42);
+// printf("{%+03d}", 0);
+printf("{% 03d}", 0);
+printf("{%0-3d}", 0);
+printf("{%+03d}", 12);
+printf("{%+03d}", 123456);
+printf("{%03.2d}", 0);
+
+
+printf("\nPASSED\n");
+  printf("%.4d|\n", 42);
+  printf("%.4d|\n", 424242);
+  printf("%.4d|\n", -424242);
+  printf("%15.4d|\n", 42);
+   printf("%15.4d|\n", 424242);
+printf("%8.4d|\n", 424242424);
+printf("%15.4d|\n", -42);
+printf("%15.4d|\n", -424242);
+printf("%8.4d|\n", -424242424);
+printf("%4.15d|\n", 42);
+printf("%4.15d|\n", 424242);
+printf("%4.8d|\n", 424242424);
+printf("%4.15d|\n", -42);
+printf("%4.15d|\n", -424242);
+printf("%4.8d|\n", -424242424);
+printf("%.d, %15.0d|\n", 0, 0);
+printf("%.10d|\n", -42);
+
+
+
+
+
+
     return 0; 
 } 
 
