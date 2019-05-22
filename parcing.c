@@ -37,12 +37,12 @@ int addWidth(char *s, t_params *params)
     int n = 0; 
     if (s[i] == 48)
         return 0; 
-    while (s[i] && s[i] > '0' && s[i] <= '9')
+    while (s[i] && s[i] >= '0' && s[i] <= '9')
     {
-        n += n * 10 + s[i] - '0';
+        n = n * 10 + s[i] - '0';
         i++; 
     }
-    if ((s[i] < '0' && s[i] > '9'))
+    if ((s[i] < '0' || s[i] > '9'))
     {
         if (n > 0)
         {
@@ -57,7 +57,7 @@ int skipWidth(char *s)
 {
     int i = 0;
     
-    while (s[i] && s[i] > '0' && s[i] <= '9')
+    while (s[i] && s[i] >= '0' && s[i] <= '9')
     {
         i++; 
     }
@@ -76,7 +76,7 @@ int addPrecision(char *s, t_params *params)
         i++;
         while (s[i] && s[i] >= '0' && s[i] <= '9')
         {
-            n += n * 10 + s[i] - '0';
+            n = n * 10 + s[i] - '0';
             i++; 
         }
         if ((s[i] < '0' || s[i] > '9'))
@@ -98,13 +98,13 @@ int addPrecision(char *s, t_params *params)
 
 int skipPrecision(char *s)
 {
-    int i = 0;
+    int i = 1;
     
-    while (s[i] && s[i] > '0' && s[i] <= '9')
+    while (s[i] && s[i] >= '0' && s[i] <= '9')
     {
         i++; 
     }
-    return i + 1;
+    return i;
 }
 
 int addModififer(char *s, t_params *params)
@@ -229,33 +229,6 @@ int addFormat(char *s, t_params *params)
             return 0;
 }
 
-int addFlags(char *s, t_params *params)
-{
-    int i = 0;
-    while (addFlag(s[i], params))
-    {
-        i++;
-    }
-    if (addWidth((s + i), params))
-    {     
-        i += skipWidth((s + i)); 
-    }
-    if (addPrecision((s + i), params))
-    {   
-        i += skipPrecision((s + i)); 
-    }
-
-    if (addModififer((s + i), params))
-    {     
-        i += skipModifier((s + i)); 
-    }
-    
-    if (addFormat((s + i), params))
-        return (i + 1);
-    else 
-        return 0; 
-}
-
 int checkLenModifier(t_params *myparams)
 {
     if (ft_strchr("diouxX", myparams->switchoff_format))
@@ -361,42 +334,85 @@ void printmyargs(t_arg ** head_arg)
     }
 }
 
-int parseStr(char *s, t_arg ** head_arg)
+int addFlags(char *s, t_params *params)
 {
+    int i = 0;
+    while (addFlag(s[i], params))
+    {
+        i++;
+    }
+    if (addWidth((s + i), params))
+    {     
+        i += skipWidth((s + i)); 
+    }
+    if (addPrecision((s + i), params))
+    {   
+        i += skipPrecision((s + i)); 
+    }
+
+    if (addModififer((s + i), params))
+    {     
+        i += skipModifier((s + i)); 
+    }
+    
+    if (addFormat((s + i), params))
+        return (i + 1);
+    else 
+        return 0; 
+}
+
+int ft_printf(char * fmt, ...)
+{
+    t_arg * head_arg = 0;
+    char *s = fmt; 
     int i = 0;
     int diff = 0; 
     t_arg *cur; 
+    va_list ap;
+    intptr_t digit;
+    va_start(ap, fmt);
+    char * str;
+    
     while (s[i] != '\0')
     {
-        if (s[i + 1] && s[i] == '%' && s[i + 1] != '%')
+        if (s[i] == '%')
         {
-            i++;
-            cur = add_chunk(2, 0, head_arg);
-
-            diff = addFlags((s + i), cur->chunk_params);
-            if (!diff || !validateFlags(cur->chunk_params))
+            if (s[i + 1] && s[i + 1] == '%')
             {
-                printf("current conversion not walid argument");
-                cleanup(head_arg);
-                return 0;
+                write(1, "\%", 1);
+                i = i + 2; 
             }
-            i += diff;
-        }
-        else if (s[i + 1] && s[i] == '%' && s[i + 1] == '%')
-        {
-            add_chunk(1, extractPureS((s + i)), head_arg);
-            i += 2;
+            else 
+            {
+                i++;
+                cur = add_chunk(2, 0, &head_arg);
+
+                diff = addFlags((s + i), cur->chunk_params);
+                if (!diff || !validateFlags(cur->chunk_params))
+                {
+                    printf("current conversion not walid argument");
+                    cleanup(&head_arg);
+                    return 0;
+                }
+
+                digit = va_arg(ap, int);
+                str =  d_repr((head_arg)->chunk_params, (void*) digit);
+                printf("%s", str);
+                i += diff;
+
+            }
         }
         else
         {
             if (s[i] && (s[i] != '%'))
             {
-                add_chunk(1, extractPureS((s + i)), head_arg);
-                i += ft_strlen(extractPureS((s + i))); 
+                write(1, &s[i], 1);
+                i++;
             }
         }
     }
-    printmyargs(head_arg);
+    va_end(ap);
+
 
     return 1;
 }

@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft/libft.h"
+#include <stdarg.h>
 
-//gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c diffferent.c structures.c parcing.c d_representtion.c
+//gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c d_representtion.c
 
 typedef struct      s_conversion
 {
@@ -45,7 +46,7 @@ typedef struct		s_arg
  char *extractPureS(char *s);
 t_arg * add_chunk(int strORconversion, void * cont, t_arg ** head);
 t_arg *initArg(void);
-int parseStr(char *s, t_arg ** head_arg);
+int ft_printf(char * fmt, ...);
 
  void cleanup(t_arg ** head_arg);
 int validateFlags(t_params *myparams);

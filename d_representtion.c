@@ -2,7 +2,7 @@
 
  int getSign(t_params * params, void * content)
  {
-    if (params->fl_sign == -1)
+    if (params->fl_sign == -1 && (long long int)content >= 0)
         return 0; 
     else if ((long long int)content >= 0)
         return '+';
