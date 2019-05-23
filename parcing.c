@@ -24,7 +24,7 @@ int addFlag(char c, t_params *params)
     }
     else if (c == 48)
     {
-        params->fl_zeropadding = 48;
+        params->fl_zeropadding = 1;
         return 1;
     }
     else 
@@ -291,48 +291,36 @@ int validateFlags(t_params *myparams)
         return 0; 
 }
 
-void printmyargs(t_arg ** head_arg)
+void printmyargs(t_params *chunk_params)
 {
-    t_arg * head = * head_arg;
-
-    while (head)
-    {
-        if (head->str_chunk == 0)
-        {
-            if (head->chunk_params->fl_diez != -1)
+            if (chunk_params->fl_diez != -1)
                 printf("#,");
-            if (head->chunk_params-> fl_sign != -1)
+            if (chunk_params-> fl_sign != -1)
                 printf("+,");
-            if (head->chunk_params-> fl_align != -1)
+            if (chunk_params-> fl_align != -1)
                 printf("-,");
-            if (head->chunk_params->fl_zeropadding  != -1)
+            if (chunk_params->fl_zeropadding  != -1)
                 printf("0,"); 
-            if (head->chunk_params->fl_space  != -1)
+            if (chunk_params->fl_space  != -1)
                 printf("space,"); 
-            if (head->chunk_params->width != -1)
-                printf("width = %d,", head->chunk_params->width); 
-            if (head->chunk_params->precision != -1)
-                printf("precision %d,", head->chunk_params->precision);
-            if (head->chunk_params->fm_l  != -1)
+            if (chunk_params->width != -1)
+                printf("width = %d,", chunk_params->width); 
+            if (chunk_params->precision != -1)
+                printf("precision %d,", chunk_params->precision);
+            if (chunk_params->fm_l  != -1)
               printf("l,");
-            if (head->chunk_params->fm_ll  != -1)
+            if (chunk_params->fm_ll  != -1)
               printf("ll,");
-            if (head->chunk_params->fm_h  != -1)
+            if (chunk_params->fm_h  != -1)
                printf("h,");
-            if (head->chunk_params->fm_hh  != -1)
+            if (chunk_params->fm_hh  != -1)
               printf("hh,");
-            if (head->chunk_params->fm_L  != -1)
+            if (chunk_params->fm_L  != -1)
               printf("L,");
-            if (head->chunk_params-> switchoff_format  != -1)
-              printf("format - %c,", head->chunk_params-> switchoff_format);
+            if (chunk_params-> switchoff_format  != -1)
+              printf("format - %c,", chunk_params-> switchoff_format);
             printf("\n");
-        }
-        else 
-            printf("string arg - %s\n", head->str_chunk);
-
-        head = head->next;
     }
-}
 
 int addFlags(char *s, t_params *params)
 {
@@ -363,11 +351,11 @@ int addFlags(char *s, t_params *params)
 
 int ft_printf(char * fmt, ...)
 {
-    t_arg * head_arg = 0;
+    t_params * params = initChunk_params();
+;
     char *s = fmt; 
     int i = 0;
     int diff = 0; 
-    t_arg *cur; 
     va_list ap;
     intptr_t digit;
     va_start(ap, fmt);
@@ -385,18 +373,15 @@ int ft_printf(char * fmt, ...)
             else 
             {
                 i++;
-                cur = add_chunk(2, 0, &head_arg);
-
-                diff = addFlags((s + i), cur->chunk_params);
-                if (!diff || !validateFlags(cur->chunk_params))
+                diff = addFlags((s + i), params);
+                if (!diff || !validateFlags(params))
                 {
                     printf("current conversion not walid argument");
-                    cleanup(&head_arg);
                     return 0;
                 }
 
                 digit = va_arg(ap, int);
-                str =  d_repr((head_arg)->chunk_params, (void*) digit);
+                str =  d_repr(params, (void*) digit);
                 j = 0;
                 {
                     while (str[j])

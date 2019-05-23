@@ -5,8 +5,11 @@ int main(int ac, char **av)
 {
     ac = 0;
     av = 0;
-  
-  ft_printf("%+d", 42);
+
+
+ft_printf("\nPASSED\n");
+
+ft_printf("%+d", 42);
 ft_printf("%+d", -42);
 ft_printf("% d", 9999);
 ft_printf("% d", -9999);
@@ -18,8 +21,6 @@ ft_printf("{%0-3d}\n", 0);
 ft_printf("{%+03d}", 12);
 ft_printf("{%+03d}", 123456);
 ft_printf("{%03.2d}", 0);
-
-ft_printf("\nPASSED\n");
   ft_printf("%.4d|\n", 42);
   ft_printf("%.4d|\n", 424242);
   ft_printf("%.4d|\n", -424242);

@@ -23,12 +23,29 @@ int getNumDig(long long int d)
         return c; 
     }
     else 
-        return 0; 
+        return 1; 
 }
-  
-char *addZeros(char * num, int numDigits, t_params * params)
+
+char *addZerosPrecision(char * num, int numDigits, int precision)
 {
-    int diff = params->precision - numDigits;
+    int diff = precision - numDigits;
+    
+    char * zeros = ft_strnew(diff);
+    int i = 0;
+    while (i < diff)
+    {
+        zeros[i] = '0';
+        i++;
+    }
+    char * res = ft_strjoin((char const *)zeros, (char const *)num);
+    free(num);
+    free(zeros);
+    return res; 
+}
+
+char *addZerosWidth(char * num, int numDigits, int width)
+{
+    int diff = width - numDigits;
     
     char * zeros = ft_strnew(diff);
     int i = 0;
@@ -101,10 +118,6 @@ char *addSpaces(char * num, t_params * params, int side)
         num[0] = '\0';
     }
 
-    // if(params->precision > numDigits && params->precision < params->width)
-    // {
-
-    // }
     if ((params->fl_align == 1 && params->fl_zeropadding == 1) || (params->precision > 0 && params->fl_zeropadding == 1))
     {
         params->fl_zeropadding = -1;
@@ -120,28 +133,47 @@ char *addSpaces(char * num, t_params * params, int side)
         params->fl_space = -1;
     }
 
-    if (params->fl_space == 1)
+    if (params->fl_space == 1 && (d >= 0 && params->fl_sign == 1))
     {
-        if (d >= 0 && params->fl_sign == 1)
-        {
-            params->fl_space = -1;
-        }
-        else 
-        {
-            num = addSpace(num);
-        }
+        params->fl_space = -1;
     }
-    if(params->precision > numDigits)
-        num = addZeros(num, numDigits, params); 
+        
+    
+    if (params->fl_zeropadding == 1 && params->fl_sign == 1 && params->fl_space == 1 && params->width  > numDigits + 2)
+    {
+        num = addZerosWidth(num, numDigits + 2, params->width);
 
-    if (sign)
+    } 
+    else if (params->fl_zeropadding == 1 && (params->fl_sign == 1 || params->fl_space == 1) && params->width  > numDigits + 1)
+        num = addZerosWidth(num, numDigits + 1, params->width);
+       
+    
+    if(params->precision > numDigits)
+        num = addZerosPrecision(num, numDigits, params->precision);
+
+
+    if (d < 0 || params->fl_sign != -1)
+    {
+        params->fl_sign = 1;
+    }
+    
+    if (params->fl_sign != -1)
+    {
         num = addSign(num, sign);
+    }
+
+      
+   if (params->fl_space == 1 && d > 0)
+    {
+        num = addSpace(num);    
+    }
 
     if (params->width > (int)ft_strlen(num))
     {
-        num = (params->fl_align) ? addSpaces(num, params, 1): addSpaces(num, params, 0);         
+        num = (params->fl_align == 1) ? addSpaces(num, params, 1): addSpaces(num, params, 0);         
     }
     
     return num; 
     
  }
+ //            "args": ["\"%.d, %15.0d|\n\", 0, 0"],

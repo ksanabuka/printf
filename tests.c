@@ -32,6 +32,7 @@ int main()
    //  intptr_t d = 18446744073709551615;
    // print_num((void*)d);
   
+printf("% 6d", -9999);
 
 printf("{%  03d}", 0);
 // printf("%+d", 42);

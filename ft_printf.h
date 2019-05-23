@@ -5,13 +5,6 @@
 
 //gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c d_representtion.c
 
-typedef struct      s_conversion
-{
-    void * type;
-    int capacity;
-    int size; 
-}                   t_conversion;
-
 typedef struct		s_params
 {
 	int switchon_percentage;
@@ -34,21 +27,9 @@ typedef struct		s_params
 	
 }					t_params;
 
-typedef struct		s_arg
-{
-    t_params * chunk_params;
-	int             qty;
-    char *          str_chunk;
-    t_conversion *  conv_chunk; 
-	struct s_arg	*next;
-}					t_arg;
-
  char *extractPureS(char *s);
-t_arg * add_chunk(int strORconversion, void * cont, t_arg ** head);
-t_arg *initArg(void);
 int ft_printf(char * fmt, ...);
 
- void cleanup(t_arg ** head_arg);
 int validateFlags(t_params *myparams);
 int checkLenModifier(t_params *myparams);
 int addFlags(char *s, t_params *params);
@@ -67,3 +48,4 @@ size_t          ft_strlen(const char *s);
 
 char			*ft_positoa(long long int n);
  char * d_repr(t_params * params, void * content);
+t_params *initChunk_params(void);

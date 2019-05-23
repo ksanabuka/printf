@@ -1,17 +1,6 @@
 #include "ft_printf.h"
 
-t_arg *initArg(void)
-{
-    t_arg * arg = (t_arg *)malloc(sizeof(t_arg));
-    if (!arg)
-        return 0;
-    arg->chunk_params = 0; 
-    arg->qty = 0;
-    arg->conv_chunk = 0;
-    arg->next = 0;
-    arg->str_chunk = 0;
-    return (arg);
-}
+ 
 
 t_params *initChunk_params(void)
 {
@@ -38,53 +27,6 @@ t_params *initChunk_params(void)
     
     return (chunk_params);
 }
-
-t_arg * add_chunk(int strORconversion, void * cont, t_arg ** head)
- {
-    t_arg * el = initArg();
-
-    if (!*head)
-    {
-        *head = el;
-
-         if (strORconversion == 1)
-     {
-         el->str_chunk = (char*)cont;
-         el->conv_chunk = 0;
-         el->chunk_params = 0; 
-     }
-     else 
-     {
-         el->conv_chunk = (t_conversion *)cont;
-         el->str_chunk = 0;
-        el->chunk_params = initChunk_params();
-     }
-    }
-    else 
-    {
-        t_arg * tmp = *head;
-
-        while (tmp->next)
-        {
-            tmp = tmp->next; 
-        }
-        if (strORconversion == 1)
-        {
-            el->str_chunk = (char*)cont;
-            el->conv_chunk = 0;
-            el->chunk_params = 0; 
-        }
-        else 
-        {
-            el->conv_chunk = (t_conversion *)cont;
-            el->str_chunk = 0;
-            el->chunk_params = initChunk_params();
-
-        }
-        tmp->next = el;
-    }
-     return el; 
- }
 
  char *extractPureS(char *s)
  {
@@ -117,10 +59,4 @@ t_arg * add_chunk(int strORconversion, void * cont, t_arg ** head)
         return 0; 
  }
 
- void cleanup(t_arg ** head_arg)
- {
-     if (!*head_arg)
-        return;
-    else 
-     return ;
- }
+ 
