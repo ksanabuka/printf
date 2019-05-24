@@ -31,42 +31,94 @@ int main()
     //printf("%-+20.15d", 123456789);
    //  intptr_t d = 18446744073709551615;
    // print_num((void*)d);
-  
-printf("% 6d", -9999);
-
-printf("{%  03d}", 0);
-// printf("%+d", 42);
-// printf("%+d", -42);
-// printf("% d", 9999);
-// printf("% d", -9999);
-// printf("{% +d}", 42);
-// printf("{%+ d}", 42);
-// printf("{%+03d}", 0);
-printf("{% 03d}", 0);
-printf("{%0-3d}", 0);
-printf("{%+03d}", 12);
-printf("{%+03d}", 123456);
-printf("{%03.2d}", 0);
 
 
-printf("\nPASSED\n");
-  printf("%.4d|\n", 42);
-  printf("%.4d|\n", 424242);
-  printf("%.4d|\n", -424242);
-  printf("%15.4d|\n", 42);
-   printf("%15.4d|\n", 424242);
-printf("%8.4d|\n", 424242424);
-printf("%15.4d|\n", -42);
-printf("%15.4d|\n", -424242);
-printf("%8.4d|\n", -424242424);
-printf("%4.15d|\n", 42);
-printf("%4.15d|\n", 424242);
-printf("%4.8d|\n", 424242424);
-printf("%4.15d|\n", -42);
-printf("%4.15d|\n", -424242);
-printf("%4.8d|\n", -424242424);
-printf("%.d, %15.0d|\n", 0, 0);
-printf("%.10d|\n", -42);
+printf("1%x|\n", 42);
+printf("2before %x after|\n", 42);
+printf("3%x, %x|\n", 0, 4294967295);
+printf("4{%030x}\n", 0xFFFF);
+printf("5{%030X}\n", 0xFFFF);
+printf("6%#x|\n", 42);
+printf("7%#X|\n", 42);
+printf("8%#x|\n", 0);
+printf("9%#x|\n", 2147483647);
+printf("10%.4x|\n", 42);
+printf("11%.4x|\n", 424242);
+printf("12%15.4x|\n", 42);
+printf("13%15.4x|\n", 424242);
+printf("14%8.4x|\n", 424242424);
+printf("15%4.15x|\n", 42);
+printf("16%4.15x|\n", 42424242);
+printf("17%4.8x|\n", 424242424);
+printf("18%.x, %.0x|\n", 0, 0);
+printf("19%#.x, %#.0x|\n", 0, 0);
+printf("20{%#.5x}|\n", 1);
+printf("21% x|%+x|\n", 42, 42);
+
+
+
+// printf("%o|\n", 42);
+// printf("before %o after|\n", 42);
+// printf("%#o|\n", 42);
+// printf("%#o|\n", 0);
+// printf("%#o|\n", 2147483647);
+// printf("%+o|\n", 0);
+// printf("%+o|\n", 42);
+// printf("%.4o|\n", 42);
+// printf("%.4o|\n", 424242);
+// printf("%15.4o|\n", 42);
+// printf("%15.4o|\n", 424242);
+// printf("%8.4o|\n", 424242424);
+// printf("%4.15o|\n", 42);
+// printf("%4.15o|\n", 424242);
+// printf("%4.8o|\n", 424242424);
+// printf("1%.o, %.0o|", 0, 0);
+// printf("2%.o, %.0O|", 0, 0);
+// printf("3%#.o, %#.0o|\n", 0, 0);
+// printf("%#.3o|\n", 1);
+// printf("%o|\n", -42);
+// printf("%o|\n", 2147483647);
+// printf("% o|%+o|\n", 42, 42);
+// printf("%#.o|\n", 42);
+
+
+//  printf("% 6d", -9999);
+ 
+// printf("% 6d", -9999);
+
+// printf("{%  03d}", 0);
+// // printf("%+d", 42);
+// // printf("%+d", -42);
+// // printf("% d", 9999);
+// // printf("% d", -9999);
+// // printf("{% +d}", 42);
+// // printf("{%+ d}", 42);
+// // printf("{%+03d}", 0);
+// printf("{% 03d}", 0);
+// printf("{%0-3d}", 0);
+// printf("{%+03d}", 12);
+// printf("{%+03d}", 123456);
+// printf("{%03.2d}", 0);
+
+
+// printf("\nPASSED\n");
+//   printf("%.4d|\n", 42);
+//   printf("%.4d|\n", 424242);
+//   printf("%.4d|\n", -424242);
+//   printf("%15.4d|\n", 42);
+//    printf("%15.4d|\n", 424242);
+// printf("%8.4d|\n", 424242424);
+// printf("%15.4d|\n", -42);
+// printf("%15.4d|\n", -424242);
+// printf("%8.4d|\n", -424242424);
+// printf("%4.15d|\n", 42);
+// printf("%4.15d|\n", 424242);
+// printf("%4.8d|\n", 424242424);
+// printf("%4.15d|\n", -42);
+// printf("%4.15d|\n", -424242);
+// printf("%4.8d|\n", -424242424);
+// printf("%.d, %15.0d|\n", 0, 0);
+// printf("%.10d|\n", -42);
 
 
 

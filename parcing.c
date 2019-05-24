@@ -381,7 +381,10 @@ int ft_printf(char * fmt, ...)
                 }
 
                 digit = va_arg(ap, int);
-                str =  d_repr(params, (void*) digit);
+              //  str =  d_repr(params, (void*) digit);
+              //  str = o_repr(params, (void*) digit);
+                str = x_X_repr(params, (void*) digit);
+
                 j = 0;
                 {
                     while (str[j])

@@ -10,14 +10,15 @@
         return '-';
  }
 
-int getNumDig(long long int d)
+int getNumDig(long long int d, int base)
 {
+    
     if (d != 0)
     {
         int c = 1;
-        while (d / 10 != 0)
+        while (d / base != 0)
         {
-            d = d/10;
+            d = d/base;
             c++;
         }
         return c; 
@@ -109,7 +110,7 @@ char *addSpaces(char * num, t_params * params, int side)
  char * d_repr(t_params * params, void * content)
  {
     int long long d = (int long long) content; 
-    int numDigits = getNumDig(d);
+    int numDigits = getNumDig(d, 10);
     int sign = getSign(params, content);
 
     char *num = ft_positoa((long long int) content);
@@ -176,4 +177,3 @@ char *addSpaces(char * num, t_params * params, int side)
     return num; 
     
  }
- //            "args": ["\"%.d, %15.0d|\n\", 0, 0"],

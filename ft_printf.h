@@ -3,7 +3,7 @@
 #include "libft/libft.h"
 #include <stdarg.h>
 
-//gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c d_representtion.c
+// gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c d_representtion.c x_X_repr.c o_representation.c
 
 typedef struct		s_params
 {
@@ -29,6 +29,7 @@ typedef struct		s_params
 
  char *extractPureS(char *s);
 int ft_printf(char * fmt, ...);
+int getNumDig(long long int d, int base);
 
 int validateFlags(t_params *myparams);
 int checkLenModifier(t_params *myparams);
@@ -49,3 +50,29 @@ size_t          ft_strlen(const char *s);
 char			*ft_positoa(long long int n);
  char * d_repr(t_params * params, void * content);
 t_params *initChunk_params(void);
+
+
+char * o_repr(t_params * params, void * content);
+char *addZero(char * num);
+char	*ft_itoa_base(long long int n, int base);
+void strRev(char *s);
+
+
+
+ int getSign(t_params * params, void * content);
+ int getNumDig(long long int d, int base);
+ char *addZerosPrecision(char * num, int numDigits, int precision);
+ char *addZerosWidth(char * num, int numDigits, int width);
+char *addSign(char * num, int sign);
+char *addSpace(char * num);
+char *addSpaces(char * num, t_params * params, int side);
+
+char	*ft_itoa_base(long long int n, int base);
+
+ char * x_X_repr(t_params * params, void * content);
+ void toxX(t_params * params, char *s);
+ char *add0x(char * num);
+
+
+
+
