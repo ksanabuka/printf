@@ -3,7 +3,7 @@
 #include "libft/libft.h"
 #include <stdarg.h>
 
-// gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c conversions.c
+//gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c conversions.c
 
 typedef struct		s_params
 {
@@ -48,7 +48,7 @@ char    *ft_strchr(const char *s, int c);
 size_t          ft_strlen(const char *s);
 
 char			*ft_positoa(long long int n);
-char * d_repr(t_params * params, short int d);
+char * d_repr(t_params * params, long long d);
 t_params *initChunk_params(void);
 
 
@@ -58,8 +58,9 @@ char	*ft_itoa_base(long long int n, int base);
 void strRev(char *s);
 
 
+long long	argdioux(t_params * params, va_list ap);
 
- int getSign(t_params * params, void * content);
+ int getSign(t_params * params, long long content);
  int getNumDig(long long int d, int base);
  char *addZerosPrecision(char * num, int numDigits, int precision);
  char *addZerosWidth(char * num, int numDigits, int width);

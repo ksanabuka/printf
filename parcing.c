@@ -349,7 +349,7 @@ int addFlags(char *s, t_params *params)
         return 0; 
 }
 
-static long long	arg(t_params * params, va_list ap)
+long long	argdioux(t_params * params, va_list ap)
 {
 	if (params->fm_hh == 1)
 		return ((char)va_arg(ap, int));
@@ -361,14 +361,13 @@ static long long	arg(t_params * params, va_list ap)
 		return (va_arg(ap, long long));
 	return (va_arg(ap, int));
 }
-long a = 56;
 
-ft_printf("%ld", a); 
-i get long(8bytes) via va_arg ->put in into long_long and reproduce with ft_printf 
-BUT should i need short(2bytes) i take int(4 bytes) from va_arg?  
-
-
-
+long double	argf(t_params * params, va_list ap)
+{
+	if (params->fm_L == 1)
+		return (va_arg(ap, long double));
+	return (va_arg(ap, double));
+}
 
 int ft_printf(char * fmt, ...)
 {
@@ -378,7 +377,7 @@ int ft_printf(char * fmt, ...)
     int i = 0;
     int diff = 0; 
     va_list ap;
-    intptr_t digit;
+//    intptr_t digit;
     va_start(ap, fmt);
     char * str;
     int j; 
@@ -401,13 +400,10 @@ int ft_printf(char * fmt, ...)
                     return 0;
                 }
 
-              //  str =  d_repr(params, (void*) digit);
-              //  str = o_repr(params, (void*) digit);
-              set_arg: 
-              if (flag == abcd)
-                    return &convAbcd();
-
-                str = x_X_repr(params, va_arg(ap, int);
+              str =  argdioux(params, ap);
+; 
+              d_repr(params, arg(params, ap));
+             
 
                 j = 0;
                 {

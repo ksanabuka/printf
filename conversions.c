@@ -14,6 +14,7 @@
     return res; 
 }
  
+
  void toxX(t_params * params, char *s)
  {
      int i = 0;
@@ -203,9 +204,9 @@ char	*ft_itoa_base(long long int n, int base)
  }
 
 
- int getSign(t_params * params, void * content)
+ int getSign(t_params * params, long long content)
  {
-    if (params->fl_sign == -1 && (long long int)content >= 0)
+    if (params->fl_sign == -1 && content >= 0)
         return 0; 
     else if ((long long int)content >= 0)
         return '+';
@@ -310,7 +311,88 @@ char *addSpaces(char * num, t_params * params, int side)
     return res; 
 }
 
- char * d_repr(t_params * params, short int d)
+char * convDioux(t_params params, long long	d)
+{
+    /// diuox 
+    if (params->)
+}
+
+
+
+ char * d_repr(t_params * params, long long d)
+ {
+    int numDigits = getNumDig(d, 10);
+    int sign = getSign(params, d);
+
+    char *num = ft_positoa((long long int) d);
+    if (params->precision == 0 && d == 0)
+    {
+        num[0] = '\0';
+    }
+
+    if ((params->fl_align == 1 && params->fl_zeropadding == 1) || (params->precision > 0 && params->fl_zeropadding == 1))
+    {
+        params->fl_zeropadding = -1;
+    }
+
+
+    if ((params->fl_sign == 1 && params->fl_space == 1))
+    {
+        params->fl_space = -1;
+    }
+    if ((params->fl_space == 1 && d < 0))
+    {
+        params->fl_space = -1;
+    }
+
+    if (params->fl_space == 1 && (d >= 0 && params->fl_sign == 1))
+    {
+        params->fl_space = -1;
+    }
+         
+    if (params->fl_zeropadding == 1 && params->fl_sign == 1 && params->fl_space == 1 && params->width  > numDigits + 2)
+    {
+        num = addZerosWidth(num, numDigits + 2, params->width);
+
+    } 
+    else if (params->fl_zeropadding == 1 && (params->fl_sign == 1 || params->fl_space == 1) && params->width  > numDigits + 1)
+        num = addZerosWidth(num, numDigits + 1, params->width);
+       
+    
+    if(params->precision > numDigits)
+        num = addZerosPrecision(num, numDigits, params->precision);
+
+
+    if (d < 0 || params->fl_sign != -1)
+    {
+        params->fl_sign = 1;
+    }
+    
+    if (params->fl_sign != -1)
+    {
+        num = addSign(num, sign);
+    }
+
+      
+   if (params->fl_space == 1 && d > 0)
+    {
+        num = addSpace(num);    
+    }
+
+    if (params->width > (int)ft_strlen(num))
+    {
+        num = (params->fl_align == 1) ? addSpaces(num, params, 1): addSpaces(num, params, 0);         
+    }
+    
+    return num; 
+    
+ }
+
+
+
+
+
+ char * f_repr(t_params * params, long double d)
  {
     int numDigits = getNumDig(d, 10);
     int sign = getSign(params, d);
