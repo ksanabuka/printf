@@ -35,7 +35,7 @@ int main()
 
 printf("1%x|\n", 42);
 printf("2before %x after|\n", 42);
-printf("3%x, %x|\n", 0, 4294967295);
+printf("3%x, %x|\n", 0, 4294967294);
 printf("4{%030x}\n", 0xFFFF);
 printf("5{%030X}\n", 0xFFFF);
 printf("6%#x|\n", 42);

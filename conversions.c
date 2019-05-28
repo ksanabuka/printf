@@ -310,13 +310,12 @@ char *addSpaces(char * num, t_params * params, int side)
     return res; 
 }
 
- char * d_repr(t_params * params, void * content)
+ char * d_repr(t_params * params, short int d)
  {
-    int long long d = (int long long) content; 
     int numDigits = getNumDig(d, 10);
-    int sign = getSign(params, content);
+    int sign = getSign(params, d);
 
-    char *num = ft_positoa((long long int) content);
+    char *num = ft_positoa((long long int) d);
     if (params->precision == 0 && d == 0)
     {
         num[0] = '\0';
@@ -341,8 +340,7 @@ char *addSpaces(char * num, t_params * params, int side)
     {
         params->fl_space = -1;
     }
-        
-    
+         
     if (params->fl_zeropadding == 1 && params->fl_sign == 1 && params->fl_space == 1 && params->width  > numDigits + 2)
     {
         num = addZerosWidth(num, numDigits + 2, params->width);

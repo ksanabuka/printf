@@ -349,6 +349,27 @@ int addFlags(char *s, t_params *params)
         return 0; 
 }
 
+static long long	arg(t_params * params, va_list ap)
+{
+	if (params->fm_hh == 1)
+		return ((char)va_arg(ap, int));
+	if (params->fm_h == 1)
+		return ((short)va_arg(ap, int));
+	if (params->fm_l == 1)
+		return (va_arg(ap, long));
+	if (params->fm_ll == 1)
+		return (va_arg(ap, long long));
+	return (va_arg(ap, int));
+}
+long a = 56;
+
+ft_printf("%ld", a); 
+i get long(8bytes) via va_arg ->put in into long_long and reproduce with ft_printf 
+BUT should i need short(2bytes) i take int(4 bytes) from va_arg?  
+
+
+
+
 int ft_printf(char * fmt, ...)
 {
     t_params * params = initChunk_params();
@@ -380,10 +401,13 @@ int ft_printf(char * fmt, ...)
                     return 0;
                 }
 
-                digit = va_arg(ap, int);
               //  str =  d_repr(params, (void*) digit);
               //  str = o_repr(params, (void*) digit);
-                str = x_X_repr(params, (void*) digit);
+              set_arg: 
+              if (flag == abcd)
+                    return &convAbcd();
+
+                str = x_X_repr(params, va_arg(ap, int);
 
                 j = 0;
                 {
