@@ -400,10 +400,13 @@ int ft_printf(char * fmt, ...)
                     return 0;
                 }
 
-              str =  argdioux(params, ap);
-; 
-              d_repr(params, arg(params, ap));
-             
+             // str =  argdioux(params, ap);
+             if (params->switchoff_format == 'd' || params->switchoff_format == 'i')
+               {
+                long long int d = argdioux(params, ap);
+                str = d_repr(params, d);
+               }
+           
 
                 j = 0;
                 {

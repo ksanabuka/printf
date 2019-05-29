@@ -2,7 +2,8 @@
 #include <stdio.h>
 int	dig_count(long long int n)
 {
-	long i;
+	
+	int i;
 
 	i = 1;
 	if (n < 0)

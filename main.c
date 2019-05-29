@@ -91,6 +91,27 @@ int main(int ac, char **av)
 // ft_printf("%.d, %15.0d|\n", 0, 0);
 // ft_printf("%.10d|\n", -42);
 
+ft_printf("%ld\n", -2147483647);
+
+
+// ft_printf("%ld%ld\n", 0, 42);
+// ft_printf("%ld\n", (long)INT_MAX + 1);
+// ft_printf("%ld\n", (long)INT_MIN - 1);
+// ft_printf("%ld\n", LONG_MAX);
+// ft_printf("%ld\n", LONG_MIN);
+// ft_printf("%lld\n", LLONG_MAX);
+// ft_printf("%lld\n", LLONG_MIN);
+// ft_printf("%hd%hd\n", (short int)0, (short int)42);
+// ft_printf("%hd\n", SHRT_MAX);
+// ft_printf("%hd\n", SHRT_MIN);
+// ft_printf("%hhd%hhdv", 1, 42);
+// ft_printf("%hhd\n", CHAR_MAX);
+// ft_printf("%hhd\n", CHAR_MAX + 42);
+// ft_printf("%hhd\n", CHAR_MIN);
+// ft_printf("%hhd\n", CHAR_MIN - 42);
+// ft_printf("%hhd\n", CHAR_MAX);
+// ft_printf("%hhd\n", CHAR_MAX + 42);
+
 
     return 0;
     // t_arg * head_arg = 0;

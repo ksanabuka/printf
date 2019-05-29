@@ -1,5 +1,7 @@
 
 #include <stdio.h>
+#include <limits.h>
+
 // int main(void)
 //   {
 
@@ -83,41 +85,58 @@ int main()
 
 
 
-printf("{%  03d}", 0);
-printf("%+d", 42);
-printf("%+d", -42);
-printf("% d", 9999);
-printf("% d", -9999);
-printf("{% +d}", 42);
-printf("{%+ d}", 42);
-printf("{%+03d}", 0);
-printf("{% 03d}", 0);
-printf("{%0-3d}", 0);
-printf("{%+03d}", 12);
-printf("{%+03d}", 123456);
-printf("{%03.2d}", 0);
-  printf("%.4d|\n", 42);
-  printf("%.4d|\n", 424242);
-  printf("%.4d|\n", -424242);
-  printf("%15.4d|\n", 42);
-   printf("%15.4d|\n", 424242);
-printf("%8.4d|\n", 424242424);
-printf("%15.4d|\n", -42);
-printf("%15.4d|\n", -424242);
-printf("%8.4d|\n", -424242424);
-printf("%4.15d|\n", 42);
-printf("%4.15d|\n", 424242);
-printf("%4.8d|\n", 424242424);
-printf("%4.15d|\n", -42);
-printf("%4.15d|\n", -424242);
-printf("%4.8d|\n", -424242424);
-printf("%.d, %15.0d|\n", 0, 0);
-printf("%.10d|\n", -42);
+// printf("{%  03d}", 0);
+// printf("%+d", 42);
+// printf("%+d", -42);
+// printf("% d", 9999);
+// printf("% d", -9999);
+// printf("{% +d}", 42);
+// printf("{%+ d}", 42);
+// printf("{%+03d}", 0);
+// printf("{% 03d}", 0);
+// printf("{%0-3d}", 0);
+// printf("{%+03d}", 12);
+// printf("{%+03d}", 123456);
+// printf("{%03.2d}", 0);
+//   printf("%.4d|\n", 42);
+//   printf("%.4d|\n", 424242);
+//   printf("%.4d|\n", -424242);
+//   printf("%15.4d|\n", 42);
+//    printf("%15.4d|\n", 424242);
+// printf("%8.4d|\n", 424242424);
+// printf("%15.4d|\n", -42);
+// printf("%15.4d|\n", -424242);
+// printf("%8.4d|\n", -424242424);
+// printf("%4.15d|\n", 42);
+// printf("%4.15d|\n", 424242);
+// printf("%4.8d|\n", 424242424);
+// printf("%4.15d|\n", -42);
+// printf("%4.15d|\n", -424242);
+// printf("%4.8d|\n", -424242424);
+// printf("%.d, %15.0d|\n", 0, 0);
+// printf("%.10d|\n", -42);
 
 
+// printf("%ld%ld\n", 0, 42);
+// printf("%ld\n", (long)INT_MAX + 1);
+// printf("%ld\n", (long)INT_MIN - 1);
+// printf("%ld\n", LONG_MAX);
+// printf("%ld\n", LONG_MIN);
+// printf("%lld\n", LLONG_MAX);
+// printf("%lld\n", LLONG_MIN);
+// printf("%hd%hd\n", (short int)0, (short int)42);
+// printf("%hd\n", SHRT_MAX);
+// printf("%hd\n", SHRT_MIN);
+// printf("%hhd%hhdv", 1, 42);
+// printf("%hhd\n", CHAR_MAX);
+// printf("%hhd\n", CHAR_MAX + 42);
+// printf("%hhd\n", CHAR_MIN);
+// printf("%hhd\n", CHAR_MIN - 42);
+// printf("%hhd\n", CHAR_MAX);
+// printf("%hhd\n", CHAR_MAX + 42);
 
-
-
+ long double d = -12; 
+printf("% 10Lf", d);
 
     return 0; 
 } 

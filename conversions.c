@@ -311,11 +311,7 @@ char *addSpaces(char * num, t_params * params, int side)
     return res; 
 }
 
-char * convDioux(t_params params, long long	d)
-{
-    /// diuox 
-    if (params->)
-}
+
 
 
 
@@ -323,8 +319,8 @@ char * convDioux(t_params params, long long	d)
  {
     int numDigits = getNumDig(d, 10);
     int sign = getSign(params, d);
-
-    char *num = ft_positoa((long long int) d);
+    char *num; 
+    num = ft_positoa((long long int) d);
     if (params->precision == 0 && d == 0)
     {
         num[0] = '\0';

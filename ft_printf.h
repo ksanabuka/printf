@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 #include <stdarg.h>
+#include <limits.h>
 
-//gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c conversions.c
+// gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c conversions.c
 
 typedef struct		s_params
 {
