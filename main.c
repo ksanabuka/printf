@@ -91,7 +91,8 @@ int main(int ac, char **av)
 // ft_printf("%.d, %15.0d|\n", 0, 0);
 // ft_printf("%.10d|\n", -42);
 
-ft_printf("%ld\n", -2147483647);
+double d = 0.9999;
+ft_printf("%010.2f\n", d);
 
 
 // ft_printf("%ld%ld\n", 0, 42);

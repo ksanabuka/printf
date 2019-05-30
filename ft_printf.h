@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include <limits.h>
 
-// gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c misc.c diffferent.c structures.c parcing.c conversions.c
+// gcc -Wall -Werror -Wextra -g -L ./libft -lft main.c float_conversion.c misc.c diffferent.c structures.c parcing.c conversions.c
 
 typedef struct		s_params
 {
@@ -76,5 +76,6 @@ char	*ft_itoa_base(long long int n, int base);
  char *add0x(char * num);
 
 
+char * f_repr(t_params * params, long double * dig);
 
 

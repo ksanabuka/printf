@@ -401,12 +401,16 @@ int ft_printf(char * fmt, ...)
                 }
 
              // str =  argdioux(params, ap);
-             if (params->switchoff_format == 'd' || params->switchoff_format == 'i')
+            if (params->switchoff_format == 'd' || params->switchoff_format == 'i')
                {
                 long long int d = argdioux(params, ap);
                 str = d_repr(params, d);
                }
-           
+            if (params->switchoff_format == 'f')
+               {
+                long double d = argf(params, ap);
+                str = f_repr(params, &d);
+               }
 
                 j = 0;
                 {

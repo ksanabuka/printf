@@ -134,10 +134,8 @@ int main()
 // printf("%hhd\n", CHAR_MIN - 42);
 // printf("%hhd\n", CHAR_MAX);
 // printf("%hhd\n", CHAR_MAX + 42);
-
- long double d = -12; 
-printf("% 10Lf", d);
-
+ double d = 0.9999;
+printf("%010.2f\n", d);
     return 0; 
 } 
 
