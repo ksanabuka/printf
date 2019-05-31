@@ -84,7 +84,7 @@ char * fracture_part(long double *d, t_params * params)
 
     str = ft_strnew(15);
     int i = 0; 
-    long double aftercoma = *d - (long long)(*d); 
+    long double aftercoma = *d - (long long)(*d);
     int mnozhnyk = 10; 
     while (42)
     {
@@ -159,8 +159,8 @@ char * f_repr(t_params * params, long double * dig)
     char * tmp = ft_strnew(1); 
     long double d = *dig; 
     int sign = (d < 0) ? '-' : '+';
-    char * fracturial_part =  fracture_part(&d, params); 
     d = (d < 0) ? -d : d;
+    char * fracturial_part =  fracture_part(&d, params); 
     char * integral_part = ft_itoa_base((long long) d, 10);
     
     
@@ -179,7 +179,7 @@ char * f_repr(t_params * params, long double * dig)
     free(fracturial_part);
 
 
-    if ((params->fl_align == 1 && params->fl_zeropadding == 1) || (params->precision > 0 && params->fl_zeropadding == 1))
+    if ((params->fl_align == 1 && params->fl_zeropadding == 1))
     {
         params->fl_zeropadding = -1;
     }
@@ -204,7 +204,7 @@ char * f_repr(t_params * params, long double * dig)
         res = addZerosWidth(res, ft_strlen(res) + 1, params->width);
        
     
-    if (dig < 0 || params->fl_sign != -1)
+    if (*dig < 0 || params->fl_sign != -1)
     {
         params->fl_sign = 1;
     }
@@ -217,6 +217,11 @@ char * f_repr(t_params * params, long double * dig)
    if (params->fl_space == 1 && d > 0)
     {
         res = addSpace(res);    
+    }
+
+    if (params->width > (int)ft_strlen(res) && params->fl_zeropadding == 1 && *dig > 0)
+    {
+        res = addZerosWidth(res, ft_strlen(res), params->width);
     }
 
     if (params->width > (int)ft_strlen(res))

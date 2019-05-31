@@ -1,0 +1,12 @@
+ft_printf("before %d after", 42);
+ft_printf("before %i after", 42);
+ft_printf("before %o after", 42);
+ft_printf("before %O after", 42);
+ft_printf("before %u after", 42);
+ft_printf("before %x after", 42);
+ft_printf("before %X after", 42);
+ft_printf("%s %C %d %p %x %% %S", "bonjour ", L'該', 42, &free, 42, L"لحم خنزير");
+ft_printf("{%f}{%F}", 1.42, 1.42);
+ft_printf("{%f}{%F}", -1.42, -1.42);
+ft_printf("{%f}{%F}", 1444565444646.6465424242242, 1444565444646.6465424242242);
+ft_printf("{%f}{%F}", -1444565444646.6465424242242454654, -1444565444646.6465424242242454654);
