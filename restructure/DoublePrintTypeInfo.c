@@ -14,7 +14,7 @@ char* abs_integral_quotient_to_digits(char *digits, long double value)
     int i;
     long long integral_part;
     char d; 
-
+    
     integral_part = (long long)value;
     i = 0;
     while (integral_part)
