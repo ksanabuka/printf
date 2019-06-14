@@ -13,6 +13,7 @@
 #include "IntPrintTypeInfo.h"
 #include "UIntPrintTypeInfo.h"
 #include "StringPrintTypeInfo.h"
+#include "DoublePrintTypeInfo.h"
 
 enum PrintType {
     PT_INT = 0,
@@ -34,6 +35,8 @@ int print_value(void *value, enum PrintType type, const struct FormatParams *fmt
         info = create_uint_print_type_info(value, fmt_params);
     else if (type == PT_STR)
         info = create_str_print_type_info(value, fmt_params);
+    else if (type == PT_REAL)
+        info = create_real_print_type_info(value, fmt_params);
     else
         return 0;
     
@@ -114,12 +117,15 @@ enum LenModifier read_len_modifier(struct ParserState *state)
 {
     if (state->fmt[0] == 'l' || state->fmt[0] == 'L')
     {
+        if (state->fmt[0] == 'L')
+            return LM_CL; 
         return state->fmt[1] == 'l' || state->fmt[1] == 'L' ? LM_LL : LM_L;
     }
     if (state->fmt[0] == 'h')
     {
         return state->fmt[1] == 'h' ? LM_HH : LM_H;
     }
+    
     return LM_DEFAULT;
 }
 
@@ -135,6 +141,9 @@ static struct FormatParams read_format_params(struct ParserState *state, int int
     res.is_prefix_uppercase = is_prefix_uppercase;
     return res;
 }
+
+
+
 
 long long read_int_value(struct ParserState *state, enum LenModifier lenModifier)
 {
@@ -186,6 +195,19 @@ unsigned long long read_uint_value(struct ParserState *state, enum LenModifier l
     return value;
 }
 
+long double read_real_value(struct ParserState *state, enum LenModifier lenModifier)
+{
+    long double value;
+    
+    value = 0;
+    if (lenModifier == LM_CL)
+        value = va_arg(state->list, long double);
+    else
+        value = va_arg(state->list, double);
+    return value;
+}
+
+
 int print_uint(struct ParserState *state, int base, int uppercase)
 {
     struct FormatParams params;
@@ -232,8 +254,11 @@ int print_ptr(struct ParserState *state)
 int print_real(struct ParserState *state)
 {
     struct FormatParams params;
+    long double value; 
+
     params = read_format_params(state, 10, 0);
-    return 0;
+    value = read_real_value(state, params.lenModifier);
+    return print_value(&value, PT_REAL, &params);
 }
 
 int try_print_type(struct ParserState *state, const char *pos)

@@ -22,7 +22,8 @@ enum LenModifier {
     LM_HH = 1,
     LM_H = 2,
     LM_L = 3,
-    LM_LL = 4
+    LM_LL = 4,
+    LM_CL = 5
 };
 
 struct FormatParams {
@@ -35,6 +36,7 @@ struct FormatParams {
 };
 
 struct PrintTypeInfo {
+    char type; 
     char sign;
     char prefix[3];
     int num_leading_zeros;

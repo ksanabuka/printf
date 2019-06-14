@@ -9,17 +9,20 @@ static char get_sign(long double value, const struct FormatParams *fmt_params) {
     return fmt_params->flags & F_PLUS ? '+' : 0;
 }
 
-char* abs_integral_quotient_to_digits(char *digits, long double value) {
+char* abs_integral_quotient_to_digits(char *digits, long double value) 
+{
     int i;
-    long long d = (long long)value;
-    
+    long long integral_part;
+    char d; 
+
+    integral_part = (long long)value;
     i = 0;
-    while (value)
+    while (integral_part)
     {
-        d = (long long)value - ((long long)value / 10) * 10;
+        d = (integral_part - (integral_part / 10) * 10);
         d = d < 0 ? -d : d;
         digits[i] = d + '0';
-        (long long)value /= 10;
+        integral_part /= 10;
         ++i;
     }
     digits[i] = 0;
@@ -164,14 +167,12 @@ char *fracture_part(long double * value, const struct FormatParams *fmt_params)
 }
 
 
-static void abs_integral_and_fractural_join(char *digits, long double value, const struct FormatParams *fmt_params) {
-  
+static char * abs_integral_and_fractural_join(long double value, const struct FormatParams *fmt_params)
     {
-        char * res;
         char * tmp;
         char * fracturial_part;
         char * integral_part;
-        
+        char * digits = ft_strnew(64);
         value = (value < 0) ? -value : value;
         fracturial_part =  fracture_part(&value, fmt_params);
         integral_part = abs_integral_quotient_to_digits(digits, value);
@@ -179,33 +180,35 @@ static void abs_integral_and_fractural_join(char *digits, long double value, con
         {
             tmp = ft_strnew(1);
             tmp[0] = '.';
-            res = integral_part;
-            integral_part = ft_strjoin(integral_part, tmp);
-            free(res);
+            integral_part = digits; 
+            digits = ft_strjoin(digits, tmp);
+            free(integral_part);
             free(tmp);
         }
-        tmp = digits;
-        free(tmp); 
-        digits = ft_strjoin(integral_part, fracturial_part);
-        free(integral_part);
-        free(fracturial_part);
+            integral_part = digits; 
+            digits = ft_strjoin(digits, fracturial_part);
+            free(integral_part);
+            free(fracturial_part);
+            return digits;  
 }
 
 
-struct PrintTypeInfo create_real_print_type_info(void *value_ptr, const struct FormatParams *fmt_params) {
+struct PrintTypeInfo create_real_print_type_info(void *value_ptr, const struct FormatParams *fmt_params) 
+{
     struct PrintTypeInfo res;
     long double value;
     
     value = *(long double *)value_ptr;
+    res.type = 'f';
     res.sign = get_sign(value, fmt_params);
-    res.value_str = ft_strnew(0);
+    res.value_str =  abs_integral_and_fractural_join(value, fmt_params);
     res.free_value_str = 1;
-    abs_integral_and_fractural_join(res.value_str, value, fmt_params);
+    
     ft_strcpy(res.prefix, "");
     res.num_leading_zeros = 0;
-    if (fmt_params->precision > (int)ft_strlen(res.value_str)) {
-        res.num_leading_zeros = fmt_params->precision - (int)ft_strlen(res.value_str);
+    if (fmt_params->flags & F_MINUS && fmt_params->flags & F_ZERO) {
+        res.leading_zeros_allowed = 0;
     }
-    res.leading_zeros_allowed = fmt_params->precision < 0;
+    res.leading_zeros_allowed = 1;
     return res;
 }

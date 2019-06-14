@@ -11,12 +11,26 @@
 
 struct PrintTypeInfo create_str_print_type_info(void *str, const struct FormatParams *fmt_params) {
     struct PrintTypeInfo res;
+    if (fmt_params->flags)
+    { 
+        res.type = 's';
+        res.sign = 0;
+        res.prefix[0] = 0;
+        res.num_leading_zeros = 0;
+        res.value_str = (char *)str;
+        res.free_value_str = 0;
+        res.leading_zeros_allowed = 0;
+    }
+    else
+    {
+        res.type = 's';
+        res.sign = 0;
+        res.prefix[0] = 0;
+        res.num_leading_zeros = 0;
+        res.value_str = (char *)str;
+        res.free_value_str = 0;
+        res.leading_zeros_allowed = 0;
+    }
     
-    res.sign = 0;
-    res.prefix[0] = 0;
-    res.num_leading_zeros = 0;
-    res.value_str = (char *)str;
-    res.free_value_str = 0;
-    res.leading_zeros_allowed = 0;
     return res;
 }

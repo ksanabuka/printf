@@ -45,6 +45,7 @@ struct PrintTypeInfo create_int_print_type_info(void *value_ptr, const struct Fo
     long long value;
     
     value = *(long long *)value_ptr;
+    res.type = 'i';
     res.sign = get_sign(value, fmt_params);
     res.value_str = ft_strnew(LONG_LONG_BITS);
     res.free_value_str = 1;

@@ -52,6 +52,7 @@ struct PrintTypeInfo create_uint_print_type_info(void *value_ptr, const struct F
     unsigned long long value;
     
     value = *(unsigned long long *)value_ptr;
+    res.type = 'u';
     res.sign = 0;
     res.value_str = ft_strnew(UNSIGNED_LONG_LONG_BITS);
     res.free_value_str = 1;

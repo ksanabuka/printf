@@ -33,7 +33,16 @@ int print_type_info(const struct PrintTypeInfo *info) {
 }
 
 static int should_try_to_add_leading_space(const struct FormattedPrintTypeInfo *info, const struct FormatParams *fmt_params) {
-    return (fmt_params->flags & F_SPACE) && info->num_leading_spaces == 0 && (fmt_params->flags & F_MINUS) == 0;
+    
+     
+    if  ((fmt_params->flags & F_SPACE) && info->info->sign != 0 && info->info->type == 'f') 
+        return 0; 
+
+    if ((fmt_params->flags & F_SPACE) && info->num_leading_spaces == 0 && (fmt_params->flags & F_MINUS) == 0)
+        return 1;
+    else 
+        return 0; 
+
 }
 
 static void try_to_add_leading_space(struct FormattedPrintTypeInfo *info, const struct FormatParams *fmt_params) {
