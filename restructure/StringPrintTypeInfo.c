@@ -7,7 +7,7 @@
 //
 
 #include "StringPrintTypeInfo.h"
-#include "libft.h"
+#include "libft/libft.h"
 
 struct PrintTypeInfo create_str_print_type_info(void *str, const struct FormatParams *fmt_params) {
     struct PrintTypeInfo res;

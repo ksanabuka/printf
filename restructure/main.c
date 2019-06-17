@@ -5,7 +5,7 @@
 //  Created by Oksana Buksha on 6/8/19.
 //  Copyright © 2019 Oksana Buksha. All rights reserved.
 //
-//gcc -Wall -Werror -Wextra -g -L. -lft *rintTypeInfo.c main.c Parser.c -o aa#include <stdio.h>
+// gcc -Wall -Werror -Wextra -g -L. -lft *rintTypeInfo.c main.c Parser.c -o aa
 #include <stdio.h>
 #include "Parser.h"
 #include <limits.h>

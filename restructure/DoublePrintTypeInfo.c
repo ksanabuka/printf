@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "libft/libft.h"
 #include "DoublePrintTypeInfo.h"
 
 
@@ -16,6 +16,11 @@ char* abs_integral_quotient_to_digits(char *digits, long double value)
     char d; 
     
     integral_part = (long long)value;
+    if (integral_part == 0)
+    {
+        digits[0] = '0';
+        return (digits); 
+    }
     i = 0;
     while (integral_part)
     {

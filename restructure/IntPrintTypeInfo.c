@@ -6,7 +6,7 @@
 //  Copyright © 2019 Oksana Buksha. All rights reserved.
 //
 
-#include "libft.h"
+#include "libft/libft.h"
 #include "IntPrintTypeInfo.h"
 
 #define LONG_LONG_BITS (8 * sizeof(long long))

@@ -1,6 +1,0 @@
-
-#include <<stdarg.h>>
-void minimal_printf(char *fmt, ...)
-{
-
-}

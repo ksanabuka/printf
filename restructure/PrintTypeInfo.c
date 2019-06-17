@@ -6,7 +6,7 @@
 //  Copyright © 2019 Oksana Buksha. All rights reserved.
 //
 
-#include "libft.h"
+#include "libft/libft.h"
 #include "PrintTypeInfo.h"
 #include <unistd.h>
 
