@@ -20,26 +20,26 @@
 #include "uint_print_type_info.h"
 #include "char_print_type_info.h"
 
-int print_value(void *value, enum PrintType type, const struct fmt_pms *fmt_params)
+int print_value(void *value, enum PrintType type, const t_fmt_pms *fmt_prm)
 {
 	struct Formattedpt_inf formatted;
 	struct pt_inf info;
 	int res;
 	
 	if (type == PT_INT)
-		info = create_intpti(value, fmt_params);
+		info = create_intpti(value, fmt_prm);
 	else if (type == PT_UINT)
-		info = create_uintpti(value, fmt_params);
+		info = create_uintpti(value, fmt_prm);
 	else if (type == PT_STR)
-		info = create_strpti(value, fmt_params);
+		info = create_strpti(value, fmt_prm);
 	else if (type == PT_REAL)
-		info = create_realpti(value, fmt_params);
+		info = create_realpti(value, fmt_prm);
 	else if (type == PT_CHAR)
-		info = create_charpti(value, fmt_params);
+		info = create_charpti(value, fmt_prm);
 	else
 		return (0);
 	
-	formatted = create_formattedpti(&info, fmt_params);
+	formatted = create_formattedpti(&info, fmt_prm);
 	res = print_formatted_type_info(&formatted);
 	cleanup_formattedpti(&formatted);
 	
@@ -52,9 +52,8 @@ struct ParserState
 	const char *fmt;
 	va_list list;
 	
-}
+};
 
-;
 int read_flags(struct ParserState *state)
 {
 	int flags;
@@ -169,10 +168,10 @@ enum LenModifier read_len_modifier(struct ParserState *state)
 }
 
 
-static struct fmt_pms read_format_params(struct ParserState *state, int int_base, int is_prefix_uppercase)
+static t_fmt_pms read_format_params(struct ParserState *state, int int_base, int is_prefix_uppercase)
 {
 	// flags width . precision length
-	struct fmt_pms res;
+	t_fmt_pms res;
 	res.flags = read_flags(state);
 	res.width = read_width(state);
 	res.precision = read_precision(state);
@@ -205,7 +204,7 @@ long long read_int_value(struct ParserState *state, enum LenModifier lenModifier
 
 int print_int(struct ParserState *state)
 {
-	struct fmt_pms params;
+	t_fmt_pms params;
 	long long value;
 	params = read_format_params(state, 10, 0);
 	value = read_int_value(state, params.lenModifier);
@@ -250,7 +249,7 @@ long double read_real_value(struct ParserState *state, enum LenModifier lenModif
 
 int print_uint(struct ParserState *state, int base, int uppercase, int always_ull, int undo_flags)
 {
-	struct fmt_pms params;
+	t_fmt_pms params;
 	unsigned long long value;
 	params = read_format_params(state, base, uppercase);
 	params.flags &= ~undo_flags;
@@ -263,7 +262,7 @@ int print_uint(struct ParserState *state, int base, int uppercase, int always_ul
 
 int print_char(struct ParserState *state)
 {
-	struct fmt_pms params;
+	t_fmt_pms params;
 	char c;
 	params = read_format_params(state, 10, 0);
 	params.flags &= ~F_SPACE;
@@ -274,7 +273,7 @@ int print_char(struct ParserState *state)
 
 int print_str(struct ParserState *state, char *value)
 {
-	struct fmt_pms params;
+	t_fmt_pms params;
 	params = read_format_params(state, 10, 0);
 	if (value)
 {
@@ -291,7 +290,7 @@ int print_str(struct ParserState *state, char *value)
 
 int print_ptr(struct ParserState *state)
 {
-	struct fmt_pms params;
+	t_fmt_pms params;
 	unsigned long long value;
 	void *ptr;
 	params = read_format_params(state, 16, 0);
@@ -305,7 +304,7 @@ int print_ptr(struct ParserState *state)
 
 int print_real(struct ParserState *state)
 {
-	struct fmt_pms params;
+	t_fmt_pms params;
 	long double value;
 	params = read_format_params(state, 10, 0);
 	value = read_real_value(state, params.lenModifier);

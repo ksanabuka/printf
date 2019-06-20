@@ -13,13 +13,13 @@
 #include "double_print_type_info.h"
 #include "libft.h"
 
-static char	get_sign(long double value, const struct fmt_pms *fmt_params)
+static char	get_sign(long double value, const t_fmt_pms *fmt_prm)
 {
 	if (value < 0)
 	{
 		return ('-');
 	}
-	return (fmt_params->flags & F_PLUS ? '+' : 0);
+	return (fmt_prm->flags & F_PLUS ? '+' : 0);
 }
 
 char*	abs_integral_quotient_to_digits(char *digits, long double value)
@@ -99,7 +99,7 @@ static	char*	rounding(char* s)
 	return (new);
 }
 
-char* createStr0(int len)
+char* create_str_with_0(int len)
 {
 	char *str;
 	int i;
@@ -114,84 +114,64 @@ char* createStr0(int len)
 	return (str);
 }
 
-char *fracture_part(long double * value, const struct fmt_pms *fmt_params)
+static void	helper_itoa(long double aftercoma, char * str, const t_fmt_pms *fmt_prm)
 {
-	char * res;
-	char * tmp;
-	char * str;
-	if (fmt_params->precision == 0)
+	int i;
 
-{
-	   str = ft_strnew(0);
-	   return str;
-	}
-
-
-	str = ft_strnew(17);
-	int i = 0;
-	long double aftercoma = *value - (long long)(*value);
+	i = 0;
 	while (42)
-
-{
-		if (fmt_params->precision != -1 && i == fmt_params->precision + 1)
-			break ;
-		if (aftercoma == 0 || (fmt_params->precision == -1 && i == 7) || i == 17)
-			break ;
-		if ((int) (aftercoma * 10) == 0 && aftercoma != 0)
-	
-{
+	{
+		if (fmt_prm->precision != -1 && i == fmt_prm->precision + 1)
+			return ;
+		if (aftercoma == 0 || (fmt_prm->precision == -1 && i == 7) || i == 17)
+			return ;
+		if ((int)(aftercoma * 10) == 0 && aftercoma != 0)
 			str[i] = '0';
-		}
-
-
 		else
-	
-{
-			str[i] = (int) (aftercoma * 10) + '0';
-		}
-
-
-		aftercoma = aftercoma * 10 - (int) (aftercoma * 10);
+			str[i] = (int)(aftercoma * 10) + '0';
+		aftercoma = aftercoma * 10 - (int)(aftercoma * 10);
 		i++;
 	}
+}
 
+static char	*he_adj_fract0(long double * value, const t_fmt_pms *fmt_prm)
+{
+	*value = *value + 1;
+	if (fmt_prm->precision == 0)
+		return (ft_strnew(0));
+	else if (fmt_prm->precision == -1)
+		return (create_str_with_0(6));
+	else if (fmt_prm->precision > 0)
+		return (create_str_with_0(fmt_prm->precision));
+	else
+		return (0);
+}
+
+char *fracture_part(long double * value, const t_fmt_pms *fmt_prm)
+{
+	char *res;
+	char *tmp;
+	char *str;
+	int i;
+	long double aftercoma;
+
+	if (fmt_prm->precision == 0)
+	{
+		str = ft_strnew(0);
+		return (str);
+	}
+	str = ft_strnew(17);
+	aftercoma = *value - (long long)(*value);
+	helper_itoa(aftercoma, str, fmt_prm);
 
 	str = rounding(str);
 	if (!str)
+		str = he_adj_fract0(value, fmt_prm);
+	if (fmt_prm->precision > 0 && (int)ft_strlen(str) < fmt_prm->precision)
 
 {
-		*value = *value + 1;
-		if (fmt_params->precision == 0)
-	
-{
-		   str = ft_strnew(0);
-				// str = createStr0(1);
-			// str[0] = '\0';
-		}
-
-
-		else if (fmt_params->precision == -1)
-	
-{
-			str = createStr0(6);
-		}
-
-
-		else if (fmt_params->precision > 0)
-	
-{
-			str = createStr0(fmt_params->precision);
-		}
-
-
-	 }
-
-
-	if (fmt_params->precision > 0 && (int)ft_strlen(str) < fmt_params->precision)
-
-{
-		int len1 = fmt_params->precision - (int)ft_strlen(tmp);
-		tmp = createStr0(len1);
+		int len1 = fmt_prm->precision - (int)ft_strlen(tmp);
+		tmp = create_str_with_0(len1);
 		res = tmp;
 		str = ft_strjoin(str, tmp);
 		free(res);
@@ -199,7 +179,7 @@ char *fracture_part(long double * value, const struct fmt_pms *fmt_params)
 	}
 
 
-	if (ft_strlen(str) < 6 && fmt_params->flags & F_DIEZ)
+	if (ft_strlen(str) < 6 && fmt_prm->flags & F_DIEZ)
 
 {
 	   int len = 6 - ft_strlen(str);
@@ -225,17 +205,17 @@ char *fracture_part(long double * value, const struct fmt_pms *fmt_params)
 
 
 
-static char * abs_integral_and_fractural_join(long double value, const struct fmt_pms *fmt_params)
+static char *abs_integral_and_fractural_join(long double value, const t_fmt_pms *fmt_prm)
 
 {
-		char * tmp;
-		char * fracturial_part;
-		char * integral_part;
-		char * digits = ft_strnew(64);
+		char *tmp;
+		char *fracturial_part;
+		char *integral_part;
+		char *digits = ft_strnew(64);
 		value = (value < 0) ? -value : value;
-		fracturial_part =  fracture_part(&value, fmt_params);
+		fracturial_part =  fracture_part(&value, fmt_prm);
 		integral_part = abs_integral_quotient_to_digits(digits, value);
-		if (fracturial_part[0] != '\0' && fmt_params->precision != 0)
+		if (fracturial_part[0] != '\0' && fmt_prm->precision != 0)
 	
 {
 			tmp = ft_strnew(1);
@@ -256,20 +236,20 @@ static char * abs_integral_and_fractural_join(long double value, const struct fm
 
 
 
-struct pt_inf create_realpti(void *value_ptr, const struct fmt_pms *fmt_params)
+struct pt_inf create_realpti(void *value_ptr, const t_fmt_pms *fmt_prm)
 {
 	struct pt_inf res;
 	long double value;
 	
 	value = *(long double *)value_ptr;
 	res.type = PT_REAL;
-	res.sign = get_sign(value, fmt_params);
-	res.value_str =  abs_integral_and_fractural_join(value, fmt_params);
+	res.sign = get_sign(value, fmt_prm);
+	res.value_str =  abs_integral_and_fractural_join(value, fmt_prm);
 	res.free_value_str = 1;
 	
 	ft_strcpy(res.prefix, "");
 	res.num_leading_zeros = 0;
-	if (fmt_params->flags & F_MINUS && fmt_params->flags & F_ZERO)
+	if (fmt_prm->flags & F_MINUS && fmt_prm->flags & F_ZERO)
 {
 		res.leading_zeros_allowed = 0;
 	}

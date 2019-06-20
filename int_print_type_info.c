@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "int_print_type_info.h"
 #define LONG_LONG_BITS (8 * sizeof(long long))
-static char get_sign(long long value, const struct fmt_pms *fmt_params)
+static char get_sign(long long value, const t_fmt_pms *fmt_prm)
 {
     if (value < 0)
 {
@@ -21,7 +21,7 @@ static char get_sign(long long value, const struct fmt_pms *fmt_params)
     }
 
 
-    return fmt_params->flags & F_PLUS ? '+' : 0;
+    return fmt_prm->flags & F_PLUS ? '+' : 0;
 }
 
 
@@ -55,26 +55,26 @@ static void abs_ll_to_digits(char *digits, long long value, int precision)
 }
 
 
-struct pt_inf create_intpti(void *value_ptr, const struct fmt_pms *fmt_params)
+struct pt_inf create_intpti(void *value_ptr, const t_fmt_pms *fmt_prm)
 {
     struct pt_inf res;
     long long value;
 
     value = *(long long *)value_ptr;
     res.type = PT_INT;
-    res.sign = get_sign(value, fmt_params);
+    res.sign = get_sign(value, fmt_prm);
     res.value_str = ft_strnew(LONG_LONG_BITS);
     res.free_value_str = 1;
-    abs_ll_to_digits(res.value_str, value, fmt_params->precision);
+    abs_ll_to_digits(res.value_str, value, fmt_prm->precision);
     ft_strcpy(res.prefix, "");
     res.num_leading_zeros = 0;
-    if (fmt_params->precision > (int)ft_strlen(res.value_str))
+    if (fmt_prm->precision > (int)ft_strlen(res.value_str))
 {
-        res.num_leading_zeros = fmt_params->precision - (int)ft_strlen(res.value_str);
+        res.num_leading_zeros = fmt_prm->precision - (int)ft_strlen(res.value_str);
     }
 
 
-    res.leading_zeros_allowed = fmt_params->precision < 0;
+    res.leading_zeros_allowed = fmt_prm->precision < 0;
     return res;
 }
 

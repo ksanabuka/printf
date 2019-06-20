@@ -14,6 +14,6 @@
 # define DOUBLE_PRINT_TYPE_INFO_H
 # include "print_type_info.h"
 
-struct pt_inf create_realpti(void *value_ptr, const struct fmt_pms *fmt_params);
+struct pt_inf create_realpti(void *value_ptr, const t_fmt_pms *fmt_prm);
 
 #endif

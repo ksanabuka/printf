@@ -13,10 +13,10 @@
 #include "char_print_type_info.h"
 #include "libft.h"
 
-struct pt_inf	create_charpti(void *val, const struct fmt_pms *fmt_params)
+struct pt_inf	create_charpti(void *val, const t_fmt_pms *fmt_prm)
 {
 	struct pt_inf res;
-	fmt_params = 0;
+	fmt_prm = 0;
 	res.type = PT_CHAR;
 	res.sign = 0;
 	res.prefix[0] = 0;

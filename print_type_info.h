@@ -32,7 +32,7 @@ enum LenModifier
     LM_CL = 5
 };
 
-struct fmt_pms
+typedef struct s_fmt_pms
 {
     int flags;
     int width;
@@ -40,7 +40,7 @@ struct fmt_pms
     enum LenModifier lenModifier;
     int int_base;
     int is_prefix_uppercase;
-};
+}                   t_fmt_pms;
 
 enum PrintType
 {
@@ -71,7 +71,7 @@ struct Formattedpt_inf
 }
 
 ;
-struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const struct fmt_pms *fmt_params);
+struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const t_fmt_pms *fmt_prm);
 int print_formatted_type_info(const struct Formattedpt_inf *info);
 void cleanup_formattedpti(const struct Formattedpt_inf *info);
 void reverse_str(char *str);

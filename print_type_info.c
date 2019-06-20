@@ -53,22 +53,22 @@ int print_type_info(const struct pt_inf *info)
 }
 
 
-static int should_try_to_add_leading_space(const struct Formattedpt_inf *info, const struct fmt_pms *fmt_params)
+static int should_try_to_add_leading_space(const struct Formattedpt_inf *info, const t_fmt_pms *fmt_prm)
 {
 
 
-    if  ((fmt_params->flags & F_SPACE) && info->info->sign != 0 && info->info->type == PT_REAL)
+    if  ((fmt_prm->flags & F_SPACE) && info->info->sign != 0 && info->info->type == PT_REAL)
         return (0);
-    if ((fmt_params->flags & F_SPACE) && info->num_leading_spaces == 0 && (fmt_params->flags & F_MINUS) == 0)
+    if ((fmt_prm->flags & F_SPACE) && info->num_leading_spaces == 0 && (fmt_prm->flags & F_MINUS) == 0)
         return (1);
     else
         return (0);
 }
 
 
-static void try_to_add_leading_space(struct Formattedpt_inf *info, const struct fmt_pms *fmt_params)
+static void try_to_add_leading_space(struct Formattedpt_inf *info, const t_fmt_pms *fmt_prm)
 {
-    if ((fmt_params->flags & F_ZERO) && info->info->num_leading_zeros > 0)
+    if ((fmt_prm->flags & F_ZERO) && info->info->num_leading_zeros > 0)
 {
         --info->info->num_leading_zeros;
         ++info->num_leading_spaces;
@@ -83,13 +83,13 @@ static void try_to_add_leading_space(struct Formattedpt_inf *info, const struct 
 }
 
 
-static int should_extend_width_by_using_zeros(struct pt_inf *info, const struct fmt_pms *fmt_params)
+static int should_extend_width_by_using_zeros(struct pt_inf *info, const t_fmt_pms *fmt_prm)
 {
-    return (fmt_params->flags & F_ZERO) && (fmt_params->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
+    return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
 }
 
 
-struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const struct fmt_pms *fmt_params)
+struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const t_fmt_pms *fmt_prm)
 {
     struct Formattedpt_inf res;
     int info_len;
@@ -99,20 +99,20 @@ struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const struct fmt
     res.num_trailing_spaces = 0;
     info_len = print_type_info_chars_count(info);
 
-    if (info_len < fmt_params->width)
+    if (info_len < fmt_prm->width)
 {
-        if (should_extend_width_by_using_zeros(info, fmt_params))
-            info->num_leading_zeros = fmt_params->width - info_len;
-        else if ((fmt_params->flags & F_MINUS) == 0)
-            res.num_leading_spaces = fmt_params->width - info_len;
+        if (should_extend_width_by_using_zeros(info, fmt_prm))
+            info->num_leading_zeros = fmt_prm->width - info_len;
+        else if ((fmt_prm->flags & F_MINUS) == 0)
+            res.num_leading_spaces = fmt_prm->width - info_len;
         else
-            res.num_trailing_spaces = fmt_params->width - info_len;
+            res.num_trailing_spaces = fmt_prm->width - info_len;
     }
 
 
 
-    if (should_try_to_add_leading_space(&res, fmt_params))
-        try_to_add_leading_space(&res, fmt_params);
+    if (should_try_to_add_leading_space(&res, fmt_prm))
+        try_to_add_leading_space(&res, fmt_prm);
 
     return res;
 }
