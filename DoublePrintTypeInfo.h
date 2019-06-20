@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DoublePrintTypeInfo_h
-#define DoublePrintTypeInfo_h
+#ifndef DOUBLEPRINTTYPEINFO_H
+#define DOUBLEPRINTTYPEINFO_H
 #include "PrintTypeInfo.h"
-struct PrintTypeInfo create_real_print_type_info(void *value_ptr, const struct FormatParams *fmt_params); 
+struct pt_inf create_realpti(void *value_ptr, const struct fmt_pms *fmt_params); 
 
 #endif

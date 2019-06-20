@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CharPrintTypeInfo_H
-#define CharPrintTypeInfo_H
+#ifndef CHARPRINTTYPEINFO_H
+#define CHARPRINTTYPEINFO_H
 #include "PrintTypeInfo.h"
-struct PrintTypeInfo create_char_print_type_info(void *str, const struct FormatParams *fmt_params);
+struct pt_inf create_charpti(void *str, const struct fmt_pms *fmt_params);
 #endif

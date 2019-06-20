@@ -13,7 +13,7 @@
 #include "DoublePrintTypeInfo.h"
 #include "libft.h"
 
-static char get_sign(long double value, const struct FormatParams *fmt_params)
+static char get_sign(long double value, const struct fmt_pms *fmt_params)
 {
     if (value < 0)
 {
@@ -141,7 +141,7 @@ char * createStr0(int len)
 }
 
 
-char *fracture_part(long double * value, const struct FormatParams *fmt_params)
+char *fracture_part(long double * value, const struct fmt_pms *fmt_params)
 {
     char * res;
     char * tmp; 
@@ -252,7 +252,7 @@ char *fracture_part(long double * value, const struct FormatParams *fmt_params)
 
 
 
-static char * abs_integral_and_fractural_join(long double value, const struct FormatParams *fmt_params)
+static char * abs_integral_and_fractural_join(long double value, const struct fmt_pms *fmt_params)
    
 {
         char * tmp;
@@ -283,9 +283,9 @@ static char * abs_integral_and_fractural_join(long double value, const struct Fo
 
 
 
-struct PrintTypeInfo create_real_print_type_info(void *value_ptr, const struct FormatParams *fmt_params) 
+struct pt_inf create_realpti(void *value_ptr, const struct fmt_pms *fmt_params) 
 {
-    struct PrintTypeInfo res;
+    struct pt_inf res;
     long double value;
     
     value = *(long double *)value_ptr;

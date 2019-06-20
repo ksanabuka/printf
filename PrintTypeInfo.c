@@ -12,7 +12,7 @@
 
 #include "PrintTypeInfo.h"
 #include "libft.h"
-int print_type_info_chars_count(const struct PrintTypeInfo *info)
+int print_type_info_chars_count(const struct pt_inf *info)
 {
     int res;
     
@@ -25,7 +25,7 @@ int print_type_info_chars_count(const struct PrintTypeInfo *info)
 }
 
 
-int print_type_info(const struct PrintTypeInfo *info)
+int print_type_info(const struct pt_inf *info)
 {
     if (info->sign)
 {
@@ -53,7 +53,7 @@ int print_type_info(const struct PrintTypeInfo *info)
 }
 
 
-static int should_try_to_add_leading_space(const struct FormattedPrintTypeInfo *info, const struct FormatParams *fmt_params)
+static int should_try_to_add_leading_space(const struct Formattedpt_inf *info, const struct fmt_pms *fmt_params)
 {
     
      
@@ -66,7 +66,7 @@ static int should_try_to_add_leading_space(const struct FormattedPrintTypeInfo *
 }
 
 
-static void try_to_add_leading_space(struct FormattedPrintTypeInfo *info, const struct FormatParams *fmt_params)
+static void try_to_add_leading_space(struct Formattedpt_inf *info, const struct fmt_pms *fmt_params)
 {
     if ((fmt_params->flags & F_ZERO) && info->info->num_leading_zeros > 0)
 {
@@ -83,15 +83,15 @@ static void try_to_add_leading_space(struct FormattedPrintTypeInfo *info, const 
 }
 
 
-static int should_extend_width_by_using_zeros(struct PrintTypeInfo *info, const struct FormatParams *fmt_params)
+static int should_extend_width_by_using_zeros(struct pt_inf *info, const struct fmt_pms *fmt_params)
 {
     return (fmt_params->flags & F_ZERO) && (fmt_params->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
 }
 
 
-struct FormattedPrintTypeInfo create_formatted_print_type_info(struct PrintTypeInfo *info, const struct FormatParams *fmt_params)
+struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const struct fmt_pms *fmt_params)
 {
-    struct FormattedPrintTypeInfo res;
+    struct Formattedpt_inf res;
     int info_len;
     
     res.num_leading_spaces = 0;
@@ -118,7 +118,7 @@ struct FormattedPrintTypeInfo create_formatted_print_type_info(struct PrintTypeI
 }
 
 
-int print_formatted_type_info(const struct FormattedPrintTypeInfo *info)
+int print_formatted_type_info(const struct Formattedpt_inf *info)
 {
     int res;
     
@@ -132,7 +132,7 @@ int print_formatted_type_info(const struct FormattedPrintTypeInfo *info)
 }
 
 
-void cleanup_formatted_print_type_info(const struct FormattedPrintTypeInfo *info)
+void cleanup_formattedpti(const struct Formattedpt_inf *info)
 {
     if (info->info->free_value_str)
 {

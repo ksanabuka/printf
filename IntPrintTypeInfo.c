@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "IntPrintTypeInfo.h"
 #define LONG_LONG_BITS (8 * sizeof(long long))
-static char get_sign(long long value, const struct FormatParams *fmt_params)
+static char get_sign(long long value, const struct fmt_pms *fmt_params)
 {
     if (value < 0)
 {
@@ -55,9 +55,9 @@ static void abs_ll_to_digits(char *digits, long long value, int precision)
 }
 
 
-struct PrintTypeInfo create_int_print_type_info(void *value_ptr, const struct FormatParams *fmt_params)
+struct pt_inf create_intpti(void *value_ptr, const struct fmt_pms *fmt_params)
 {
-    struct PrintTypeInfo res;
+    struct pt_inf res;
     long long value;
     
     value = *(long long *)value_ptr;

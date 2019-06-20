@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef Parser_h
-#define Parser_h
+#ifndef PARSER_H
+#define PARSER_H
 #include <stdarg.h>
 int ft_printf(const char *fmt, ...);
 #endif

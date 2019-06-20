@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PrintTypeInfo_h
-#define PrintTypeInfo_h
+#ifndef PRINTTYPEINFO_H
+#define PRINTTYPEINFO_H
 enum Flags
 {
     F_PLUS = 1 << 0,
@@ -31,7 +31,7 @@ enum LenModifier
     LM_CL = 5
 };
 
-struct FormatParams
+struct fmt_pms
 {
     int flags;
     int width;
@@ -50,7 +50,7 @@ enum PrintType
     PT_CHAR = 4
 };
 
-struct PrintTypeInfo
+struct pt_inf
 {
     enum PrintType type;
     char sign;
@@ -60,19 +60,19 @@ struct PrintTypeInfo
     int free_value_str;
     int leading_zeros_allowed;
 };
-int print_type_info_chars_count(const struct PrintTypeInfo *info);
-int print_type_info(const struct PrintTypeInfo *info);
-struct FormattedPrintTypeInfo
+int print_type_info_chars_count(const struct pt_inf *info);
+int print_type_info(const struct pt_inf *info);
+struct Formattedpt_inf
 {
     int num_leading_spaces;
-    struct PrintTypeInfo *info;
+    struct pt_inf *info;
     int num_trailing_spaces;
 }
 
 ;
-struct FormattedPrintTypeInfo create_formatted_print_type_info(struct PrintTypeInfo *info, const struct FormatParams *fmt_params);
-int print_formatted_type_info(const struct FormattedPrintTypeInfo *info);
-void cleanup_formatted_print_type_info(const struct FormattedPrintTypeInfo *info);
+struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const struct fmt_pms *fmt_params);
+int print_formatted_type_info(const struct Formattedpt_inf *info);
+void cleanup_formattedpti(const struct Formattedpt_inf *info);
 void reverse_str(char *str);
 void print_repeated_char(char c, int num);
 #endif

@@ -12,7 +12,7 @@
 #include "libft.h"
 #include "UIntPrintTypeInfo.h"
 #define UNSIGNED_LONG_LONG_BITS (8 * sizeof(unsigned long long))
-static void set_num_prefix(char prefix[3], unsigned long long value, const struct FormatParams *fmt_params)
+static void set_num_prefix(char prefix[3], unsigned long long value, const struct fmt_pms *fmt_params)
 {
     ft_strcpy(prefix, "");
     
@@ -32,7 +32,7 @@ else if (fmt_params->int_base == 16 && value)
         }
     }
 }
-static void ull_to_digits(char *digits, unsigned long long value, const struct FormatParams *fmt_params)
+static void ull_to_digits(char *digits, unsigned long long value, const struct fmt_pms *fmt_params)
 {
     int i;
     unsigned long long d;
@@ -55,9 +55,9 @@ static void ull_to_digits(char *digits, unsigned long long value, const struct F
     digits[i] = 0;
     reverse_str(digits);
 }
-struct PrintTypeInfo create_uint_print_type_info(void *value_ptr, const struct FormatParams *fmt_params)
+struct pt_inf create_uintpti(void *value_ptr, const struct fmt_pms *fmt_params)
 {
-    struct PrintTypeInfo res;
+    struct pt_inf res;
     int num_extra_zeros;
     unsigned long long value;
     

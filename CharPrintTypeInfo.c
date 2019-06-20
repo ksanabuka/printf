@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 #include "CharPrintTypeInfo.h"
 #include "libft.h"
-struct PrintTypeInfo create_char_print_type_info(void *val, const struct FormatParams *fmt_params)
+struct pt_inf create_charpti(void *val, const struct fmt_pms *fmt_params)
 {
-    struct PrintTypeInfo res;
+    struct pt_inf res;
     fmt_params = 0;
     res.type = PT_CHAR;
     res.sign = 0;

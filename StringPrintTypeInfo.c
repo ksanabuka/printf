@@ -12,11 +12,11 @@
 
 #include "StringPrintTypeInfo.h"
 #include "libft.h"
-struct PrintTypeInfo create_str_print_type_info(void *val, const struct FormatParams *fmt_params)
+struct pt_inf create_strpti(void *val, const struct fmt_pms *fmt_params)
 {
     char *str;
     int l;
-    struct PrintTypeInfo res;
+    struct pt_inf res;
     
     str = val ? (char *)val : "(null)";
     l = (int)ft_strlen(str);

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IntPrintTypeInfo_h
-#define IntPrintTypeInfo_h
+#ifndef INTPRINTTYPEINFO_H
+#define INTPRINTTYPEINFO_H
 #include "PrintTypeInfo.h"
-struct PrintTypeInfo create_int_print_type_info(void *value_ptr, const struct FormatParams *fmt_params);
+struct pt_inf create_intpti(void *value_ptr, const struct fmt_pms *fmt_params);
 #endif
