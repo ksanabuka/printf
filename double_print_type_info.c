@@ -48,16 +48,8 @@ char*	abs_integral_quotient_to_digits(char *digits, long double value)
 	reverse_str(digits);
 	return (digits);
 }
-
-
-static char*	rounding(char* s)
+static int	rounding_five_nine(char *s, int i)
 {
-	int len;
-	int i;
-	char *new;
-
-	len = ft_strlen(s);
-	i = len - 1;
 	if (s[i] >= '5' && s[i] <= '9' && i - 1 >= 0)
 	{
 		if (s[i - 1] < '9')
@@ -83,6 +75,19 @@ static char*	rounding(char* s)
 			}
 		}
 	}
+	return (1);
+}
+
+static	char*	rounding(char* s)
+{
+	int len;
+	int i;
+	char *new;
+
+	len = ft_strlen(s);
+	i = len - 1;
+	if (!rounding_five_nine(s, i))
+		return (0);
 	new = ft_strnew(len - 1);
 	i = 0;
 	while (i < len - 1)
@@ -91,25 +96,23 @@ static char*	rounding(char* s)
 		i++;
 	}
 	free(s);
-	return (new);  
+	return (new);
 }
 
-
-char * createStr0(int len)
+char* createStr0(int len)
 {
-	char * str = ft_strnew(len);
-	int i = 0;
+	char *str;
+	int i;
+
+	str = ft_strnew(len);
+	i = 0;
 	while (i < len)
-
-{
+	{
 		str[i] = '0';
 		i++;
 	}
-
-
-	return str;
+	return (str);
 }
-
 
 char *fracture_part(long double * value, const struct fmt_pms *fmt_params)
 {
