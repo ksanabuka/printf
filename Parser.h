@@ -1,16 +1,17 @@
-//
-//  Parser.h
-//  printf
-//
-//  Created by Oksana Buksha on 6/8/19.
-//  Copyright © 2019 Oksana Buksha. All rights reserved.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Parser.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/20 08:50:06 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/20 08:50:09 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef Parser_h
 #define Parser_h
-
 #include <stdarg.h>
-
 int ft_printf(const char *fmt, ...);
-
-#endif /* Parser_h */
+#endif

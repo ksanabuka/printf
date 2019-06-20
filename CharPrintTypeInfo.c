@@ -1,15 +1,18 @@
-//
-//  CharPrintTypeInfo.c
-//  printf
-//
-//  Created by Oksana Buksha on 6/12/19.
-//  Copyright © 2019 Oksana Buksha. All rights reserved.
-//
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   CharPrintTypeInfo.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/20 08:46:17 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/20 08:49:25 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "CharPrintTypeInfo.h"
 #include "libft.h"
-
-struct PrintTypeInfo create_char_print_type_info(void *val, const struct FormatParams *fmt_params) {
+struct PrintTypeInfo create_char_print_type_info(void *val, const struct FormatParams *fmt_params)
+{
     struct PrintTypeInfo res;
     fmt_params = 0;
     res.type = PT_CHAR;
@@ -22,3 +25,5 @@ struct PrintTypeInfo create_char_print_type_info(void *val, const struct FormatP
     res.leading_zeros_allowed = 0;
     return res;
 }
+
+

@@ -1,15 +1,19 @@
-//
-//  StringPrintTypeInfo.c
-//  printf
-//
-//  Created by Oksana Buksha on 6/12/19.
-//  Copyright © 2019 Oksana Buksha. All rights reserved.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   StringPrintTypeInfo.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/20 08:48:14 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/20 08:48:21 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "StringPrintTypeInfo.h"
 #include "libft.h"
-
-struct PrintTypeInfo create_str_print_type_info(void *val, const struct FormatParams *fmt_params) {
+struct PrintTypeInfo create_str_print_type_info(void *val, const struct FormatParams *fmt_params)
+{
     char *str;
     int l;
     struct PrintTypeInfo res;
@@ -22,15 +26,22 @@ struct PrintTypeInfo create_str_print_type_info(void *val, const struct FormatPa
     res.prefix[0] = 0;
     res.num_leading_zeros = 0;
     
-    if (fmt_params->precision >= 0 && fmt_params->precision < l) {
+    if (fmt_params->precision >= 0 && fmt_params->precision < l)
+{
         res.value_str = ft_strnew(fmt_params->precision);
         ft_strncpy(res.value_str, str, fmt_params->precision);
         res.free_value_str = 1;
-    } else {
+    }
+
+ else
+{
         res.value_str = str;
         res.free_value_str = 0;
     }
 
+
     res.leading_zeros_allowed = 0;
     return res;
 }
+
+

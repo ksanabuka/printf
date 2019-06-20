@@ -1,5 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: obuksha <marvin@42.fr>                     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/06/20 08:51:16 by obuksha           #+#    #+#              #
+#    Updated: 2019/06/20 08:51:21 by obuksha          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 .PHONY:		$(NAME) all clean fclean re
-
 NAME	:=	libftprintf.a
 SOURCES	:=	CharPrintTypeInfo.c DoublePrintTypeInfo.c IntPrintTypeInfo.c Parser.c \
 			PrintTypeInfo.c StringPrintTypeInfo.c UIntPrintTypeInfo.c \
@@ -23,22 +33,15 @@ SOURCES	:=	CharPrintTypeInfo.c DoublePrintTypeInfo.c IntPrintTypeInfo.c Parser.c
 			helpers/ft_strnew.c helpers/ft_strnstr.c helpers/ft_strrchr.c \
 			helpers/ft_strsplit.c helpers/ft_strstr.c helpers/ft_strsub.c \
 			helpers/ft_strtrim.c helpers/ft_tolower.c helpers/ft_toupper.c 
-
 OBJECTS	:=	$(SOURCES:.c=.o)
 OBJECTS	:=	$(subst helpers/,,$(OBJECTS))
-
 all:		$(NAME)
-
 $(NAME):
 			gcc -Wall -Wextra -Werror -I. -I./helpers -c $(SOURCES)
 			ar rcs $(NAME) $(OBJECTS)
-
 clean:
 			rm -f $(OBJECTS)
-
 fclean:		clean
 			rm -f $(NAME)
-
 re: 		fclean all
-
 reclean:	re; make clean
