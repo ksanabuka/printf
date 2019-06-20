@@ -11,8 +11,8 @@
 # **************************************************************************** #
 .PHONY:		$(NAME) all clean fclean re
 NAME	:=	libftprintf.a
-SOURCES	:=	CharPrintTypeInfo.c DoublePrintTypeInfo.c IntPrintTypeInfo.c Parser.c \
-			PrintTypeInfo.c StringPrintTypeInfo.c UIntPrintTypeInfo.c \
+SOURCES	:=	char_print_type_info.c double_print_type_info.c int_print_type_info.c \
+			parser.c print_type_info.c string_print_type_info.c uint_print_type_info.c \
 			helpers/ft_atoi.c helpers/ft_bzero.c helpers/ft_countwords.c \
 			helpers/ft_isalnum.c helpers/ft_isalpha.c helpers/ft_isascii.c \
 			helpers/ft_isdigit.c helpers/ft_isprint.c helpers/ft_iswhitespace.c \

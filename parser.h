@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 10:57:47 by obuksha           #+#    #+#             */
-/*   Updated: 2019/06/20 10:57:55 by obuksha          ###   ########.fr       */
+/*   Created: 2019/06/20 10:58:04 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/20 10:58:10 by obuksha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef PARSER_H
+# define PARSER_H
+# include <stdarg.h>
 
-int			ft_printf(const char *format, ...);
+int ft_printf(const char *fmt, ...);
 
 #endif

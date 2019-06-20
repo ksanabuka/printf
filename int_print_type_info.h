@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   int_print_type_info.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/20 10:57:47 by obuksha           #+#    #+#             */
-/*   Updated: 2019/06/20 10:57:55 by obuksha          ###   ########.fr       */
+/*   Created: 2019/06/20 10:57:57 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/20 10:58:01 by obuksha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef INT_PRINT_TYPE_INFO_H
+# define INT_PRINT_TYPE_INFO_H
+# include "print_type_info.h"
 
-int			ft_printf(const char *format, ...);
+struct pt_inf create_intpti(void *value_ptr, const struct fmt_pms *fmt_params);
 
 #endif

@@ -10,7 +10,7 @@
 
 // gcc -Wall -Wextra -g -L. -I./helpers -lftprintf *rintTypeInfo.c main.c Parser.c -o aa
 #include <stdio.h>
-#include "Parser.h"
+#include "parser.h"
 #include <limits.h>
 
 
