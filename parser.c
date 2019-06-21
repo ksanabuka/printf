@@ -20,7 +20,7 @@
 #include "uint_print_type_info.h"
 #include "char_print_type_info.h"
 
-int print_val(void *val, enum PrintType type, t_fmt_pms *fmt_prm)
+int print_val(void *val, enum e_print_type type, t_fmt_pms *fmt_prm)
 {
 	struct Formattedpt_inf formatted;
 	struct pt_inf info;
@@ -122,7 +122,7 @@ int read_preci(struct ParserState *state)
 	return p;
 }
 
-enum LenModifier read_len_modifier(struct ParserState *state)
+enum e_len_modifier read_len_modifier(struct ParserState *state)
 {
 	if (state->fmt[0] == 'l' || state->fmt[0] == 'L')
 
@@ -161,24 +161,24 @@ static t_fmt_pms read_format_params(struct ParserState *state, int int_base, int
 	res.flags = read_flags(state);
 	res.width = read_width(state);
 	res.preci = read_preci(state);
-	res.lenModifier = read_len_modifier(state);
+	res.len_modifier = read_len_modifier(state);
 	res.int_base = int_base;
 	res.is_prfx_uppercase = is_prfx_uppercase;
 	return (res);
 }
 
-long long read_int_val(struct ParserState *state, enum LenModifier lenModifier)
+long long read_int_val(struct ParserState *state, enum e_len_modifier len_modifier)
 {
 	long long val;
 	val = 0;
 	
-	if (lenModifier == LM_LL)
+	if (len_modifier == LM_LL)
 		val = va_arg(state->list, long long);
-	else if (lenModifier == LM_L)
+	else if (len_modifier == LM_L)
 		val = va_arg(state->list, long);
-	else if (lenModifier == LM_H)
+	else if (len_modifier == LM_H)
 		val = (short)va_arg(state->list, int);
-	else if (lenModifier == LM_HH)
+	else if (len_modifier == LM_HH)
 		val = (char)va_arg(state->list, int);
 	else
 		val = va_arg(state->list, int);
@@ -191,23 +191,23 @@ int print_int(struct ParserState *state)
 	t_fmt_pms params;
 	long long val;
 	params = read_format_params(state, 10, 0);
-	val = read_int_val(state, params.lenModifier);
+	val = read_int_val(state, params.len_modifier);
 	return print_val(&val, PT_INT, &params);
 }
 
-unsigned long long read_uint_val(struct ParserState *state, enum LenModifier lenModifier)
+unsigned long long read_uint_val(struct ParserState *state, enum e_len_modifier len_modifier)
 {
 	unsigned long long val;
 	
 	val = 0;
 	
-	if (lenModifier == LM_LL)
+	if (len_modifier == LM_LL)
 		val = va_arg(state->list, unsigned long long);
-	else if (lenModifier == LM_L)
+	else if (len_modifier == LM_L)
 		val = va_arg(state->list, unsigned long);
-	else if (lenModifier == LM_H)
+	else if (len_modifier == LM_H)
 		val = (unsigned short)va_arg(state->list, unsigned int);
-	else if (lenModifier == LM_HH)
+	else if (len_modifier == LM_HH)
 		val = (unsigned char)va_arg(state->list, unsigned int);
 	else
 		val = va_arg(state->list, unsigned int);
@@ -215,12 +215,12 @@ unsigned long long read_uint_val(struct ParserState *state, enum LenModifier len
 	return val;
 }
 
-long double read_real_val(struct ParserState *state, enum LenModifier lenModifier)
+long double read_real_val(struct ParserState *state, enum e_len_modifier len_modifier)
 {
 	long double val;
 	
 	val = 0;
-	if (lenModifier == LM_CL)
+	if (len_modifier == LM_CL)
 		val = va_arg(state->list, long double);
 	else
 		val = va_arg(state->list, double);
@@ -235,8 +235,8 @@ int print_uint(struct ParserState *state, int base, int uppercase, int always_ul
 	params = read_format_params(state, base, uppercase);
 	params.flags &= ~undo_flags;
 	if (always_ull)
-		params.lenModifier = LM_LL;
-	val = read_uint_val(state, params.lenModifier);
+		params.len_modifier = LM_LL;
+	val = read_uint_val(state, params.len_modifier);
 	return print_val(&val, PT_UINT, &params);
 }
 
@@ -272,7 +272,7 @@ int print_ptr(struct ParserState *state)
 	void *ptr;
 	params = read_format_params(state, 16, 0);
 	params.flags |= F_DIEZ;
-	params.lenModifier = LM_LL;
+	params.len_modifier = LM_LL;
 	ptr = va_arg(state->list, void *);
 	val = (unsigned long long)ptr;
 	return print_val(&val, PT_UINT, &params);
@@ -283,7 +283,7 @@ int print_real(struct ParserState *state)
 	t_fmt_pms params;
 	long double val;
 	params = read_format_params(state, 10, 0);
-	val = read_real_val(state, params.lenModifier);
+	val = read_real_val(state, params.len_modifier);
 	return print_val(&val, PT_REAL, &params);
 }
 

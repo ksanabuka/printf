@@ -13,7 +13,7 @@
 #ifndef PRINT_TYPE_INFO_H
 # define PRINT_TYPE_INFO_H
 
-enum flags
+enum e_flags
 {
     F_PLUS = 1 << 0,
     F_MINUS = 1 << 1,
@@ -22,7 +22,7 @@ enum flags
     F_DIEZ = 1 << 4
 };
 
-enum LenModifier
+enum e_len_modifier
 {
     LM_DEFAULT = 0,
     LM_HH = 1,
@@ -37,12 +37,12 @@ typedef struct s_fmt_pms
     int flags;
     int width;
     int preci;
-    enum LenModifier lenModifier;
+    enum e_len_modifier len_modifier;
     int int_base;
     int is_prfx_uppercase;
 }                   t_fmt_pms;
 
-enum PrintType
+enum e_print_type
 {
     PT_INT = 0,
     PT_UINT = 1,
@@ -53,7 +53,7 @@ enum PrintType
 
 struct pt_inf
 {
-    enum PrintType type;
+    enum e_print_type type;
     char sign;
     char prfx[3];
     int num_leading_zeros;
