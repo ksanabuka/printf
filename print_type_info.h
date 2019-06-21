@@ -36,10 +36,10 @@ typedef struct s_fmt_pms
 {
     int flags;
     int width;
-    int precision;
+    int preci;
     enum LenModifier lenModifier;
     int int_base;
-    int is_prefix_uppercase;
+    int is_prfx_uppercase;
 }                   t_fmt_pms;
 
 enum PrintType
@@ -55,10 +55,10 @@ struct pt_inf
 {
     enum PrintType type;
     char sign;
-    char prefix[3];
+    char prfx[3];
     int num_leading_zeros;
-    char *value_str;
-    int free_value_str;
+    char *val_str;
+    int free_val_str;
     int leading_zeros_allowed;
 };
 int print_type_info_chars_count(const struct pt_inf *info);
@@ -71,7 +71,7 @@ struct Formattedpt_inf
 }
 
 ;
-struct Formattedpt_inf create_formattedpti(struct pt_inf *info, const t_fmt_pms *fmt_prm);
+struct Formattedpt_inf create_formattedpti(struct pt_inf *info, t_fmt_pms *fmt_prm);
 int print_formatted_type_info(const struct Formattedpt_inf *info);
 void cleanup_formattedpti(const struct Formattedpt_inf *info);
 void reverse_str(char *str);
