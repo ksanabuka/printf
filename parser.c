@@ -197,141 +197,143 @@ unsigned long long	read_uint_val(struct ParserState *state,\
 	return (val);
 }
 
-long double	read_real_val(struct ParserState *state, enum e_len_modifier len_modifier)
+long double	read_real_val(struct ParserState *state,\
+							enum e_len_modifier len_modifier)
 {
 	long double val;
-	
+
 	val = 0;
 	if (len_modifier == LM_CL)
 		val = va_arg(state->list, long double);
 	else
 		val = va_arg(state->list, double);
-	return val;
+	return (val);
 }
 
-
-int	print_uint(struct ParserState *state, int base, int uppercase, int always_ull, int undo_flags)
+int	print_uint(struct ParserState *state, int base,
+				int uppercase, int always_ull, int undo_flags)
 {
-	t_fmt_pms params;
-	unsigned long long val;
+	t_fmt_pms			params;
+	unsigned long long	val;
+
 	params = read_format_params(state, base, uppercase);
 	params.flags &= ~undo_flags;
 	if (always_ull)
 		params.len_modifier = LM_LL;
 	val = read_uint_val(state, params.len_modifier);
-	return print_val(&val, PT_UINT, &params);
+	return (print_val(&val, PT_UINT, &params));
 }
 
 int	print_char(struct ParserState *state)
 {
-	t_fmt_pms params;
-	char c;
+	t_fmt_pms	params;
+	char		c;
+
 	params = read_format_params(state, 10, 0);
 	params.flags &= ~F_SPACE;
 	c = (char)va_arg(state->list, int);
-	return print_val(&c, PT_CHAR, &params);
+	return (print_val(&c, PT_CHAR, &params));
 }
 
 int	print_str(struct ParserState *state, char *val)
 {
 	t_fmt_pms params;
+
 	params = read_format_params(state, 10, 0);
 	if (val)
-{
+	{
 		params.flags &= ~F_SPACE;
 		params.preci = -1;
 	}
-
 	else
 		val = va_arg(state->list, char *);
-	return print_val(val, PT_STR, &params);
+	return (print_val(val, PT_STR, &params));
 }
 
 int	print_ptr(struct ParserState *state)
 {
-	t_fmt_pms params;
-	unsigned long long val;
-	void *ptr;
+	t_fmt_pms			params;
+	unsigned long long	val;
+	void				*ptr;
+
 	params = read_format_params(state, 16, 0);
 	params.flags |= F_DIEZ;
 	params.len_modifier = LM_LL;
 	ptr = va_arg(state->list, void *);
 	val = (unsigned long long)ptr;
-	return print_val(&val, PT_UINT, &params);
+	return (print_val(&val, PT_UINT, &params));
 }
 
 int	print_real(struct ParserState *state)
 {
-	t_fmt_pms params;
-	long double val;
+	t_fmt_pms		params;
+	long double		val;
+
 	params = read_format_params(state, 10, 0);
 	val = read_real_val(state, params.len_modifier);
-	return print_val(&val, PT_REAL, &params);
+	return (print_val(&val, PT_REAL, &params));
 }
 
 int	try_print_type(struct ParserState *state, const char *pos)
 {
-	int numPrinted = -1;
+	int num_printed;
+
+	num_printed = -1;
 	if (*pos == 'd' || *pos == 'i')
-		numPrinted = print_int(state);
+		num_printed = print_int(state);
 	else if (*pos == 'c')
-		numPrinted = print_char(state);
+		num_printed = print_char(state);
 	else if (*pos == 's')
-		numPrinted = print_str(state, 0);
+		num_printed = print_str(state, 0);
 	else if (*pos == '%')
-		numPrinted = print_str(state, "%");
+		num_printed = print_str(state, "%");
 	else if (*pos == 'p')
-		numPrinted = print_ptr(state);
+		num_printed = print_ptr(state);
 	else if (*pos == 'f' || *pos == 'F')
-		numPrinted = print_real(state);
-	else if (*pos == 'o'|| *pos == 'O')
-		numPrinted = print_uint(state, 8, 0, 0, 0);
+		num_printed = print_real(state);
+	else if (*pos == 'o' || *pos == 'O')
+		num_printed = print_uint(state, 8, 0, 0, 0);
 	else if (*pos == 'x' || *pos == 'X')
-		numPrinted = print_uint(state, 16, *pos == 'X', 0, 0);
-	else if (*pos == 'b'|| *pos == 'B')
-		numPrinted = print_uint(state, 2, 0, 0, 0);
+		num_printed = print_uint(state, 16, *pos == 'X', 0, 0);
+	else if (*pos == 'b' || *pos == 'B')
+		num_printed = print_uint(state, 2, 0, 0, 0);
 	else if (*pos == 'u' || *pos == 'U')
-		numPrinted = print_uint(state, 10, 0, *pos == 'U', F_SPACE);
-	return numPrinted;
+		num_printed = print_uint(state, 10, 0, *pos == 'U', F_SPACE);
+	return (num_printed);
 }
 
 int	print_single_type(struct ParserState *state)
 {
-	const char *pos;
-	int numPrinted;
-	pos = state->fmt;
-	numPrinted = -1;
-	while (*pos && numPrinted < 0)
+	const char	*pos;
+	int			num_printed;
 
-{
-		numPrinted = try_print_type(state, pos);
+	pos = state->fmt;
+	num_printed = -1;
+	while (*pos && num_printed < 0)
+	{
+		num_printed = try_print_type(state, pos);
 		++pos;
 	}
-
-	if (numPrinted >= 0)
+	if (num_printed >= 0)
 		state->fmt = pos;
 	else
-
-{
-		numPrinted = 0;
+	{
+		num_printed = 0;
 		while (*state->fmt)
-	
-{
+	{
 			write(1, state->fmt, 1);
 			++state->fmt;
-			++numPrinted;
+			++num_printed;
 		}
-
 	}
-
-	return numPrinted;
+	return (num_printed);
 }
 
 int	ft_printf(const char *fmt, ...)
 {
 	struct ParserState state;
 	state.fmt = fmt;
-	int numPrinted = 0;
+	int num_printed = 0;
 	
 	va_start(state.list, fmt);
 	
@@ -340,13 +342,13 @@ int	ft_printf(const char *fmt, ...)
 		if (*state.fmt == '%')
 {
 			++state.fmt;
-			numPrinted += print_single_type(&state);
+			num_printed += print_single_type(&state);
 		}
 
  else
 {
 			write(1, state.fmt, 1);
-			++numPrinted;
+			++num_printed;
 			++state.fmt;
 		}
 
@@ -355,6 +357,6 @@ int	ft_printf(const char *fmt, ...)
 	
 	va_end(state.list);
 	
-	return numPrinted;
+	return num_printed;
 }
 
