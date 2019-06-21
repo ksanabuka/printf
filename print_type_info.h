@@ -73,7 +73,7 @@ typedef struct s_formatted_pti
 
 int print_type_info_chars_count(const t_pti *info);
 int print_type_info(const t_pti *info);
-t_formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm);
+t_formatted_pti create_formatted_pti(t_pti *info, t_fmt_pms *fmt_prm);
 int print_formatted_type_info(const t_formatted_pti *info);
 void cleanup_formattedpti(const t_formatted_pti *info);
 void reverse_str(char *str);

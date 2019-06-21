@@ -73,11 +73,11 @@ static void	try_to_add_leading_space(t_formatted_pti *info, t_fmt_pms *fmt_prm)
 
 static int	should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm)
 {
-	return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 \
-			&& info->num_leading_zeros == 0 && info->leading_zeros_allowed;
+	return ((fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 \
+			&& info->num_leading_zeros == 0 && info->leading_zeros_allowed);
 }
 
-t_formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
+t_formatted_pti	create_formatted_pti(t_pti *info, t_fmt_pms *fmt_prm)
 {
 	t_formatted_pti res;
 	int info_len;
@@ -86,9 +86,8 @@ t_formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
 	res.info = info;
 	res.num_trailing_spaces = 0;
 	info_len = print_type_info_chars_count(info);
-
 	if (info_len < fmt_prm->width)
-{
+	{
 		if (should_extend_width_by_using_zeros(info, fmt_prm))
 			info->num_leading_zeros = fmt_prm->width - info_len;
 		else if ((fmt_prm->flags & F_MINUS) == 0)
@@ -96,15 +95,12 @@ t_formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
 		else
 			res.num_trailing_spaces = fmt_prm->width - info_len;
 	}
-
-
 	if (should_try_to_add_leading_space(&res, fmt_prm))
 		try_to_add_leading_space(&res, fmt_prm);
-
 	return (res);
 }
 
-int print_formatted_type_info(const t_formatted_pti *info)
+int	print_formatted_type_info(const t_formatted_pti *info)
 {
 	int res;
 
@@ -117,17 +113,15 @@ int print_formatted_type_info(const t_formatted_pti *info)
 	return (res);
 }
 
-void cleanup_formattedpti(const t_formatted_pti *info)
+void	cleanup_formattedpti(const t_formatted_pti *info)
 {
 	if (info->info->free_val_str)
-{
+	{
 		free(info->info->val_str);
 	}
-
 }
 
-
-void reverse_str(char *str)
+void	reverse_str(char *str)
 {
 	int len;
 	int i;
@@ -135,28 +129,23 @@ void reverse_str(char *str)
 
 	len = (int)ft_strlen(str);
 	i = 0;
-
 	while (i + i < len)
-
-{
+	{
 		c = str[i];
 		str[i] = str[len - 1 - i];
 		str[len - 1 - i] = c;
 		++i;
 	}
-
 }
 
-void print_repeated_char(char c, int num)
+void	print_repeated_char(char c, int num)
 {
 	int i;
 
 	i = 0;
 	while (i < num)
-
-{
+	{
 		write(1, &c, 1);
 		++i;
 	}
-
 }

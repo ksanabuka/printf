@@ -39,7 +39,7 @@ int print_val(void *val, enum e_print_type type, t_fmt_pms *fmt_prm)
 	else
 		return (0);
 	
-	formatted = create_formattedpti(&info, fmt_prm);
+	formatted = create_formatted_pti(&info, fmt_prm);
 	res = print_formatted_type_info(&formatted);
 	cleanup_formattedpti(&formatted);
 	
