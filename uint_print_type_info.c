@@ -31,8 +31,6 @@ static void	set_num_prfx(char prfx[3], unsigned long long v, t_fmt_pms *fmt_prm)
 		{
 			ft_strcpy(prfx, fmt_prm->is_prfx_uppercase ? "0X" : "0x");
 		}
-
-        
 	}
 }
 

@@ -14,6 +14,12 @@
 # define PARSER_H
 # include <stdarg.h>
 
+
+struct ParserState
+{
+	const char *fmt;
+	va_list list;
+};
 int ft_printf(const char *fmt, ...);
 
 #endif
