@@ -22,7 +22,7 @@
 
 int print_val(void *val, enum e_print_type type, t_fmt_pms *fmt_prm)
 {
-	struct formatted_pti formatted;
+	t_formatted_pti formatted;
 	t_pti info;
 	int res;
 	

@@ -44,7 +44,7 @@ int	print_type_info(const t_pti *info)
 	return (print_type_info_chars_count(info));
 }
 
-static int	should_try_to_add_leading_space(const struct formatted_pti *info,\
+static int	should_try_to_add_leading_space(const t_formatted_pti *info,\
 											t_fmt_pms *fmt_prm)
 {
 	if ((fmt_prm->flags & F_SPACE) && info->info->sign != 0 \
@@ -57,7 +57,7 @@ static int	should_try_to_add_leading_space(const struct formatted_pti *info,\
 		return (0);
 }
 
-static void try_to_add_leading_space(struct formatted_pti *info, t_fmt_pms *fmt_prm)
+static void	try_to_add_leading_space(t_formatted_pti *info, t_fmt_pms *fmt_prm)
 {
 	if ((fmt_prm->flags & F_ZERO) && info->info->num_leading_zeros > 0)
 	{
@@ -71,14 +71,15 @@ static void try_to_add_leading_space(struct formatted_pti *info, t_fmt_pms *fmt_
 	}
 }
 
-static int should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm)
+static int	should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm)
 {
-	return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
+	return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 \
+			&& info->num_leading_zeros == 0 && info->leading_zeros_allowed;
 }
 
-struct formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
+t_formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
 {
-	struct formatted_pti res;
+	t_formatted_pti res;
 	int info_len;
 
 	res.num_leading_spaces = 0;
@@ -103,7 +104,7 @@ struct formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
 	return (res);
 }
 
-int print_formatted_type_info(const struct formatted_pti *info)
+int print_formatted_type_info(const t_formatted_pti *info)
 {
 	int res;
 
@@ -116,7 +117,7 @@ int print_formatted_type_info(const struct formatted_pti *info)
 	return (res);
 }
 
-void cleanup_formattedpti(const struct formatted_pti *info)
+void cleanup_formattedpti(const t_formatted_pti *info)
 {
 	if (info->info->free_val_str)
 {

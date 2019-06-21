@@ -62,20 +62,20 @@ typedef struct s_pt_inf
     int leading_zeros_allowed;
 }                   t_pti;
 
-int print_type_info_chars_count(const t_pti *info);
-int print_type_info(const t_pti *info);
 
-struct formatted_pti
+typedef struct s_formatted_pti
 {
     int num_leading_spaces;
     t_pti *info;
     int num_trailing_spaces;
-}
+}                   t_formatted_pti;
 
-;
-struct formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm);
-int print_formatted_type_info(const struct formatted_pti *info);
-void cleanup_formattedpti(const struct formatted_pti *info);
+
+int print_type_info_chars_count(const t_pti *info);
+int print_type_info(const t_pti *info);
+t_formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm);
+int print_formatted_type_info(const t_formatted_pti *info);
+void cleanup_formattedpti(const t_formatted_pti *info);
 void reverse_str(char *str);
 void print_repeated_char(char c, int num);
 
