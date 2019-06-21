@@ -320,7 +320,7 @@ int	print_single_type(struct ParserState *state)
 	{
 		num_printed = 0;
 		while (*state->fmt)
-	{
+		{
 			write(1, state->fmt, 1);
 			++state->fmt;
 			++num_printed;
@@ -331,32 +331,27 @@ int	print_single_type(struct ParserState *state)
 
 int	ft_printf(const char *fmt, ...)
 {
-	struct ParserState state;
+	struct ParserState	state;
+	int					num_printed;
+
 	state.fmt = fmt;
-	int num_printed = 0;
-	
+	num_printed = 0;
 	va_start(state.list, fmt);
-	
 	while (*state.fmt)
-{
+	{
 		if (*state.fmt == '%')
-{
+		{
 			++state.fmt;
 			num_printed += print_single_type(&state);
 		}
-
- else
-{
+		else
+		{
 			write(1, state.fmt, 1);
 			++num_printed;
 			++state.fmt;
 		}
-
 	}
-
-	
 	va_end(state.list);
-	
-	return num_printed;
+	return (num_printed);
 }
 
