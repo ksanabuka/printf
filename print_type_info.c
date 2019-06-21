@@ -13,7 +13,7 @@
 #include "print_type_info.h"
 #include "libft.h"
 
-int	print_type_info_chars_count(const t_pt_inf *info)
+int	print_type_info_chars_count(const t_pti *info)
 {
 	int res;
 
@@ -25,7 +25,7 @@ int	print_type_info_chars_count(const t_pt_inf *info)
 	return (res);
 }
 
-int	print_type_info(const t_pt_inf *info)
+int	print_type_info(const t_pti *info)
 {
 	if (info->sign)
 	{
@@ -71,12 +71,12 @@ static void try_to_add_leading_space(struct formatted_pti *info, t_fmt_pms *fmt_
 	}
 }
 
-static int should_extend_width_by_using_zeros(t_pt_inf *info, t_fmt_pms *fmt_prm)
+static int should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm)
 {
 	return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
 }
 
-struct formatted_pti create_formattedpti(t_pt_inf *info, t_fmt_pms *fmt_prm)
+struct formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm)
 {
 	struct formatted_pti res;
 	int info_len;

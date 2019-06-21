@@ -23,7 +23,7 @@
 int print_val(void *val, enum e_print_type type, t_fmt_pms *fmt_prm)
 {
 	struct formatted_pti formatted;
-	t_pt_inf info;
+	t_pti info;
 	int res;
 	
 	if (type == PT_INT)

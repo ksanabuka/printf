@@ -61,9 +61,9 @@ static void	ull_to_digits(char *digs, unsigned long long v, t_fmt_pms *fmt_prm)
 	reverse_str(digs);
 }
 
-t_pt_inf	create_uintpti(void *val_ptr, t_fmt_pms *fmt_prm)
+t_pti	create_uintpti(void *val_ptr, t_fmt_pms *fmt_prm)
 {
-	t_pt_inf res;
+	t_pti res;
 	int num_extra_zeros;
 	unsigned long long val;
 	int len;

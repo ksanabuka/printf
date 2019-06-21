@@ -60,20 +60,20 @@ typedef struct s_pt_inf
     char *val_str;
     int free_val_str;
     int leading_zeros_allowed;
-}                   t_pt_inf;
+}                   t_pti;
 
-int print_type_info_chars_count(const t_pt_inf *info);
-int print_type_info(const t_pt_inf *info);
+int print_type_info_chars_count(const t_pti *info);
+int print_type_info(const t_pti *info);
 
 struct formatted_pti
 {
     int num_leading_spaces;
-    t_pt_inf *info;
+    t_pti *info;
     int num_trailing_spaces;
 }
 
 ;
-struct formatted_pti create_formattedpti(t_pt_inf *info, t_fmt_pms *fmt_prm);
+struct formatted_pti create_formattedpti(t_pti *info, t_fmt_pms *fmt_prm);
 int print_formatted_type_info(const struct formatted_pti *info);
 void cleanup_formattedpti(const struct formatted_pti *info);
 void reverse_str(char *str);

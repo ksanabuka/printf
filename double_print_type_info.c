@@ -230,9 +230,9 @@ static char *abs_integral_and_fractural_join(long double val, t_fmt_pms *fmt_prm
 }
 
 
-t_pt_inf create_realpti(void *val_ptr, t_fmt_pms *fmt_prm)
+t_pti create_realpti(void *val_ptr, t_fmt_pms *fmt_prm)
 {
-	t_pt_inf res;
+	t_pti res;
 	long double val;
 	
 	val = *(long double *)val_ptr;
