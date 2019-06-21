@@ -13,7 +13,7 @@
 #ifndef PRINT_TYPE_INFO_H
 # define PRINT_TYPE_INFO_H
 
-enum Flags
+enum flags
 {
     F_PLUS = 1 << 0,
     F_MINUS = 1 << 1,

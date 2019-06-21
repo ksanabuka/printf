@@ -178,7 +178,6 @@ char *fracture_part(long double * val, t_fmt_pms *fmt_prm)
 		free(tmp);
 	}
 
-
 	if (ft_strlen(str) < 6 && fmt_prm->flags & F_DIEZ)
 
 {
@@ -192,17 +191,14 @@ char *fracture_part(long double * val, t_fmt_pms *fmt_prm)
 			i++;
 		}
 
-
 		res = str;
 		str = ft_strjoin(str, tmp);
 		free(res);
 		free(tmp);
 	}
 
-
 	return str;
 }
-
 
 
 static char *abs_integral_and_fractural_join(long double val, t_fmt_pms *fmt_prm)
@@ -226,14 +222,12 @@ static char *abs_integral_and_fractural_join(long double val, t_fmt_pms *fmt_prm
 			free(tmp);
 		}
 
-
 			integral_part = digits;
 			digits = ft_strjoin(digits, fracturial_part);
 			free(integral_part);
 			free(fracturial_part);
 			return digits;
 }
-
 
 
 struct pt_inf create_realpti(void *val_ptr, t_fmt_pms *fmt_prm)
@@ -254,9 +248,7 @@ struct pt_inf create_realpti(void *val_ptr, t_fmt_pms *fmt_prm)
 		res.leading_zeros_allowed = 0;
 	}
 
-
 	res.leading_zeros_allowed = 1;
 	return (res);
 }
-
 

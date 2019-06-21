@@ -13,7 +13,7 @@
 #include "print_type_info.h"
 #include "libft.h"
 
-int print_type_info_chars_count(const struct pt_inf *info)
+int	print_type_info_chars_count(const struct pt_inf *info)
 {
 	int res;
 
@@ -25,69 +25,56 @@ int print_type_info_chars_count(const struct pt_inf *info)
 	return (res);
 }
 
-int print_type_info(const struct pt_inf *info)
+int	print_type_info(const struct pt_inf *info)
 {
 	if (info->sign)
-{
+	{
 		write(1, &info->sign, 1);
 	}
-
-
-
 	write(1, info->prfx, ft_strlen(info->prfx));
 	print_repeated_char('0', info->num_leading_zeros);
-
 	if (info->type == PT_CHAR && info->val_str[0] == 0)
-{
+	{
 		write(1, "^@", 2);
 	}
-
- else
-{
+	else
+	{
 		write(1, info->val_str, ft_strlen(info->val_str));
 	}
-
-
-
-	return print_type_info_chars_count(info);
+	return (print_type_info_chars_count(info));
 }
 
-
-static int should_try_to_add_leading_space(const struct Formattedpt_inf *info, t_fmt_pms *fmt_prm)
+static int	should_try_to_add_leading_space(const struct Formattedpt_inf *info,\
+											t_fmt_pms *fmt_prm)
 {
-
-
-	if  ((fmt_prm->flags & F_SPACE) && info->info->sign != 0 && info->info->type == PT_REAL)
+	if ((fmt_prm->flags & F_SPACE) && info->info->sign != 0 \
+		&& info->info->type == PT_REAL)
 		return (0);
-	if ((fmt_prm->flags & F_SPACE) && info->num_leading_spaces == 0 && (fmt_prm->flags & F_MINUS) == 0)
+	if ((fmt_prm->flags & F_SPACE) && info->num_leading_spaces == 0 && \
+		(fmt_prm->flags & F_MINUS) == 0)
 		return (1);
 	else
 		return (0);
 }
 
-
 static void try_to_add_leading_space(struct Formattedpt_inf *info, t_fmt_pms *fmt_prm)
 {
 	if ((fmt_prm->flags & F_ZERO) && info->info->num_leading_zeros > 0)
-{
+	{
 		--info->info->num_leading_zeros;
 		++info->num_leading_spaces;
 	}
 
- else if (!info->info->sign)
-{
+	else if (!info->info->sign)
+	{
 		++info->num_leading_spaces;
 	}
-
-
 }
-
 
 static int should_extend_width_by_using_zeros(struct pt_inf *info, t_fmt_pms *fmt_prm)
 {
 	return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
 }
-
 
 struct Formattedpt_inf create_formattedpti(struct pt_inf *info, t_fmt_pms *fmt_prm)
 {
@@ -110,13 +97,11 @@ struct Formattedpt_inf create_formattedpti(struct pt_inf *info, t_fmt_pms *fmt_p
 	}
 
 
-
 	if (should_try_to_add_leading_space(&res, fmt_prm))
 		try_to_add_leading_space(&res, fmt_prm);
 
 	return (res);
 }
-
 
 int print_formatted_type_info(const struct Formattedpt_inf *info)
 {
@@ -131,7 +116,6 @@ int print_formatted_type_info(const struct Formattedpt_inf *info)
 	return (res);
 }
 
-
 void cleanup_formattedpti(const struct Formattedpt_inf *info)
 {
 	if (info->info->free_val_str)
@@ -139,9 +123,7 @@ void cleanup_formattedpti(const struct Formattedpt_inf *info)
 		free(info->info->val_str);
 	}
 
-
 }
-
 
 
 void reverse_str(char *str)
@@ -162,9 +144,7 @@ void reverse_str(char *str)
 		++i;
 	}
 
-
 }
-
 
 void print_repeated_char(char c, int num)
 {
@@ -177,6 +157,5 @@ void print_repeated_char(char c, int num)
 		write(1, &c, 1);
 		++i;
 	}
-
 
 }

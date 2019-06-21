@@ -46,7 +46,6 @@ int print_val(void *val, enum PrintType type, t_fmt_pms *fmt_prm)
 	return (res);
 }
 
-
 struct ParserState
 {
 	const char *fmt;
@@ -76,10 +75,8 @@ int read_flags(struct ParserState *state)
 		++state->fmt;
 	}
 
-
 	return flags;
 }
-
 
 int read_width_or_preci_val(struct ParserState *state)
 {
@@ -92,7 +89,6 @@ int read_width_or_preci_val(struct ParserState *state)
 		w = va_arg(state->list, int);
 	}
 
-
 	else
 
 {
@@ -103,19 +99,15 @@ int read_width_or_preci_val(struct ParserState *state)
 			++state->fmt;
 		}
 
-
 	}
-
 
 	return w;
 }
-
 
 int read_width(struct ParserState *state)
 {
 	return read_width_or_preci_val(state);
 }
-
 
 int read_preci(struct ParserState *state)
 {
@@ -127,10 +119,8 @@ int read_preci(struct ParserState *state)
 		p = read_width_or_preci_val(state);
 	}
 
-
 	return p;
 }
-
 
 enum LenModifier read_len_modifier(struct ParserState *state)
 {
@@ -142,7 +132,6 @@ enum LenModifier read_len_modifier(struct ParserState *state)
 		return state->fmt[1] == 'l' || state->fmt[1] == 'L' ? LM_LL : LM_L;
 	}
 
-
 	if (state->fmt[0] == 'h')
 		return state->fmt[1] == 'h' ? LM_HH : LM_H;
 	if (state->fmt[0] == 'z')
@@ -153,7 +142,6 @@ enum LenModifier read_len_modifier(struct ParserState *state)
 			return LM_LL;
 	}
 
-
 	if (state->fmt[0] == 'j')
 {
 		if (sizeof(intmax_t) == sizeof(long))
@@ -162,11 +150,9 @@ enum LenModifier read_len_modifier(struct ParserState *state)
 			return LM_LL;
 	}
 
-
 	
 	return LM_DEFAULT;
 }
-
 
 static t_fmt_pms read_format_params(struct ParserState *state, int int_base, int is_prfx_uppercase)
 {
@@ -180,7 +166,6 @@ static t_fmt_pms read_format_params(struct ParserState *state, int int_base, int
 	res.is_prfx_uppercase = is_prfx_uppercase;
 	return (res);
 }
-
 
 long long read_int_val(struct ParserState *state, enum LenModifier lenModifier)
 {
@@ -201,7 +186,6 @@ long long read_int_val(struct ParserState *state, enum LenModifier lenModifier)
 	return val;
 }
 
-
 int print_int(struct ParserState *state)
 {
 	t_fmt_pms params;
@@ -210,7 +194,6 @@ int print_int(struct ParserState *state)
 	val = read_int_val(state, params.lenModifier);
 	return print_val(&val, PT_INT, &params);
 }
-
 
 unsigned long long read_uint_val(struct ParserState *state, enum LenModifier lenModifier)
 {
@@ -232,7 +215,6 @@ unsigned long long read_uint_val(struct ParserState *state, enum LenModifier len
 	return val;
 }
 
-
 long double read_real_val(struct ParserState *state, enum LenModifier lenModifier)
 {
 	long double val;
@@ -244,7 +226,6 @@ long double read_real_val(struct ParserState *state, enum LenModifier lenModifie
 		val = va_arg(state->list, double);
 	return val;
 }
-
 
 
 int print_uint(struct ParserState *state, int base, int uppercase, int always_ull, int undo_flags)
@@ -259,7 +240,6 @@ int print_uint(struct ParserState *state, int base, int uppercase, int always_ul
 	return print_val(&val, PT_UINT, &params);
 }
 
-
 int print_char(struct ParserState *state)
 {
 	t_fmt_pms params;
@@ -269,7 +249,6 @@ int print_char(struct ParserState *state)
 	c = (char)va_arg(state->list, int);
 	return print_val(&c, PT_CHAR, &params);
 }
-
 
 int print_str(struct ParserState *state, char *val)
 {
@@ -281,12 +260,10 @@ int print_str(struct ParserState *state, char *val)
 		params.preci = -1;
 	}
 
-
 	else
 		val = va_arg(state->list, char *);
 	return print_val(val, PT_STR, &params);
 }
-
 
 int print_ptr(struct ParserState *state)
 {
@@ -301,7 +278,6 @@ int print_ptr(struct ParserState *state)
 	return print_val(&val, PT_UINT, &params);
 }
 
-
 int print_real(struct ParserState *state)
 {
 	t_fmt_pms params;
@@ -310,7 +286,6 @@ int print_real(struct ParserState *state)
 	val = read_real_val(state, params.lenModifier);
 	return print_val(&val, PT_REAL, &params);
 }
-
 
 int try_print_type(struct ParserState *state, const char *pos)
 {
@@ -338,7 +313,6 @@ int try_print_type(struct ParserState *state, const char *pos)
 	return numPrinted;
 }
 
-
 int print_single_type(struct ParserState *state)
 {
 	const char *pos;
@@ -351,7 +325,6 @@ int print_single_type(struct ParserState *state)
 		numPrinted = try_print_type(state, pos);
 		++pos;
 	}
-
 
 	if (numPrinted >= 0)
 		state->fmt = pos;
@@ -367,13 +340,10 @@ int print_single_type(struct ParserState *state)
 			++numPrinted;
 		}
 
-
 	}
-
 
 	return numPrinted;
 }
-
 
 int ft_printf(const char *fmt, ...)
 {
@@ -398,14 +368,11 @@ int ft_printf(const char *fmt, ...)
 			++state.fmt;
 		}
 
-
 	}
-
 
 	
 	va_end(state.list);
 	
 	return numPrinted;
 }
-
 

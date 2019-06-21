@@ -40,4 +40,3 @@ struct  pt_inf	create_strpti(void *val, t_fmt_pms *fmt_prm)
 	return (res);
 }
 
-
