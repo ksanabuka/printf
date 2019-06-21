@@ -13,7 +13,7 @@
 #include "print_type_info.h"
 #include "libft.h"
 
-int	print_type_info_chars_count(const struct pt_inf *info)
+int	print_type_info_chars_count(const t_pt_inf *info)
 {
 	int res;
 
@@ -25,7 +25,7 @@ int	print_type_info_chars_count(const struct pt_inf *info)
 	return (res);
 }
 
-int	print_type_info(const struct pt_inf *info)
+int	print_type_info(const t_pt_inf *info)
 {
 	if (info->sign)
 	{
@@ -44,7 +44,7 @@ int	print_type_info(const struct pt_inf *info)
 	return (print_type_info_chars_count(info));
 }
 
-static int	should_try_to_add_leading_space(const struct Formattedpt_inf *info,\
+static int	should_try_to_add_leading_space(const struct formatted_pti *info,\
 											t_fmt_pms *fmt_prm)
 {
 	if ((fmt_prm->flags & F_SPACE) && info->info->sign != 0 \
@@ -57,7 +57,7 @@ static int	should_try_to_add_leading_space(const struct Formattedpt_inf *info,\
 		return (0);
 }
 
-static void try_to_add_leading_space(struct Formattedpt_inf *info, t_fmt_pms *fmt_prm)
+static void try_to_add_leading_space(struct formatted_pti *info, t_fmt_pms *fmt_prm)
 {
 	if ((fmt_prm->flags & F_ZERO) && info->info->num_leading_zeros > 0)
 	{
@@ -71,14 +71,14 @@ static void try_to_add_leading_space(struct Formattedpt_inf *info, t_fmt_pms *fm
 	}
 }
 
-static int should_extend_width_by_using_zeros(struct pt_inf *info, t_fmt_pms *fmt_prm)
+static int should_extend_width_by_using_zeros(t_pt_inf *info, t_fmt_pms *fmt_prm)
 {
 	return (fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 && info->num_leading_zeros == 0 && info->leading_zeros_allowed;
 }
 
-struct Formattedpt_inf create_formattedpti(struct pt_inf *info, t_fmt_pms *fmt_prm)
+struct formatted_pti create_formattedpti(t_pt_inf *info, t_fmt_pms *fmt_prm)
 {
-	struct Formattedpt_inf res;
+	struct formatted_pti res;
 	int info_len;
 
 	res.num_leading_spaces = 0;
@@ -103,7 +103,7 @@ struct Formattedpt_inf create_formattedpti(struct pt_inf *info, t_fmt_pms *fmt_p
 	return (res);
 }
 
-int print_formatted_type_info(const struct Formattedpt_inf *info)
+int print_formatted_type_info(const struct formatted_pti *info)
 {
 	int res;
 
@@ -116,7 +116,7 @@ int print_formatted_type_info(const struct Formattedpt_inf *info)
 	return (res);
 }
 
-void cleanup_formattedpti(const struct Formattedpt_inf *info)
+void cleanup_formattedpti(const struct formatted_pti *info)
 {
 	if (info->info->free_val_str)
 {

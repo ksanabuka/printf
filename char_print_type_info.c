@@ -13,9 +13,9 @@
 #include "char_print_type_info.h"
 #include "libft.h"
 
-struct pt_inf	create_charpti(void *val, t_fmt_pms *fmt_prm)
+t_pt_inf	create_charpti(void *val, t_fmt_pms *fmt_prm)
 {
-	struct pt_inf res;
+	t_pt_inf res;
 
 	fmt_prm = 0;
 	res.type = PT_CHAR;

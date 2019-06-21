@@ -51,7 +51,7 @@ enum e_print_type
     PT_CHAR = 4
 };
 
-struct pt_inf
+typedef struct s_pt_inf
 {
     enum e_print_type type;
     char sign;
@@ -60,20 +60,22 @@ struct pt_inf
     char *val_str;
     int free_val_str;
     int leading_zeros_allowed;
-};
-int print_type_info_chars_count(const struct pt_inf *info);
-int print_type_info(const struct pt_inf *info);
-struct Formattedpt_inf
+}                   t_pt_inf;
+
+int print_type_info_chars_count(const t_pt_inf *info);
+int print_type_info(const t_pt_inf *info);
+
+struct formatted_pti
 {
     int num_leading_spaces;
-    struct pt_inf *info;
+    t_pt_inf *info;
     int num_trailing_spaces;
 }
 
 ;
-struct Formattedpt_inf create_formattedpti(struct pt_inf *info, t_fmt_pms *fmt_prm);
-int print_formatted_type_info(const struct Formattedpt_inf *info);
-void cleanup_formattedpti(const struct Formattedpt_inf *info);
+struct formatted_pti create_formattedpti(t_pt_inf *info, t_fmt_pms *fmt_prm);
+int print_formatted_type_info(const struct formatted_pti *info);
+void cleanup_formattedpti(const struct formatted_pti *info);
 void reverse_str(char *str);
 void print_repeated_char(char c, int num);
 

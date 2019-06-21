@@ -46,9 +46,9 @@ static void	abs_ll_to_digits(char *digits, long long val, int preci)
 	reverse_str(digits);
 }
 
-struct pt_inf	create_intpti(void *val_ptr, t_fmt_pms *fmt_prm)
+t_pt_inf	create_intpti(void *val_ptr, t_fmt_pms *fmt_prm)
 {
-	struct pt_inf res;
+	t_pt_inf res;
 	long long val;
 
 	val = *(long long *)val_ptr;

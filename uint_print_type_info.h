@@ -14,6 +14,6 @@
 # define UINT_PRINT_TYPE_INFO_H
 # include "print_type_info.h"
 
-struct pt_inf create_uintpti(void *val_ptr, t_fmt_pms *fmt_prm);
+t_pt_inf create_uintpti(void *val_ptr, t_fmt_pms *fmt_prm);
 
 #endif

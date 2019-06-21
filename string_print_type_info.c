@@ -13,11 +13,11 @@
 #include "string_print_type_info.h"
 #include "libft.h"
 
-struct  pt_inf	create_strpti(void *val, t_fmt_pms *fmt_prm)
+t_pt_inf	create_strpti(void *val, t_fmt_pms *fmt_prm)
 {
 	char *str;
 	int l;
-	struct pt_inf res;
+	t_pt_inf res;
 
 	str = val ? (char *)val : "(null)";
 	l = (int)ft_strlen(str);

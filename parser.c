@@ -22,8 +22,8 @@
 
 int print_val(void *val, enum e_print_type type, t_fmt_pms *fmt_prm)
 {
-	struct Formattedpt_inf formatted;
-	struct pt_inf info;
+	struct formatted_pti formatted;
+	t_pt_inf info;
 	int res;
 	
 	if (type == PT_INT)
