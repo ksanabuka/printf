@@ -45,7 +45,7 @@ int			print_val(void *val, enum e_print_type type, t_fmt_pms *fmt_prm)
 	return (res);
 }
 
-int			read_flags(struct ParserState *state)
+int			read_flags(t_parser_state *state)
 {
 	int flags;
 
@@ -69,7 +69,7 @@ int			read_flags(struct ParserState *state)
 	return (flags);
 }
 
-int			read_width_or_preci_val(struct ParserState *state)
+int			read_width_or_preci_val(t_parser_state *state)
 {
 	int w;
 
@@ -90,12 +90,12 @@ int			read_width_or_preci_val(struct ParserState *state)
 	return (w);
 }
 
-int			read_width(struct ParserState *state)
+int			read_width(t_parser_state *state)
 {
 	return (read_width_or_preci_val(state));
 }
 
-int			read_preci(struct ParserState *state)
+int			read_preci(t_parser_state *state)
 {
 	int p;
 
@@ -108,7 +108,7 @@ int			read_preci(struct ParserState *state)
 	return p;
 }
 
-enum e_len_modifier	read_len_modifier(struct ParserState *state)
+enum e_len_modifier	read_len_modifier(t_parser_state *state)
 {
 	if (state->fmt[0] == 'l' || state->fmt[0] == 'L')
 	{
@@ -135,7 +135,7 @@ enum e_len_modifier	read_len_modifier(struct ParserState *state)
 	return (LM_DEFAULT);
 }
 
-static t_fmt_pms	read_format_params(struct ParserState *state,\
+static t_fmt_pms	read_format_params(t_parser_state *state,\
 					int int_base, int is_prfx_uppercase)
 {
 	t_fmt_pms res;
@@ -149,7 +149,7 @@ static t_fmt_pms	read_format_params(struct ParserState *state,\
 	return (res);
 }
 
-long long	read_int_val(struct ParserState *state,\
+long long	read_int_val(t_parser_state *state,\
 			enum e_len_modifier len_modifier)
 {
 	long long val;
@@ -168,7 +168,7 @@ long long	read_int_val(struct ParserState *state,\
 	return (val);
 }
 
-int	print_int(struct ParserState *state)
+int	print_int(t_parser_state *state)
 {
 	t_fmt_pms params;
 	long long val;
@@ -178,7 +178,7 @@ int	print_int(struct ParserState *state)
 	return (print_val(&val, PT_INT, &params));
 }
 
-unsigned long long	read_uint_val(struct ParserState *state,\
+unsigned long long	read_uint_val(t_parser_state *state,\
 					enum e_len_modifier len_modifier)
 {
 	unsigned long long	val;
@@ -197,7 +197,7 @@ unsigned long long	read_uint_val(struct ParserState *state,\
 	return (val);
 }
 
-long double	read_real_val(struct ParserState *state,\
+long double	read_real_val(t_parser_state *state,\
 							enum e_len_modifier len_modifier)
 {
 	long double val;
@@ -210,7 +210,7 @@ long double	read_real_val(struct ParserState *state,\
 	return (val);
 }
 
-int	print_uint(struct ParserState *state, int base,
+int	print_uint(t_parser_state *state, int base,
 				int uppercase, int always_ull, int undo_flags)
 {
 	t_fmt_pms			params;
@@ -224,7 +224,7 @@ int	print_uint(struct ParserState *state, int base,
 	return (print_val(&val, PT_UINT, &params));
 }
 
-int	print_char(struct ParserState *state)
+int	print_char(t_parser_state *state)
 {
 	t_fmt_pms	params;
 	char		c;
@@ -235,7 +235,7 @@ int	print_char(struct ParserState *state)
 	return (print_val(&c, PT_CHAR, &params));
 }
 
-int	print_str(struct ParserState *state, char *val)
+int	print_str(t_parser_state *state, char *val)
 {
 	t_fmt_pms params;
 
@@ -250,7 +250,7 @@ int	print_str(struct ParserState *state, char *val)
 	return (print_val(val, PT_STR, &params));
 }
 
-int	print_ptr(struct ParserState *state)
+int	print_ptr(t_parser_state *state)
 {
 	t_fmt_pms			params;
 	unsigned long long	val;
@@ -264,7 +264,7 @@ int	print_ptr(struct ParserState *state)
 	return (print_val(&val, PT_UINT, &params));
 }
 
-int	print_real(struct ParserState *state)
+int	print_real(t_parser_state *state)
 {
 	t_fmt_pms		params;
 	long double		val;
@@ -274,7 +274,7 @@ int	print_real(struct ParserState *state)
 	return (print_val(&val, PT_REAL, &params));
 }
 
-int	try_print_type(struct ParserState *state, const char *pos)
+int	try_print_type(t_parser_state *state, const char *pos)
 {
 	int num_printed;
 
@@ -302,7 +302,7 @@ int	try_print_type(struct ParserState *state, const char *pos)
 	return (num_printed);
 }
 
-int	print_single_type(struct ParserState *state)
+int	print_single_type(t_parser_state *state)
 {
 	const char	*pos;
 	int			num_printed;
@@ -331,7 +331,7 @@ int	print_single_type(struct ParserState *state)
 
 int	ft_printf(const char *fmt, ...)
 {
-	struct ParserState	state;
+	t_parser_state	state;
 	int					num_printed;
 
 	state.fmt = fmt;

@@ -15,11 +15,12 @@
 # include <stdarg.h>
 
 
-struct ParserState
+typedef struct s_parser_state
 {
 	const char *fmt;
 	va_list list;
-};
+}t_parser_state;
+
 int ft_printf(const char *fmt, ...);
 
 #endif
