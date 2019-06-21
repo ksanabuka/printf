@@ -25,8 +25,8 @@ static char	get_sign(long long val, t_fmt_pms *fmt_prm)
 
 static void	abs_ll_to_digits(char *digits, long long val, int preci)
 {
-	int i;
-	long long d;
+	int			i;
+	long long	d;
 
 	i = 0;
 	if (val == 0 && preci != 0)
@@ -46,10 +46,10 @@ static void	abs_ll_to_digits(char *digits, long long val, int preci)
 	reverse_str(digits);
 }
 
-t_pti	create_intpti(void *val_ptr, t_fmt_pms *fmt_prm)
+t_pti		create_intpti(void *val_ptr, t_fmt_pms *fmt_prm)
 {
-	t_pti res;
-	long long val;
+	t_pti		res;
+	long long	val;
 
 	val = *(long long *)val_ptr;
 	res.type = PT_INT;

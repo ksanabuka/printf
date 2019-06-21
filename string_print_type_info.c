@@ -15,9 +15,9 @@
 
 t_pti	create_strpti(void *val, t_fmt_pms *fmt_prm)
 {
-	char *str;
-	int l;
-	t_pti res;
+	char	*str;
+	int		l;
+	t_pti	res;
 
 	str = val ? (char *)val : "(null)";
 	l = (int)ft_strlen(str);
@@ -39,4 +39,3 @@ t_pti	create_strpti(void *val, t_fmt_pms *fmt_prm)
 	res.leading_zeros_allowed = 0;
 	return (res);
 }
-
