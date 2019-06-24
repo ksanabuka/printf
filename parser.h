@@ -34,15 +34,11 @@ int					print_val(void *val, enum e_print_type type,\
 					t_fmt_pms *fmt_prm);
 t_fmt_pms			read_format_params(t_parser_state *state,\
 					int int_base, int is_prfx_uppercase);
-
-
 int					read_flags(t_parser_state *state);
 int					read_width_or_preci_val(t_parser_state *state);
 int					read_width(t_parser_state *state);
 int					read_preci(t_parser_state *state);
 enum e_len_modifier	read_len_modifier(t_parser_state *state);
-
-
 long long			read_int_val(t_parser_state *state,\
 					enum e_len_modifier len_modifier);
 unsigned long long	read_uint_val(t_parser_state *state,\
@@ -50,8 +46,6 @@ unsigned long long	read_uint_val(t_parser_state *state,\
 long double			read_real_val(t_parser_state *state,\
 					enum e_len_modifier len_modifier);
 int					print_real(t_parser_state *state);
-
-
 int					print_int(t_parser_state *state);
 int					print_uint(t_parser_state *state, int base,
 					int uppercase, int always_ull, int undo_flags);

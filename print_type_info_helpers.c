@@ -20,7 +20,6 @@ void	try_to_add_leading_space(t_formatted_pti *info, t_fmt_pms *fmt_prm)
 		--info->info->num_leading_zeros;
 		++info->num_leading_spaces;
 	}
-
 	else if (!info->info->sign)
 	{
 		++info->num_leading_spaces;

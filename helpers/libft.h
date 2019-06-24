@@ -18,8 +18,6 @@
 # include <stdarg.h>
 # include <stdlib.h>
 
-
-
 int					ft_countwords(char const *str, char c);
 void				ft_bzero(void *s, size_t n);
 int					ft_iswhitespace(int c);
