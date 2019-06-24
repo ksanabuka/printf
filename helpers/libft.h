@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/24 15:33:53 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/24 15:34:07 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
@@ -31,4 +43,4 @@ char				*ft_strncpy(char *dst, const char *src, size_t n);
 char				*ft_strnew(size_t size);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 
-#endif // LIBFT_H
+#endif

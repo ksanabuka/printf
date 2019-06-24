@@ -6,8 +6,7 @@
 //  Copyright © 2019 Oksana Buksha. All rights reserved.
 
 
-//gcc -Wall -Wextra -Werror -g  -I. -I/helpers helpers/*.c *print_type_info.c main.c parser.c
-
+// gcc -Wall -Wextra -g  -I. -I/helpers helpers/*.c *print_type_info*.c main.c parse*.c
 
 // gcc -Wall -Wextra -g -fsanitize=address -L. -I./helpers -lftprintf *print_type_info.c main.c parser.c -o aa
 
@@ -33,10 +32,10 @@ int main(int argc, const char * argv[]) {
  //  free(array);
 
  //  array[4] = 7;
- // // system("leaks a.out");
+ 		//system("leaks a.out");
 
-		printf("%#c\n", 0);
-		ft_printf("%#c\n\n", 0);
+		printf("%#f\n", 0);
+		ft_printf("%#f\n\n", 0);
 
 		printf("%.2f\n", 0.9375);
 		ft_printf("%.2f\n\n", 0.9375); 
@@ -44,9 +43,11 @@ int main(int argc, const char * argv[]) {
 		printf ("floats: %4.2f %+.0e %E \n", 3.1416, 3.1416, 3.1416);
 		ft_printf ("floats: %4.2f %+.0e %E \n\n", 3.1416, 3.1416, 3.1416);
 
-		printf ("floats: %4.2    %f  %.f     %5.6f   %.0f    %.0f   %f \n", 3.1416, 3.1416, 3.1416, 0, 0.01, 0, 1416);
-		ft_printf ("floats: %4.2    %f  %.f     %5.6f   %.0f    %.0f   %f \n", 3.1416, 3.1416, 3.1416, 0, 0.01, 0, 1416);
-		system("leaks a.out");
+
+		printf ("| %f \n", 1416.0);
+		ft_printf ("| %f \n", 1416.0);
+
+
 
 	// ft_printf("%f\n", 4.3);
 //    char *string = "hello worlds";

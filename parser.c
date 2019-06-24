@@ -12,7 +12,6 @@
 
 #include <stdarg.h>
 #include <unistd.h>
-#include "ft_printf.h"
 #include "libft.h"
 #include "double_print_type_info.h"
 #include "int_print_type_info.h"

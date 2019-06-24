@@ -13,7 +13,8 @@
 NAME	:=	libftprintf.a
 SOURCES	:=	char_print_type_info.c double_print_type_info.c int_print_type_info.c \
 			parser.c print_type_info.c string_print_type_info.c uint_print_type_info.c \
-			print_type_info_helpers.c \
+			print_type_info_helpers.c double_print_type_info_helper1.c \
+			double_print_type_info_helper2.c double_print_type_info_helper3.c \
 			parser_helper1.c parser_helper2.c parser_helper3.c \
 			helpers/ft_bzero.c helpers/ft_countwords.c \
 			helpers/ft_isdigit.c helpers/ft_iswhitespace.c \
