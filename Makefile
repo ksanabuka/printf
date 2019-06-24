@@ -28,8 +28,6 @@ SOURCES	:=	char_print_type_info.c double_print_type_info.c int_print_type_info.c
 			helpers/ft_strnew.c \
 			helpers/ft_strsub.c
 
-
-
 OBJECTS	:=	$(SOURCES:.c=.o)
 OBJECTS	:=	$(subst helpers/,,$(OBJECTS))
 all:		$(NAME)

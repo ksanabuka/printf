@@ -13,7 +13,7 @@
 #include "print_type_info.h"
 #include "libft.h"
 
-int	print_type_info_chars_count(const t_pti *info)
+int				print_type_info_chars_count(const t_pti *info)
 {
 	int res;
 
@@ -25,7 +25,7 @@ int	print_type_info_chars_count(const t_pti *info)
 	return (res);
 }
 
-int	should_try_to_add_leading_space(const t_formatted_pti *info,\
+int				should_try_to_add_leading_space(const t_formatted_pti *info,\
 											t_fmt_pms *fmt_prm)
 {
 	if ((fmt_prm->flags & F_SPACE) && info->info->sign != 0 \
@@ -38,7 +38,7 @@ int	should_try_to_add_leading_space(const t_formatted_pti *info,\
 		return (0);
 }
 
-int	print_type_info(const t_pti *info)
+int				print_type_info(const t_pti *info)
 {
 	if (info->sign)
 	{
@@ -59,8 +59,8 @@ int	print_type_info(const t_pti *info)
 
 t_formatted_pti	create_formatted_pti(t_pti *info, t_fmt_pms *fmt_prm)
 {
-	t_formatted_pti res;
-	int info_len;
+	t_formatted_pti	res;
+	int				info_len;
 
 	res.num_leading_spaces = 0;
 	res.info = info;
@@ -80,7 +80,7 @@ t_formatted_pti	create_formatted_pti(t_pti *info, t_fmt_pms *fmt_prm)
 	return (res);
 }
 
-int	print_formatted_type_info(const t_formatted_pti *info)
+int				print_formatted_type_info(const t_formatted_pti *info)
 {
 	int res;
 

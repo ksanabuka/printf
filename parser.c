@@ -59,7 +59,7 @@ t_fmt_pms	read_format_params(t_parser_state *state,\
 	return (res);
 }
 
-int	try_print_type(t_parser_state *state, const char *pos)
+int			try_print_type(t_parser_state *state, const char *pos)
 {
 	int num_printed;
 
@@ -87,7 +87,7 @@ int	try_print_type(t_parser_state *state, const char *pos)
 	return (num_printed);
 }
 
-int	print_single_type(t_parser_state *state)
+int			print_single_type(t_parser_state *state)
 {
 	const char	*pos;
 	int			num_printed;
@@ -114,9 +114,9 @@ int	print_single_type(t_parser_state *state)
 	return (num_printed);
 }
 
-int	ft_printf(const char *fmt, ...)
+int			ft_printf(const char *fmt, ...)
 {
-	t_parser_state	state;
+	t_parser_state		state;
 	int					num_printed;
 
 	state.fmt = fmt;

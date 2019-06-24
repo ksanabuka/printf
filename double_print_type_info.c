@@ -13,7 +13,7 @@
 #include "double_print_type_info.h"
 #include "libft.h"
 
-static char	get_sign(long double val, t_fmt_pms *fmt_prm)
+char	get_sign(long double val, t_fmt_pms *fmt_prm)
 {
 	if (val < 0)
 	{
@@ -22,11 +22,11 @@ static char	get_sign(long double val, t_fmt_pms *fmt_prm)
 	return (fmt_prm->flags & F_PLUS ? '+' : 0);
 }
 
-char*	abs_integral_quotient_to_digits(char *digits, long double val)
+char	*abs_integral_quotient_to_digits(char *digits, long double val)
 {
-	int i;
-	long long integral_part;
-	char d;
+	int			i;
+	long long	integral_part;
+	char		d;
 
 	integral_part = (long long)val;
 	if (integral_part == 0)
@@ -48,6 +48,27 @@ char*	abs_integral_quotient_to_digits(char *digits, long double val)
 	reverse_str(digits);
 	return (digits);
 }
+
+static int		helper_trying_to_add_1_to_grade(char *s, int i)
+{
+	while (i >= 0)
+	{
+		if (s[i] < '9')
+		{
+			s[i] = s[i] + 1;
+			return (1);
+		}
+		else
+		{
+			s[i] = '0';
+			if (i == 0 && s[i] == '0')
+				return (0);
+			i--;
+		}
+	}
+	return (0);
+}
+
 static int	rounding_five_nine(char *s, int i)
 {
 	if (s[i] >= '5' && s[i] <= '9' && i - 1 >= 0)
@@ -58,31 +79,18 @@ static int	rounding_five_nine(char *s, int i)
 		{
 			s[i - 1] = '0';
 			i = i - 2;
-			while (i >= 0)
-			{
-				if (s[i] < '9')
-				{
-					s[i] = s[i] + 1;
-					break ;
-				}
-				else
-				{
-					s[i] = '0';
-					if (i == 0 && s[i] == '0')
-						return (0);
-					i--;
-				}
-			}
+			if (!helper_trying_to_add_1_to_grade(s, i))
+				return (0);
 		}
 	}
 	return (1);
 }
 
-static	char*	rounding(char* s)
+char	*rounding(char *s)
 {
-	int len;
-	int i;
-	char *new;
+	int		len;
+	int		i;
+	char	*new;
 
 	len = ft_strlen(s);
 	i = len - 1;
@@ -99,10 +107,10 @@ static	char*	rounding(char* s)
 	return (new);
 }
 
-char* create_str_with_0(int len)
+char	*create_str_with_0(int len)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	str = ft_strnew(len);
 	i = 0;
@@ -114,7 +122,7 @@ char* create_str_with_0(int len)
 	return (str);
 }
 
-static void	helper_itoa(long double aftercoma, char * str, t_fmt_pms *fmt_prm)
+void	helper_itoa(long double aftercoma, char *str, t_fmt_pms *fmt_prm)
 {
 	int i;
 
@@ -134,7 +142,7 @@ static void	helper_itoa(long double aftercoma, char * str, t_fmt_pms *fmt_prm)
 	}
 }
 
-static char	*he_adj_fract0(long double * val, t_fmt_pms *fmt_prm)
+char	*he_adj_fract0(long double *val, t_fmt_pms *fmt_prm)
 {
 	*val = *val + 1;
 	if (fmt_prm->preci == 0)
@@ -147,7 +155,9 @@ static char	*he_adj_fract0(long double * val, t_fmt_pms *fmt_prm)
 		return (0);
 }
 
-char *fracture_part(long double * val, t_fmt_pms *fmt_prm)
+
+
+char *fracture_part(long double *val, t_fmt_pms *fmt_prm)
 {
 	char *res;
 	char *tmp;
@@ -179,29 +189,26 @@ char *fracture_part(long double * val, t_fmt_pms *fmt_prm)
 	}
 
 	if (ft_strlen(str) < 6 && fmt_prm->flags & F_DIEZ)
-
-{
+	{
 	   int len = 6 - ft_strlen(str);
 		tmp = ft_strnew(len);
 		i = 0;
 		while (i < len)
-	
-{
+		{
 			tmp[i] = '0';
 			i++;
 		}
-
 		res = str;
 		str = ft_strjoin(str, tmp);
 		free(res);
 		free(tmp);
 	}
 
-	return str;
+	return (str);
 }
 
 
-static char *abs_integral_and_fractural_join(long double val, t_fmt_pms *fmt_prm)
+char *abs_integral_and_fractural_join(long double val, t_fmt_pms *fmt_prm)
 
 {
 		char *tmp;
@@ -213,7 +220,7 @@ static char *abs_integral_and_fractural_join(long double val, t_fmt_pms *fmt_prm
 		integral_part = abs_integral_quotient_to_digits(digits, val);
 		if (fracturial_part[0] != '\0' && fmt_prm->preci != 0)
 	
-{
+		{
 			tmp = ft_strnew(1);
 			tmp[0] = '.';
 			integral_part = digits;
@@ -244,7 +251,7 @@ t_pti create_realpti(void *val_ptr, t_fmt_pms *fmt_prm)
 	ft_strcpy(res.prfx, "");
 	res.num_leading_zeros = 0;
 	if (fmt_prm->flags & F_MINUS && fmt_prm->flags & F_ZERO)
-{
+	{
 		res.leading_zeros_allowed = 0;
 	}
 

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_helper2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/24 09:54:29 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/24 09:54:32 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
-long long	read_int_val(t_parser_state *state,\
-			enum e_len_modifier len_modifier)
+long long			read_int_val(t_parser_state *state,\
+					enum e_len_modifier len_modifier)
 {
 	long long val;
 
@@ -38,8 +50,8 @@ unsigned long long	read_uint_val(t_parser_state *state,\
 	return (val);
 }
 
-long double	read_real_val(t_parser_state *state,\
-							enum e_len_modifier len_modifier)
+long double			read_real_val(t_parser_state *state,\
+					enum e_len_modifier len_modifier)
 {
 	long double val;
 
@@ -51,7 +63,7 @@ long double	read_real_val(t_parser_state *state,\
 	return (val);
 }
 
-int	print_real(t_parser_state *state)
+int					print_real(t_parser_state *state)
 {
 	t_fmt_pms		params;
 	long double		val;

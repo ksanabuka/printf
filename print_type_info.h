@@ -76,9 +76,11 @@ int						print_formatted_type_info(const t_formatted_pti *info);
 void					cleanup_formattedpti(const t_formatted_pti *info);
 void					reverse_str(char *str);
 void					print_repeated_char(char c, int num);
-int						should_try_to_add_leading_space(const t_formatted_pti *info, t_fmt_pms *fmt_prm);
-void					try_to_add_leading_space(t_formatted_pti *info, t_fmt_pms *fmt_prm);
-int						should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm);
-
+int						should_try_to_add_leading_space(const \
+						t_formatted_pti *info, t_fmt_pms *fmt_prm);
+void					try_to_add_leading_space(t_formatted_pti *info,\
+						t_fmt_pms *fmt_prm);
+int						should_extend_width_by_using_zeros(t_pti *info,\
+						t_fmt_pms *fmt_prm);
 
 #endif

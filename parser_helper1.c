@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_helper1.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/24 09:54:35 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/24 09:54:38 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
-int			read_flags(t_parser_state *state)
+int					read_flags(t_parser_state *state)
 {
 	int flags;
 
@@ -24,7 +36,7 @@ int			read_flags(t_parser_state *state)
 	return (flags);
 }
 
-int			read_width_or_preci_val(t_parser_state *state)
+int					read_width_or_preci_val(t_parser_state *state)
 {
 	int w;
 
@@ -45,12 +57,12 @@ int			read_width_or_preci_val(t_parser_state *state)
 	return (w);
 }
 
-int			read_width(t_parser_state *state)
+int					read_width(t_parser_state *state)
 {
 	return (read_width_or_preci_val(state));
 }
 
-int			read_preci(t_parser_state *state)
+int					read_preci(t_parser_state *state)
 {
 	int p;
 
@@ -60,7 +72,7 @@ int			read_preci(t_parser_state *state)
 		++state->fmt;
 		p = read_width_or_preci_val(state);
 	}
-	return p;
+	return (p);
 }
 
 enum e_len_modifier	read_len_modifier(t_parser_state *state)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_type_info_helpers.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obuksha <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/24 09:46:49 by obuksha           #+#    #+#             */
+/*   Updated: 2019/06/24 09:47:01 by obuksha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "print_type_info.h"
 #include "libft.h"
 
@@ -15,7 +27,7 @@ void	try_to_add_leading_space(t_formatted_pti *info, t_fmt_pms *fmt_prm)
 	}
 }
 
-int	should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm)
+int		should_extend_width_by_using_zeros(t_pti *info, t_fmt_pms *fmt_prm)
 {
 	return ((fmt_prm->flags & F_ZERO) && (fmt_prm->flags & F_MINUS) == 0 \
 			&& info->num_leading_zeros == 0 && info->leading_zeros_allowed);
@@ -31,9 +43,9 @@ void	cleanup_formattedpti(const t_formatted_pti *info)
 
 void	reverse_str(char *str)
 {
-	int len;
-	int i;
-	char c;
+	int		len;
+	int		i;
+	char	c;
 
 	len = (int)ft_strlen(str);
 	i = 0;
