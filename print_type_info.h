@@ -19,7 +19,8 @@ enum					e_flags
 	F_MINUS = 1 << 1,
 	F_ZERO = 1 << 2,
 	F_SPACE = 1 << 3,
-	F_DIEZ = 1 << 4
+	F_DIEZ = 1 << 4,
+    F_ALWAYS_PRINT_PREFIX = 1 << 5
 };
 
 enum					e_len_modifier
@@ -36,6 +37,7 @@ typedef struct			s_fmt_pms
 {
 	int					flags;
 	int					width;
+    int                 width_wildcard;
 	int					preci;
 	enum e_len_modifier	len_modifier;
 	int					int_base;

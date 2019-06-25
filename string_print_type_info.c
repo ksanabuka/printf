@@ -36,6 +36,6 @@ t_pti	create_strpti(void *val, t_fmt_pms *fmt_prm)
 		res.val_str = str;
 		res.free_val_str = 0;
 	}
-	res.leading_zeros_allowed = 0;
+	res.leading_zeros_allowed = 1;
 	return (res);
 }

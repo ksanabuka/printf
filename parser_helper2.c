@@ -63,12 +63,10 @@ long double			read_real_val(t_parser_state *state,\
 	return (val);
 }
 
-int					print_real(t_parser_state *state)
+int					print_real(t_parser_state *state, t_fmt_pms *fmt)
 {
-	t_fmt_pms		params;
 	long double		val;
 
-	params = read_format_params(state, 10, 0);
-	val = read_real_val(state, params.len_modifier);
-	return (print_val(&val, PT_REAL, &params));
+	val = read_real_val(state, fmt->len_modifier);
+	return (print_val(&val, PT_REAL, fmt));
 }

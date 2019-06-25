@@ -12,92 +12,92 @@
 
 #include "parser.h"
 
-int					read_flags(t_parser_state *state)
+t_fmt_pms   init_fmt_params()
 {
-	int flags;
-
-	flags = 0;
-	while (1)
-	{
-		if (*state->fmt == ' ')
-			flags |= F_SPACE;
-		else if (*state->fmt == '0')
-			flags |= F_ZERO;
-		else if (*state->fmt == '-')
-			flags |= F_MINUS;
-		else if (*state->fmt == '+')
-			flags |= F_PLUS;
-		else if (*state->fmt == '#')
-			flags |= F_DIEZ;
-		else
-			break ;
-		++state->fmt;
-	}
-	return (flags);
+    t_fmt_pms   fmt;
+    
+    fmt.flags = 0;
+    fmt.preci = -1;
+    fmt.width = 0;
+    fmt.width_wildcard = 0;
+    fmt.len_modifier = LM_DEFAULT;
+    fmt.int_base = 10;
+    fmt.is_prfx_uppercase = 0;
+    
+    return fmt;
 }
 
-int					read_width_or_preci_val(t_parser_state *state)
+int update_fmt_flags(t_fmt_pms *fmt, char c)
 {
-	int w;
-
-	w = 0;
-	if (*state->fmt == '*')
-	{
-		++state->fmt;
-		w = va_arg(state->list, int);
-	}
-	else
-	{
-		while (*state->fmt >= '0' && *state->fmt <= '9')
-		{
-			w = 10 * w + (*state->fmt - '0');
-			++state->fmt;
-		}
-	}
-	return (w);
+    if (c == ' ')
+        fmt->flags |= F_SPACE;
+    else if (c == '0' && fmt->width == 0 && fmt->preci < 0)
+        fmt->flags |= F_ZERO;
+    else if (c == '-')
+        fmt->flags |= F_MINUS;
+    else if (c == '+')
+        fmt->flags |= F_PLUS;
+    else if (c == '#')
+        fmt->flags |= F_DIEZ;
+    else
+        return 0;
+    return 1;
 }
 
-int					read_width(t_parser_state *state)
+int update_fmt_len_modifier(t_fmt_pms *fmt, char c)
 {
-	return (read_width_or_preci_val(state));
+    if (c == 'L')
+        fmt->len_modifier = (LM_CL);
+    else if (c == 'l')
+        fmt->len_modifier = (fmt->len_modifier == LM_L || fmt->len_modifier == LM_LL ? LM_LL : LM_L);
+    else if (c == 'h') {
+        if (fmt->len_modifier == LM_DEFAULT || fmt->len_modifier == LM_H) {
+            fmt->len_modifier = fmt->len_modifier == LM_H ? LM_HH : LM_H;
+        }
+    }
+    else if (c == 'z' && sizeof(size_t) == sizeof(long))
+        fmt->len_modifier = (LM_L);
+    else if (c == 'z' && sizeof(size_t) == sizeof(long long))
+        fmt->len_modifier = (LM_LL);
+    else if (c == 'j' && sizeof(intmax_t) == sizeof(long))
+        fmt->len_modifier = (LM_L);
+    else if (c == 'j' && sizeof(intmax_t) == sizeof(long long))
+        fmt->len_modifier = (LM_LL);
+    else
+        return 0;
+    return 1;
 }
 
-int					read_preci(t_parser_state *state)
+int update_fmt_width_and_preci(t_parser_state *state, t_fmt_pms *fmt, char c)
 {
-	int p;
-
-	p = -1;
-	if (*state->fmt == '.')
-	{
-		++state->fmt;
-		p = read_width_or_preci_val(state);
-	}
-	return (p);
+    if (c == '.')
+        fmt->preci = 0;
+    else if (fmt->preci >= 0 && c >= '0' && c <= '9')
+        fmt->preci = 10 * fmt->preci + (c - '0');
+    else if (c >= '0' && c <= '9')
+    {
+        fmt->width = fmt->width_wildcard > 0 ? 0 : fmt->width;
+        fmt->width_wildcard = 0;
+        fmt->width = 10 * fmt->width + (c - '0');
+    }
+    else if (c == '*' && fmt->preci < 0)
+    {
+        fmt->width_wildcard = va_arg(state->list, int);
+        fmt->width = fmt->width_wildcard;
+        if (fmt->width < 0)
+        {
+            fmt->width = -fmt->width;
+            fmt->flags |= F_MINUS;
+        }
+    }
+    else if (c == '*' && fmt->preci >= 0)
+        fmt->preci = va_arg(state->list, int);
+    else
+        return 0;
+    return 1;
 }
 
-enum e_len_modifier	read_len_modifier(t_parser_state *state)
+int update_fmt(t_parser_state *state, t_fmt_pms *fmt, char c)
 {
-	if (state->fmt[0] == 'l' || state->fmt[0] == 'L')
-	{
-		if (state->fmt[0] == 'L')
-			return (LM_CL);
-		return (state->fmt[1] == 'l' || state->fmt[1] == 'L' ? LM_LL : LM_L);
-	}
-	if (state->fmt[0] == 'h')
-		return (state->fmt[1] == 'h' ? LM_HH : LM_H);
-	if (state->fmt[0] == 'z')
-	{
-		if (sizeof(size_t) == sizeof(long))
-			return (LM_L);
-		else if (sizeof(size_t) == sizeof(long long))
-			return (LM_LL);
-	}
-	if (state->fmt[0] == 'j')
-	{
-		if (sizeof(intmax_t) == sizeof(long))
-			return (LM_L);
-		else if (sizeof(intmax_t) == sizeof(long long))
-			return (LM_LL);
-	}
-	return (LM_DEFAULT);
+    return update_fmt_flags(fmt, c) || update_fmt_len_modifier(fmt, c) || update_fmt_width_and_preci(state, fmt, c);
 }

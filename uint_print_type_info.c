@@ -28,7 +28,7 @@ static void		set_num_prfx(char prfx[3], unsigned long long v,\
 		{
 			ft_strcpy(prfx, "0");
 		}
-		else if (fmt_prm->int_base == 16 && v)
+		else if (fmt_prm->int_base == 16 && (v || (fmt_prm->flags & F_ALWAYS_PRINT_PREFIX)))
 		{
 			ft_strcpy(prfx, fmt_prm->is_prfx_uppercase ? "0X" : "0x");
 		}
