@@ -9,6 +9,7 @@
 #    Updated: 2019/06/20 08:51:21 by obuksha          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 .PHONY:		$(NAME) all clean fclean re
 NAME	:=	libftprintf.a
 SOURCES	:=	char_print_type_info.c double_print_type_info.c int_print_type_info.c \

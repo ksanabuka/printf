@@ -19,12 +19,12 @@ int				print_type_info_chars_count(const t_pti *info)
 
 	res = 0;
 	res += info->sign ? 1 : 0;
-    if (info->type == PT_CHAR)
-        res += info->prfx[0] ? 1 : 0;
-    else
-        res += ft_strlen(info->prfx);
+	if (info->type == PT_CHAR)
+		res += info->prfx[0] ? 1 : 0;
+	else
+		res += ft_strlen(info->prfx);
 	res += info->num_leading_zeros;
-    res += ft_strlen(info->val_str);
+	res += ft_strlen(info->val_str);
 	return (res);
 }
 
@@ -49,7 +49,7 @@ int				print_type_info(const t_pti *info)
 	}
 	write(1, info->prfx, ft_strlen(info->prfx));
 	print_repeated_char('0', info->num_leading_zeros);
-    write(1, info->val_str, ft_strlen(info->val_str));
+	write(1, info->val_str, ft_strlen(info->val_str));
 	return (print_type_info_chars_count(info));
 }
 

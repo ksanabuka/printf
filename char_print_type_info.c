@@ -15,20 +15,20 @@
 
 t_pti	create_charpti(void *val, t_fmt_pms *fmt_prm)
 {
-	t_pti res;
-    char c;
+	t_pti	res;
+	char	c;
 
-    c = *(char *)val;
+	c = *(char *)val;
 	res.type = PT_CHAR;
 	res.sign = 0;
-    if (c == 0 && fmt_prm->preci != 0)
-        ft_strcpy(res.prfx, "^@");
-    else
-        ft_strcpy(res.prfx, "");
+	if (c == 0 && fmt_prm->preci != 0)
+		ft_strcpy(res.prfx, "^@");
+	else
+		ft_strcpy(res.prfx, "");
 	res.num_leading_zeros = 0;
-    res.val_str = ft_strnew(1);
-    res.val_str[0] = c;
-    res.free_val_str = 1;
-    res.leading_zeros_allowed = 1;
-    return (res);
+	res.val_str = ft_strnew(1);
+	res.val_str[0] = c;
+	res.free_val_str = 1;
+	res.leading_zeros_allowed = 1;
+	return (res);
 }
